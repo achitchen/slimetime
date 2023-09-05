@@ -8,6 +8,7 @@ public class PlayerMovement : MonoBehaviour
     private Vector2 lookDir = Vector2.zero;
     private Vector2 moveDir = Vector2.zero;
     public Direction direction = Direction.Zero;
+    private PlayerDodge playerDodge;
 
     // Start is called before the first frame update
     void Start()
@@ -15,14 +16,17 @@ public class PlayerMovement : MonoBehaviour
         lookDir = Vector2.zero;
         moveDir = Vector2.zero;
         direction = Direction.Zero;
+        playerDodge = GetComponent<PlayerDodge>();
     }
 
     // Update is called once per frame
     void Update()
-    {
-        GetMoveDir();
-
-        transform.Translate(speed * moveDir * Time.deltaTime);
+    {  
+        if (!playerDodge.riposteActivated)
+        {
+            GetMoveDir();
+            transform.Translate(speed * moveDir * Time.deltaTime);
+        }  
     }
 
     private void GetMoveDir()
