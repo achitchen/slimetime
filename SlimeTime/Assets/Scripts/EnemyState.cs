@@ -12,7 +12,9 @@ public class EnemyState : MonoBehaviour
     }
 
     [SerializeField] EnemyStates currentState = EnemyStates.Idle;
-    [SerializeField] Component movementScript;
+    [SerializeField] GameObject questionMark;
+    [SerializeField] GameObject exclamationMark;
+    private bool isAlerted = false;
 
     public void Update()
     {
