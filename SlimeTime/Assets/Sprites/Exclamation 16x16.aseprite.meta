@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 4ef6235d2d77fa54da4157a400c21579
+guid: ab7cfbb7dbbb2cf4fad93f6796cd5530
 ScriptedImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -95,7 +95,7 @@ ScriptedImporter:
     addSortingGroup: 1
     addShadowCasters: 0
   importFileNodeState: 1
-  platformSettingsDirtyTick: 638335922878219143
+  platformSettingsDirtyTick: 638335922709921298
   textureAssetName: 
   singleSpriteImportData:
   - name: 
@@ -119,18 +119,18 @@ ScriptedImporter:
     tessellationDetail: 0
     uvTransform: {x: 0, y: 0}
   animatedSpriteImportData:
-  - name: shroom 16x16
+  - name: Exclamation 16x16
     originalName: 
-    pivot: {x: 0.5, y: 0}
+    pivot: {x: 0.5, y: -0.06666667}
     alignment: 9
     border: {x: 0, y: 0, z: 0, w: 0}
     rect:
       serializedVersion: 2
       x: 4
       y: 4
-      width: 16
-      height: 16
-    spriteID: 695d5e127596eb343921a9e99ec83847
+      width: 4
+      height: 15
+    spriteID: 3cb31b92d8faca24aacaa8abd6f8def2
     spriteBone: []
     spriteOutline: []
     vertices: []
@@ -142,20 +142,20 @@ ScriptedImporter:
   spriteSheetImportData: []
   asepriteLayers:
   - layerIndex: 0
-    guid: 1717511436
-    name: shroom 16x16
+    guid: -193634369
+    name: Exclamation 16x16
     layerFlags: 0
     layerType: 0
     blendMode: 0
     cells:
-    - name: shroom 16x16
+    - name: Exclamation 16x16
       frameIndex: 0
       cellRect:
-        x: 0
-        y: 0
-        width: 16
-        height: 16
-      spriteId: 695d5e127596eb343921a9e99ec83847
+        x: 6
+        y: 1
+        width: 4
+        height: 15
+      spriteId: 3cb31b92d8faca24aacaa8abd6f8def2
     linkedCells: []
     parentIndex: -1
   platformSettings:

@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 4ef6235d2d77fa54da4157a400c21579
+guid: 9bb11a6f0977e1e40954046d7600e9e3
 ScriptedImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -95,7 +95,7 @@ ScriptedImporter:
     addSortingGroup: 1
     addShadowCasters: 0
   importFileNodeState: 1
-  platformSettingsDirtyTick: 638335922878219143
+  platformSettingsDirtyTick: 638335922818348109
   textureAssetName: 
   singleSpriteImportData:
   - name: 
@@ -119,10 +119,10 @@ ScriptedImporter:
     tessellationDetail: 0
     uvTransform: {x: 0, y: 0}
   animatedSpriteImportData:
-  - name: shroom 16x16
+  - name: mini shroom 16x16
     originalName: 
-    pivot: {x: 0.5, y: 0}
-    alignment: 9
+    pivot: {x: 0.5, y: 0.5}
+    alignment: 0
     border: {x: 0, y: 0, z: 0, w: 0}
     rect:
       serializedVersion: 2
@@ -130,7 +130,7 @@ ScriptedImporter:
       y: 4
       width: 16
       height: 16
-    spriteID: 695d5e127596eb343921a9e99ec83847
+    spriteID: 750931141dcc2844da715cc9d46010a6
     spriteBone: []
     spriteOutline: []
     vertices: []
@@ -142,20 +142,20 @@ ScriptedImporter:
   spriteSheetImportData: []
   asepriteLayers:
   - layerIndex: 0
-    guid: 1717511436
-    name: shroom 16x16
+    guid: 1355919619
+    name: mini shroom 16x16
     layerFlags: 0
     layerType: 0
     blendMode: 0
     cells:
-    - name: shroom 16x16
+    - name: mini shroom 16x16
       frameIndex: 0
       cellRect:
         x: 0
         y: 0
         width: 16
         height: 16
-      spriteId: 695d5e127596eb343921a9e99ec83847
+      spriteId: 750931141dcc2844da715cc9d46010a6
     linkedCells: []
     parentIndex: -1
   platformSettings:
