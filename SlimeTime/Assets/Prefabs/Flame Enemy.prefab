@@ -9,7 +9,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1562490468430047002}
-  - component: {fileID: 7316227942884220777}
   m_Layer: 0
   m_Name: Flame Enemy
   m_TagString: Untagged
@@ -33,20 +32,6 @@ Transform:
   - {fileID: 3300039668291084318}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &7316227942884220777
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5435795417550519912}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b7aee79f8e426144680e999e29c65139, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  currentState: 0
-  movementScript: {fileID: 0}
 --- !u!1001 &4654924621924556563
 PrefabInstance:
   m_ObjectHideFlags: 0

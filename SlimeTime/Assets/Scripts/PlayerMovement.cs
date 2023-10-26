@@ -25,7 +25,7 @@ public class PlayerMovement : MonoBehaviour
         if (!playerDodge.riposteActivated)
         {
             GetMoveDir();
-            transform.Translate(speed * moveDir * Time.deltaTime);
+            transform.Translate(speed * moveDir.normalized * Time.deltaTime);
         }  
     }
 

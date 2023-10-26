@@ -10,7 +10,6 @@ GameObject:
   m_Component:
   - component: {fileID: 7091051031600506379}
   - component: {fileID: -7183596742341973922}
-  - component: {fileID: -8486508896751432234}
   m_Layer: 0
   m_Name: Eye Enemy
   m_TagString: Untagged
@@ -46,20 +45,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b7aee79f8e426144680e999e29c65139, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  currentState: 0
-  movementScript: {fileID: 0}
---- !u!114 &-8486508896751432234
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1899940581921336471}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1007072fe76b5cc4899730bcca54e7da, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
+  currentState: 1
+  questionMark: {fileID: 0}
+  exclamationMark: {fileID: 0}
+  projectile: {fileID: 7775427640115762370, guid: 3544e7bfb6a17cc43b3d61ba8bf11419, type: 3}
+  nearRadius: 1
+  midRadius: 3
+  farRadius: 5
+  speed: 2
 --- !u!1001 &4868757804670286613
 PrefabInstance:
   m_ObjectHideFlags: 0
