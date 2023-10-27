@@ -8,7 +8,13 @@ public class ProjectileScript : MonoBehaviour
     {
         if (collision.gameObject.tag != "Enemy")
         {
-            Destroy(gameObject);
+            StartCoroutine("DestroySelf");
         }
+    }
+
+    private IEnumerator DestroySelf()
+    {
+        yield return new WaitForSeconds(0.5f);
+        Destroy(gameObject);
     }
 }

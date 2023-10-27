@@ -60,7 +60,7 @@ public class PlayerDodge : MonoBehaviour
             }
             else if (Input.GetKeyDown(KeyCode.Space))
             {
-                StartCoroutine(DodgeTimer(Dodge.Absorb));
+                StartCoroutine(DodgeTimer(Dodge.Reflect));
             }
         }
     }
@@ -70,7 +70,7 @@ public class PlayerDodge : MonoBehaviour
         None,
         Horizontal,
         Vertical,
-        Absorb
+        Reflect
     }
 
     private IEnumerator DodgeTimer(Dodge dodge)
@@ -89,6 +89,55 @@ public class PlayerDodge : MonoBehaviour
             riposteReady = false;
             yield return new WaitForSeconds(riposteRecovery);
             riposteActivated = false;
+        }
+    }
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.gameObject.tag == "horizontalAttack")
+        {
+            if (dodgeActive == Dodge.Horizontal)
+            {
+                //ignore damage
+                //add riposte to enemy health
+                Debug.Log("horizontal attack riposted");
+            }
+            else
+            {
+                //kill player
+                //restart at checkpoint
+                Debug.Log("Kill player");
+            }
+        }
+
+        else if (collision.gameObject.tag == "verticalAttack")
+        {
+            if (dodgeActive == Dodge.Vertical)
+            {
+                //ignore damage
+                //add riposte to enemy health
+                Debug.Log("vertical attack riposted");
+            }
+            else
+            {
+                //kill player
+                //restart at checkpoint
+                Debug.Log("Kill player");
+            }
+        }
+        else if (collision.gameObject.tag == "reflectiveAttack")
+        {
+            if (dodgeActive == Dodge.Reflect)
+            {
+                //ignore damage
+                //add riposte to enemy health
+                Debug.Log("attack reflected");
+            }
+            else
+            {
+                //kill player
+                //restart at checkpoint
+                Debug.Log("Kill player");
+            }
         }
     }
 }
