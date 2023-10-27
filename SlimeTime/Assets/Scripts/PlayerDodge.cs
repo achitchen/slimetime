@@ -1,5 +1,4 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class PlayerDodge : MonoBehaviour
@@ -66,12 +65,12 @@ public class PlayerDodge : MonoBehaviour
         }
     }
 
-    public enum Dodge 
+    public enum Dodge
     {
-    None,
-    Horizontal,
-    Vertical,
-    Absorb
+        None,
+        Horizontal,
+        Vertical,
+        Absorb
     }
 
     private IEnumerator DodgeTimer(Dodge dodge)

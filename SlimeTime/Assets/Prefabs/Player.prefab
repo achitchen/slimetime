@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 2644099233441725125}
   - component: {fileID: 8117914457759346462}
   - component: {fileID: 2550964214362934826}
+  - component: {fileID: 7346976855050481564}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -82,7 +83,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 51a31d6f436585e4691028fa4a70dcca, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 1
+  speed: 4
   direction: 4
 --- !u!114 &2550964214362934826
 MonoBehaviour:
@@ -104,6 +105,33 @@ MonoBehaviour:
   riposteActivated: 0
   slimeShellReady: 0
   slimeShellActive: 0
+--- !u!50 &7346976855050481564
+Rigidbody2D:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 31083513158929577}
+  m_BodyType: 0
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 1
+  m_LinearDrag: 0
+  m_AngularDrag: 0.05
+  m_GravityScale: 0
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 0
 --- !u!1001 &8417631753670514105
 PrefabInstance:
   m_ObjectHideFlags: 0
