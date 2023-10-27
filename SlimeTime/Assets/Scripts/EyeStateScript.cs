@@ -12,9 +12,13 @@ public class EyeStateScript : MonoBehaviour
     [SerializeField] float targetDist;
     [SerializeField] float projectileRecharge = 2f;
     [SerializeField] float biteDelay = 1f;
+    [SerializeField] float biteActive = 0.5f;
+    [SerializeField] GameObject biteTelegraph;
+    [SerializeField] GameObject biteAttack;
     private GameObject player;
     private bool canShoot = true;
     private bool canBite = true;
+    private bool isAttacking = false;
     private Vector3 moveDir;
     private Vector3 targetPos;
 
@@ -35,19 +39,23 @@ public class EyeStateScript : MonoBehaviour
 
         if (targetDist > farRadius)
         {
-            moveDir = (targetPos - transform.position).normalized;
-            transform.Translate(moveDir * speed * Time.deltaTime);
+            if (!isAttacking)
+            {
+                moveDir = (targetPos - transform.position).normalized;
+                transform.Translate(moveDir * speed * Time.deltaTime);
+            }
         }
         else if (farRadius >= targetDist && targetDist >= midRadius)
         {
-
-            RangedAttack();
-
+                RangedAttack();
         }
         else if (midRadius >= targetDist && targetDist > nearRadius)
         {
-            moveDir = (targetPos - transform.position).normalized;
-            transform.Translate(moveDir * speed * Time.deltaTime);
+            if (!isAttacking)
+            {
+                moveDir = (targetPos - transform.position).normalized;
+                transform.Translate(moveDir * speed * Time.deltaTime);
+            }
         }
         else
         {
@@ -70,6 +78,7 @@ public class EyeStateScript : MonoBehaviour
         {
             if (canShoot)
             {
+                isAttacking = true;
                 moveDir = Vector3.zero;
                 GameObject clone = Instantiate(projectile, transform.position, transform.rotation);
                 clone.GetComponent<Rigidbody2D>().AddForce((targetPos - transform.position).normalized * projectileSpeed, ForceMode2D.Impulse);
@@ -88,18 +97,26 @@ public class EyeStateScript : MonoBehaviour
         float newDirX = Random.Range(-5, 5);
         float newDirY = Random.Range(-5, 5);
         moveDir = new Vector2(targetPos.x + newDirX, targetPos.y + newDirY).normalized;
+        isAttacking = false;
         yield return new WaitForSeconds(projectileRecharge);
         canShoot = true;
     }
 
     private IEnumerator BiteWindup()
     {
-        //show hitbox/telegraphing
+        isAttacking = true;
+        Vector2 attackPos = targetPos;
+        biteTelegraph.SetActive(true);
+        biteTelegraph.transform.position = attackPos;
         moveDir = Vector3.zero;
         yield return new WaitForSeconds(biteDelay);
-        //make attack hitbox active
-        //do attack animation
+        biteTelegraph.SetActive(false);
+        biteAttack.SetActive(true);
+        biteAttack.transform.position = attackPos;
         Debug.Log("Bite!");
+        yield return new WaitForSeconds(biteActive);
+        biteAttack.SetActive(false);
+        isAttacking = false;
         canBite = true;
     }
 }

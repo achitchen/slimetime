@@ -722,6 +722,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Player
       objectReference: {fileID: 0}
+    - target: {fileID: 2550964214362934826, guid: 28493c2f94196fc408100c4896026319, type: 3}
+      propertyPath: dodgeDuration
+      value: 0.4
+      objectReference: {fileID: 0}
     - target: {fileID: 7696188294721082017, guid: 28493c2f94196fc408100c4896026319, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0.2
@@ -775,6 +779,14 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: -7183596742341973922, guid: da84d1bf88115a344ba1f7e0ffe299e2, type: 3}
+      propertyPath: biteDelay
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: -7183596742341973922, guid: da84d1bf88115a344ba1f7e0ffe299e2, type: 3}
+      propertyPath: biteActive
+      value: 0.3
+      objectReference: {fileID: 0}
     - target: {fileID: 1899940581921336471, guid: da84d1bf88115a344ba1f7e0ffe299e2, type: 3}
       propertyPath: m_Name
       value: Eye Enemy
