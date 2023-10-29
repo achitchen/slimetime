@@ -94,10 +94,10 @@ GameObject:
   m_Component:
   - component: {fileID: 7761942264778751423}
   - component: {fileID: -7636893854165836172}
-  - component: {fileID: 5049544906439409322}
   - component: {fileID: -7827932732771836979}
+  - component: {fileID: -8145004881588730536}
   m_Layer: 0
-  m_Name: Projectile
+  m_Name: Projectile_Reflected
   m_TagString: reflectiveAttack
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -146,19 +146,6 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
---- !u!114 &5049544906439409322
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7775427640115762370}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a09a936ce3f8e154d9278886b50c9f8e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  reflectedProjectile: {fileID: 7775427640115762370, guid: fa7a4c8d1ab600a41be57f5da1ee3598, type: 3}
 --- !u!61 &-7827932732771836979
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -204,3 +191,15 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1, y: 1}
   m_EdgeRadius: 0
+--- !u!114 &-8145004881588730536
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7775427640115762370}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 23d5772032b67a347929be47f4f21565, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

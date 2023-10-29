@@ -8,6 +8,7 @@ TagManager:
   - horizontalAttack
   - verticalAttack
   - reflectiveAttack
+  - Wall
   layers:
   - Default
   - TransparentFX

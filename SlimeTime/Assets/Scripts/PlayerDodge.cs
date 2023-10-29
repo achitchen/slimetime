@@ -1,4 +1,5 @@
 using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 
 public class PlayerDodge : MonoBehaviour
@@ -7,10 +8,11 @@ public class PlayerDodge : MonoBehaviour
     [SerializeField] float dodgeDuration = 0.3f;
     [SerializeField] float riposteDelay = 0.2f;
     [SerializeField] float riposteRecovery = 0.5f;
-    [SerializeField] bool riposteReady = false;
+    public bool riposteReady = false;
     public bool riposteActivated = false;
     public bool slimeShellReady = false;
     public bool slimeShellActive = false;
+    public List<GameObject> riposteTargets;
     // Start is called before the first frame update
     void Start()
     {
@@ -86,6 +88,9 @@ public class PlayerDodge : MonoBehaviour
         {
             riposteActivated = true;
             yield return new WaitForSeconds(riposteDelay);
+            GameObject riposteTarget = riposteTargets[0];
+            Debug.Log("A killing blow!");
+            Destroy(riposteTarget, 0.2f);
             riposteReady = false;
             yield return new WaitForSeconds(riposteRecovery);
             riposteActivated = false;
@@ -99,6 +104,7 @@ public class PlayerDodge : MonoBehaviour
             {
                 //ignore damage
                 //add riposte to enemy health
+                DamageEnemy(collision.gameObject);
                 Debug.Log("horizontal attack riposted");
             }
             else
@@ -115,6 +121,7 @@ public class PlayerDodge : MonoBehaviour
             {
                 //ignore damage
                 //add riposte to enemy health
+                DamageEnemy(collision.gameObject);
                 Debug.Log("vertical attack riposted");
             }
             else
@@ -128,8 +135,6 @@ public class PlayerDodge : MonoBehaviour
         {
             if (dodgeActive == Dodge.Reflect)
             {
-                //ignore damage
-                //add riposte to enemy health
                 Debug.Log("attack reflected");
             }
             else
@@ -138,6 +143,18 @@ public class PlayerDodge : MonoBehaviour
                 //restart at checkpoint
                 Debug.Log("Kill player");
             }
+        }
+    }
+    private void DamageEnemy(GameObject enemy)
+    {
+        if (enemy.GetComponentInParent<EnemyHealth>().currentHits < enemy.gameObject.GetComponentInParent<EnemyHealth>().maxHits)
+        {
+            enemy.gameObject.GetComponentInParent<EnemyHealth>().currentHits++;
+        }
+        else
+        {
+            enemy.gameObject.GetComponentInParent<EnemyHealth>().canBeRiposted = true;
+            Debug.Log("Enemy can be riposted!");
         }
     }
 }
