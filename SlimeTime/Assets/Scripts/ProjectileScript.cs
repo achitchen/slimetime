@@ -17,7 +17,9 @@ public class ProjectileScript : MonoBehaviour
             if (collision.GetComponent<PlayerDodge>().dodgeActive != PlayerDodge.Dodge.Reflect)
             {
                 StartCoroutine("DestroySelf");
-                //kill player
+                GameObject.Find("Game Manager").GetComponent<GameManager>().isDead = true;
+                Debug.Log("You Died!");
+                Destroy(collision.gameObject, 0.2f);
             }
             else
             {

@@ -36,54 +36,55 @@ public class EyeStateScript : MonoBehaviour
     private void Update()
     {
         bool isStaggered = gameObject.GetComponent<EnemyHealth>().isStaggered;
-        targetPos = player.transform.position;
-        targetDist = Vector3.Distance(targetPos, transform.position);
+        if (player != null)
+        {
+            targetPos = player.transform.position;
+            targetDist = Vector3.Distance(targetPos, transform.position);
 
-        if (targetDist > farRadius && !isStaggered)
-        {
-            if (!isAttacking)
+            if (targetDist > farRadius && !isStaggered)
             {
-                moveDir = (targetPos - transform.position).normalized;
-                transform.Translate(moveDir * speed * Time.deltaTime);
+                if (!isAttacking)
+                {
+                    moveDir = (targetPos - transform.position).normalized;
+                    transform.Translate(moveDir * speed * Time.deltaTime);
+                }
             }
-        }
-        else if (farRadius >= targetDist && targetDist >= midRadius && !isStaggered)
-        {
+            else if (farRadius >= targetDist && targetDist >= midRadius && !isStaggered)
+            {
                 RangedAttack();
-        }
-        else if (midRadius >= targetDist && targetDist > nearRadius)
-        {
-            if (player.GetComponent<PlayerDodge>().riposteReady)
+            }
+            else if (midRadius >= targetDist && targetDist > nearRadius)
             {
-                player.GetComponent<PlayerDodge>().riposteTargets.Remove(gameObject);
-                if (player.GetComponent<PlayerDodge>().riposteTargets.Count == 0)
+                if (player.GetComponent<PlayerDodge>().riposteReady)
                 {
-                    player.GetComponent<PlayerDodge>().riposteReady = false;
+                    player.GetComponent<PlayerDodge>().riposteTargets.Remove(gameObject);
+                    if (player.GetComponent<PlayerDodge>().riposteTargets.Count == 0)
+                    {
+                        player.GetComponent<PlayerDodge>().riposteReady = false;
+                    }
+                }
+                if (!isAttacking && !isStaggered)
+                {
+                    moveDir = (targetPos - transform.position).normalized;
+                    transform.Translate(moveDir * speed * Time.deltaTime);
                 }
             }
-            if (!isAttacking && !isStaggered)
+            else if (GetComponent<EnemyHealth>().canBeRiposted)
             {
-                moveDir = (targetPos - transform.position).normalized;
-                transform.Translate(moveDir * speed * Time.deltaTime);
-            }
-        }
-        else if (GetComponent<EnemyHealth>().canBeRiposted)
-        {
-            if (!player.GetComponent<PlayerDodge>().riposteReady)
-            {
-                player.GetComponent<PlayerDodge>().riposteReady = true;
-                player.GetComponent<PlayerDodge>().riposteTargets.Add(gameObject);
-                if (!isStaggered) 
+                if (!player.GetComponent<PlayerDodge>().riposteReady)
                 {
-                    StartCoroutine("EnemyStaggered");
+                    player.GetComponent<PlayerDodge>().riposteReady = true;
+                    player.GetComponent<PlayerDodge>().riposteTargets.Add(gameObject);
+                    if (!isStaggered)
+                    {
+                        StartCoroutine("EnemyStaggered");
+                    }
                 }
-                
             }
-            
-        }
-        else if (!isStaggered)
-        {
-            MeleeAttack();
+            else if (!isStaggered)
+            {
+                MeleeAttack();
+            }
         }
     }
 

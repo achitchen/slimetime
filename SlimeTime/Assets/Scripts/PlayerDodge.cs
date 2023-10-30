@@ -109,9 +109,9 @@ public class PlayerDodge : MonoBehaviour
             }
             else
             {
-                //kill player
-                //restart at checkpoint
-                Debug.Log("Kill player");
+                GameObject.Find("Game Manager").GetComponent<GameManager>().isDead = true;
+                Debug.Log("You Died!");
+                Destroy(gameObject, 0.2f);
             }
         }
 
@@ -126,9 +126,9 @@ public class PlayerDodge : MonoBehaviour
             }
             else
             {
-                //kill player
-                //restart at checkpoint
-                Debug.Log("Kill player");
+                GameObject.Find("Game Manager").GetComponent<GameManager>().isDead = true;
+                Debug.Log("You Died!");
+                Destroy(gameObject, 0.2f);
             }
         }
         else if (collision.gameObject.tag == "reflectiveAttack")
@@ -139,9 +139,9 @@ public class PlayerDodge : MonoBehaviour
             }
             else
             {
-                //kill player
-                //restart at checkpoint
-                Debug.Log("Kill player");
+                GameObject.Find("Game Manager").GetComponent<GameManager>().isDead = true;
+                Debug.Log("You Died!");
+                Destroy(gameObject, 0.2f);
             }
         }
     }
