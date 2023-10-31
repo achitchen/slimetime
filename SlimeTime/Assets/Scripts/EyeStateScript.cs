@@ -150,7 +150,10 @@ public class EyeStateScript : MonoBehaviour
         gameObject.GetComponent<EnemyHealth>().isStaggered = true;
         yield return new WaitForSeconds(staggerDuration);
         gameObject.GetComponent<EnemyHealth>().isStaggered = false;
-        player.GetComponent<PlayerDodge>().riposteTargets.Remove(gameObject);
+        if (player != null)
+        {
+            player.GetComponent<PlayerDodge>().riposteTargets.Remove(gameObject);
+        }
         gameObject.GetComponent<EnemyHealth>().currentHits--;
         gameObject.GetComponent<EnemyHealth>().canBeRiposted = false;
     }

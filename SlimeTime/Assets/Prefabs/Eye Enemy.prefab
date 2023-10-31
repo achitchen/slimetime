@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 3055343950707627432}
   - component: {fileID: 1498598394164489772}
   - component: {fileID: 3391157262460942467}
+  - component: {fileID: 313337502898207230}
   m_Layer: 0
   m_Name: Eye Enemy
   m_TagString: Enemy
@@ -142,6 +143,19 @@ MonoBehaviour:
   canBeRiposted: 0
   isStaggered: 0
   staggerDuration: 2.5
+--- !u!114 &313337502898207230
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1899940581921336471}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 56b54338d61f08848a8b2508d2e4c514, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  assignedDoor: {fileID: 0}
 --- !u!1 &4264978508031315319
 GameObject:
   m_ObjectHideFlags: 0

@@ -21,6 +21,11 @@ public class GameManager : MonoBehaviour
             Destroy(gameObject);
         }
     }
+
+    private void Start()
+    {
+        isDead = false;
+    }
     void Update()
     {
         if (isDead)
@@ -28,6 +33,7 @@ public class GameManager : MonoBehaviour
             if (Input.GetKeyDown(KeyCode.Return))
             {
                 SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+                isDead = false;
             }
         }
     }

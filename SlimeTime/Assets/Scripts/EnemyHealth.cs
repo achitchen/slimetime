@@ -18,7 +18,11 @@ public class EnemyHealth : MonoBehaviour
 
     public void Death()
     {
-        Destroy(gameObject, 0.5f);
+        if (gameObject.GetComponent<DoorController>().assignedDoor != null)
+        {
+            gameObject.GetComponent<DoorController>().assignedDoor.GetComponent<CombatDoor>().roomEnemies.Remove(gameObject);
+        }
+        Destroy(gameObject, 0.2f);
     }
 
     public IEnumerator EnemyStaggered()

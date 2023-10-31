@@ -90,7 +90,8 @@ public class PlayerDodge : MonoBehaviour
             yield return new WaitForSeconds(riposteDelay);
             GameObject riposteTarget = riposteTargets[0];
             Debug.Log("A killing blow!");
-            Destroy(riposteTarget, 0.2f);
+            riposteTargets.Remove(riposteTarget);
+            riposteTarget.GetComponent<EnemyHealth>().Death();
             riposteReady = false;
             yield return new WaitForSeconds(riposteRecovery);
             riposteActivated = false;

@@ -9,6 +9,8 @@ TagManager:
   - verticalAttack
   - reflectiveAttack
   - Wall
+  - Key
+  - Lock
   layers:
   - Default
   - TransparentFX

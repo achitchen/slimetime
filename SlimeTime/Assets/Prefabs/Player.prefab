@@ -13,6 +13,8 @@ GameObject:
   - component: {fileID: 8117914457759346462}
   - component: {fileID: 2550964214362934826}
   - component: {fileID: 7346976855050481564}
+  - component: {fileID: 5672680442014136711}
+  - component: {fileID: 4638010512830856832}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -98,13 +100,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   dodgeActive: 0
-  dodgeDuration: 0.3
+  dodgeDuration: 0.4
   riposteDelay: 0.2
   riposteRecovery: 0.5
   riposteReady: 0
   riposteActivated: 0
   slimeShellReady: 0
   slimeShellActive: 0
+  riposteTargets: []
 --- !u!50 &7346976855050481564
 Rigidbody2D:
   serializedVersion: 4
@@ -132,6 +135,32 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
+--- !u!114 &5672680442014136711
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 31083513158929577}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 40686917290abb4428250d3ec10f2bed, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &4638010512830856832
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 31083513158929577}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 79b72f5f539286a4eb1d8b6e91177414, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  hasKey: 0
+  keyCount: 0
 --- !u!1001 &8417631753670514105
 PrefabInstance:
   m_ObjectHideFlags: 0
