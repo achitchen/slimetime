@@ -8,9 +8,11 @@ public class PlayerDodge : MonoBehaviour
     [SerializeField] float dodgeDuration = 0.3f;
     [SerializeField] float riposteDelay = 0.2f;
     [SerializeField] float riposteRecovery = 0.5f;
+    [SerializeField] float slimeIFrameDelay = 0.2f;
+    [SerializeField] GameObject slimeShield;
+    public int slimeShellCount = 1;
     public bool riposteReady = false;
     public bool riposteActivated = false;
-    public bool slimeShellReady = false;
     public bool slimeShellActive = false;
     public List<GameObject> riposteTargets;
     // Start is called before the first frame update
@@ -20,7 +22,7 @@ public class PlayerDodge : MonoBehaviour
         riposteActivated = false;
         riposteReady = false;
         slimeShellActive = false;
-        slimeShellReady = true;
+        slimeShellCount = GetComponent<ReloadAtCheckpoint>().slimeShellCountInit;
     }
 
     // Update is called once per frame
@@ -39,11 +41,13 @@ public class PlayerDodge : MonoBehaviour
             }
         }
 
-        if (slimeShellReady && !slimeShellActive)
+        if (slimeShellCount > 0 && !slimeShellActive)
         {
             if (Input.GetKeyDown(KeyCode.Y))
             {
+                slimeShield.SetActive(true);
                 slimeShellActive = true;
+                slimeShellCount--;
             }
         }
     }
@@ -103,10 +107,13 @@ public class PlayerDodge : MonoBehaviour
         {
             if (dodgeActive == Dodge.Horizontal)
             {
-                //ignore damage
                 //add riposte to enemy health
                 DamageEnemy(collision.gameObject);
                 Debug.Log("horizontal attack riposted");
+            }
+            else if (slimeShellActive)
+            {
+                StartCoroutine("DeactivateSlimeShield");
             }
             else
             {
@@ -125,6 +132,10 @@ public class PlayerDodge : MonoBehaviour
                 DamageEnemy(collision.gameObject);
                 Debug.Log("vertical attack riposted");
             }
+            else if (slimeShellActive)
+            {
+                StartCoroutine("DeactivateSlimeShield");
+            }
             else
             {
                 GameObject.Find("Game Manager").GetComponent<GameManager>().isDead = true;
@@ -137,6 +148,10 @@ public class PlayerDodge : MonoBehaviour
             if (dodgeActive == Dodge.Reflect)
             {
                 Debug.Log("attack reflected");
+            }
+            else if (slimeShellActive)
+            {
+                StartCoroutine("DeactivateSlimeShield");
             }
             else
             {
@@ -157,5 +172,13 @@ public class PlayerDodge : MonoBehaviour
             enemy.gameObject.GetComponentInParent<EnemyHealth>().canBeRiposted = true;
             Debug.Log("Enemy can be riposted!");
         }
+    }
+
+    public IEnumerator DeactivateSlimeShield()
+    {
+        yield return new WaitForSeconds(slimeIFrameDelay);
+        slimeShield.SetActive(false);
+        slimeShellActive = false;
+
     }
 }
