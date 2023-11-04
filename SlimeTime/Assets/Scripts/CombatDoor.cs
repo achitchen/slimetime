@@ -6,6 +6,7 @@ public class CombatDoor : MonoBehaviour
 {
     public List<GameObject> roomEnemies;
     [SerializeField] GameObject lockedDoor;
+    [SerializeField] GameObject doorPortal;
     private bool isUnlocked = false;
     private float doorCountDownFloat = 0.2f;
 
@@ -25,5 +26,6 @@ public class CombatDoor : MonoBehaviour
         yield return new WaitForSeconds(doorCountDownFloat);
         lockedDoor.SetActive(false);
         isUnlocked = true;
+        doorPortal.SetActive(true);
     }
 }

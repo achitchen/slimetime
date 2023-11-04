@@ -5,6 +5,7 @@ using UnityEngine;
 public class SwitchDoor : MonoBehaviour
 {
     [SerializeField] GameObject lockedDoor;
+    [SerializeField] GameObject unlockedDoor;
     public bool isTriggered;
 
     private void OnTriggerEnter2D(Collider2D collision)
@@ -15,6 +16,7 @@ public class SwitchDoor : MonoBehaviour
             {
                 lockedDoor.SetActive(false);
                 isTriggered = true;
+                unlockedDoor.SetActive(true);
             }
         }
     }
