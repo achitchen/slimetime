@@ -27,6 +27,7 @@ public class ProjectileScript : MonoBehaviour
                     Debug.Log("You Died!");
                     Destroy(collision.gameObject, 0.2f);
                 }
+             GetComponent<Collider2D>().enabled = false;
             }
             else
             {

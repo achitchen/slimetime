@@ -20,7 +20,7 @@ public class PlayerMovement : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (!playerDodge.riposteActivated)
+        if (!playerDodge.riposteActivated && !GameObject.Find("Game Manager").GetComponent<GameManager>().isDead)
         {
             GetMoveDir();
             transform.Translate(speed * moveDir.normalized * Time.deltaTime);
