@@ -8,6 +8,7 @@ public class GameManager : MonoBehaviour
     private static GameManager instance;
     public Vector3 lastCheckPointPos;
     public bool isDead = false;
+    [SerializeField] GameObject initialCheckPoint;
 
     private void Awake()
     {
@@ -20,6 +21,7 @@ public class GameManager : MonoBehaviour
         {
             Destroy(gameObject);
         }
+        lastCheckPointPos = initialCheckPoint.transform.position;
     }
 
     private void Start()

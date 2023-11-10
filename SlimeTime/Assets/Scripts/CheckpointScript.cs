@@ -13,11 +13,7 @@ public class CheckpointScript : MonoBehaviour
     {
         if (collision.gameObject.tag == "Player")
         {
-            if (Input.GetKeyDown(KeyCode.Backspace))
-            {
-                gameManager.lastCheckPointPos = transform.position;
-                //refill slime shell
-            }
+            gameManager.lastCheckPointPos = transform.position;
         }
     }
 }
