@@ -6,7 +6,7 @@ public class PlayerDodge : MonoBehaviour
 {
     public Dodge dodgeActive;
     [SerializeField] float dodgeDuration = 0.3f;
-    [SerializeField] float riposteDelay = 0.2f;
+    [SerializeField] float riposteDelay = 0.1f;
     [SerializeField] float riposteRecovery = 0.5f;
     [SerializeField] float slimeIFrameDelay = 0.2f;
     [SerializeField] GameObject slimeShield;
@@ -14,7 +14,6 @@ public class PlayerDodge : MonoBehaviour
     public bool riposteReady = false;
     public bool riposteActivated = false;
     public bool slimeShellActive = false;
-    public List<GameObject> riposteTargets;
     // Start is called before the first frame update
     void Start()
     {
@@ -31,14 +30,6 @@ public class PlayerDodge : MonoBehaviour
         if (!riposteActivated)
         {
             DodgeInput();
-        }
-
-        if (riposteReady)
-        {
-            if (Input.GetKeyDown(KeyCode.R))
-            {
-                StartCoroutine(RiposteActivate());
-            }
         }
 
         if (slimeShellCount > 0 && !slimeShellActive)
@@ -86,16 +77,13 @@ public class PlayerDodge : MonoBehaviour
         dodgeActive = Dodge.None;
     }
 
-    private IEnumerator RiposteActivate()
+    public IEnumerator RiposteActivate()
     {
         if (!riposteActivated)
         {
             riposteActivated = true;
             yield return new WaitForSeconds(riposteDelay);
-            GameObject riposteTarget = riposteTargets[0];
             Debug.Log("A killing blow!");
-            riposteTargets.Remove(riposteTarget);
-            riposteTarget.GetComponent<EnemyHealth>().Death();
             riposteReady = false;
             yield return new WaitForSeconds(riposteRecovery);
             riposteActivated = false;
@@ -159,6 +147,17 @@ public class PlayerDodge : MonoBehaviour
                 Debug.Log("You Died!");
                 Destroy(gameObject, 0.2f);
             }
+        }
+        else if (collision.gameObject.tag == "RiposteArea")
+        {
+            riposteReady = true;
+        }
+    }
+    private void OnTriggerExit2D(Collider2D collision)
+    {
+        if (collision.gameObject.tag == "RiposteArea")
+        {
+            riposteReady = false;
         }
     }
     private void DamageEnemy(GameObject enemy)

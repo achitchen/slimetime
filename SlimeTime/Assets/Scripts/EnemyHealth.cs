@@ -9,11 +9,29 @@ public class EnemyHealth : MonoBehaviour
     public bool canBeRiposted = false;
     public bool isStaggered = false;
     [SerializeField] float staggerDuration = 2.5f;
+    [SerializeField] GameObject riposteRadius;
+    public GameObject assignedRoom;
+    private GameObject player;
 
     void Start()
     {
         currentHits = 0;
         canBeRiposted = false;
+        player = GameObject.Find("Player");
+    }
+
+    private void Update()
+    {
+        if (player.GetComponent<PlayerDodge>().riposteReady = true && canBeRiposted)
+        {
+            if (Input.GetKeyDown(KeyCode.R))
+            {
+                player.GetComponent<PlayerDodge>().StartCoroutine("RiposteActivate");
+                StopCoroutine("EnemyStaggered");
+                isStaggered = true;
+                Death();
+            }
+        }
     }
 
     public void Death()
@@ -22,16 +40,23 @@ public class EnemyHealth : MonoBehaviour
         {
             gameObject.GetComponent<DoorController>().assignedDoor.GetComponent<CombatDoor>().roomEnemies.Remove(gameObject);
         }
-        Destroy(gameObject, 0.2f);
+        if (assignedRoom != null)
+        {
+            assignedRoom.GetComponent<EnemyActivation>().enemies.Remove(gameObject);
+        }
+        Destroy(gameObject, 0.3f);
     }
 
     public IEnumerator EnemyStaggered()
     {
+        riposteRadius.SetActive(true);
         Debug.Log("Enemy is reeling! Riposte Ready!");
-        gameObject.GetComponent<EnemyHealth>().isStaggered = true;
+        canBeRiposted = true;
+        isStaggered = true;
         yield return new WaitForSeconds(staggerDuration);
-        gameObject.GetComponent<EnemyHealth>().isStaggered = false;
-        gameObject.GetComponent<EnemyHealth>().currentHits--;
-        gameObject.GetComponent<EnemyHealth>().canBeRiposted = false;
+        riposteRadius.SetActive(false);
+        isStaggered = false;
+        currentHits--;
+        canBeRiposted = false;
     }
 }

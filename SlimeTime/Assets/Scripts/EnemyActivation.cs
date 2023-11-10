@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class EnemyActivation : MonoBehaviour
 {
-    [SerializeField] List<GameObject> enemies;
+    public List<GameObject> enemies;
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.gameObject.tag == "Player")
@@ -13,7 +13,15 @@ public class EnemyActivation : MonoBehaviour
             {
                 foreach(GameObject enemy in enemies)
                 {
+                    if (enemy.GetComponent<EnemyHealth>().assignedRoom == null)
+                    {
+                        enemy.GetComponent<EnemyHealth>().assignedRoom = gameObject;
+                    }
                     enemy.SetActive(true);
+                    if (enemy.GetComponent<EyeStateScript>() != null)
+                    {
+                        enemy.GetComponent<EyeStateScript>().resetBools();
+                    }
                 }
             }
         }
