@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 8898342909676483178}
   - component: {fileID: 2845447538699970152}
   - component: {fileID: 8811644720446476206}
+  - component: {fileID: 622270012061236204}
   m_Layer: 0
   m_Name: Locked Door
   m_TagString: Lock
@@ -31,8 +32,7 @@ Transform:
   m_LocalPosition: {x: 0, y: 0, z: 0.58067507}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children:
-  - {fileID: 1321576453078305346}
+  m_Children: []
   m_Father: {fileID: 2262483864605035107}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &8898342909676483178
@@ -159,6 +159,19 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
+--- !u!114 &622270012061236204
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2340033974208859499}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3b8de870ddd23694288e7e4ff05402e7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  unlockedDoor: {fileID: 7628255978066747594}
 --- !u!1 &3583818679352238911
 GameObject:
   m_ObjectHideFlags: 0
@@ -190,6 +203,7 @@ Transform:
   m_Children:
   - {fileID: 6011471360032474182}
   - {fileID: 4271613218182820271}
+  - {fileID: 1321576453078305346}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &7169758329724285738
@@ -275,7 +289,7 @@ PrefabInstance:
   serializedVersion: 2
   m_Modification:
     serializedVersion: 3
-    m_TransformParent: {fileID: 6011471360032474182}
+    m_TransformParent: {fileID: 2262483864605035107}
     m_Modifications:
     - target: {fileID: 1173791434150509654, guid: e019d16321449ac46a529bf08bf0be69, type: 3}
       propertyPath: m_LocalPosition.x
@@ -287,7 +301,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1173791434150509654, guid: e019d16321449ac46a529bf08bf0be69, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -0.58067507
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1173791434150509654, guid: e019d16321449ac46a529bf08bf0be69, type: 3}
       propertyPath: m_LocalRotation.w
@@ -333,5 +347,10 @@ PrefabInstance:
 --- !u!4 &1321576453078305346 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 1173791434150509654, guid: e019d16321449ac46a529bf08bf0be69, type: 3}
+  m_PrefabInstance: {fileID: 152291015169881620}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &7628255978066747594 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 7764216453158672094, guid: e019d16321449ac46a529bf08bf0be69, type: 3}
   m_PrefabInstance: {fileID: 152291015169881620}
   m_PrefabAsset: {fileID: 0}
