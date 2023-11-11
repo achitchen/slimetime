@@ -340,7 +340,8 @@ PrefabInstance:
       value: Unlocked Door
       objectReference: {fileID: 0}
     m_RemovedComponents: []
-    m_RemovedGameObjects: []
+    m_RemovedGameObjects:
+    - {fileID: 5313911422918464816, guid: e019d16321449ac46a529bf08bf0be69, type: 3}
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e019d16321449ac46a529bf08bf0be69, type: 3}
