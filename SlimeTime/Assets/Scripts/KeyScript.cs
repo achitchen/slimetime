@@ -27,7 +27,6 @@ public class KeyScript : MonoBehaviour
         {
             if (hasKey)
             {
-                collision.gameObject.GetComponent<LockedDoor>().unlockedDoor.SetActive(true);
                 collision.gameObject.SetActive(false);
                 
                 keyCount--;

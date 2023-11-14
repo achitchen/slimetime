@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class EnemyActivation : MonoBehaviour
+public class EnemyManager : MonoBehaviour
 {
     public List<GameObject> enemies;
     private void OnTriggerEnter2D(Collider2D collision)
@@ -16,11 +16,6 @@ public class EnemyActivation : MonoBehaviour
                     if (enemy.GetComponent<EnemyHealth>().assignedRoom == null)
                     {
                         enemy.GetComponent<EnemyHealth>().assignedRoom = gameObject;
-                    }
-                    enemy.SetActive(true);
-                    if (enemy.GetComponent<EyeStateScript>() != null)
-                    {
-                        enemy.GetComponent<EyeStateScript>().resetBools();
                     }
                 }
             }

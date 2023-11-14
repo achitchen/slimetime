@@ -42,7 +42,7 @@ public class EnemyHealth : MonoBehaviour
         }
         if (assignedRoom != null)
         {
-            assignedRoom.GetComponent<EnemyActivation>().enemies.Remove(gameObject);
+            assignedRoom.GetComponent<EnemyManager>().enemies.Remove(gameObject);
         }
         Destroy(gameObject, 0.3f);
     }
