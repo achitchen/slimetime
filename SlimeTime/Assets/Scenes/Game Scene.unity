@@ -324,7 +324,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 2403663758735313138, guid: a79fdb448772a794e9852dd1d0f7c262, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -0.98
+      value: -1.2
       objectReference: {fileID: 0}
     - target: {fileID: 3201563257399626714, guid: a79fdb448772a794e9852dd1d0f7c262, type: 3}
       propertyPath: m_LocalPosition.x
@@ -336,7 +336,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4088330597918049858, guid: a79fdb448772a794e9852dd1d0f7c262, type: 3}
       propertyPath: m_Name
-      value: Door to CL12
+      value: Door to CL2
       objectReference: {fileID: 0}
     - target: {fileID: 4183866355791566083, guid: a79fdb448772a794e9852dd1d0f7c262, type: 3}
       propertyPath: m_LocalPosition.x
@@ -402,6 +402,14 @@ PrefabInstance:
       propertyPath: m_Offset.y
       value: -0.02568245
       objectReference: {fileID: 0}
+    - target: {fileID: 6541731407058213100, guid: a79fdb448772a794e9852dd1d0f7c262, type: 3}
+      propertyPath: m_IsTrigger
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7005143883206005573, guid: a79fdb448772a794e9852dd1d0f7c262, type: 3}
+      propertyPath: cameraHolder
+      value: 
+      objectReference: {fileID: 1339736323}
     m_RemovedComponents: []
     m_RemovedGameObjects:
     - {fileID: 271312179155844156, guid: a79fdb448772a794e9852dd1d0f7c262, type: 3}
@@ -486,7 +494,7 @@ PrefabInstance:
     - target: {fileID: 2021627085422021189, guid: e019d16321449ac46a529bf08bf0be69, type: 3}
       propertyPath: cameraHolder
       value: 
-      objectReference: {fileID: 875853109}
+      objectReference: {fileID: 332796175}
     - target: {fileID: 7764216453158672094, guid: e019d16321449ac46a529bf08bf0be69, type: 3}
       propertyPath: m_Name
       value: Door to CL1
@@ -3707,6 +3715,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5357235045756408714, guid: 66d716a37fb845f44aafd0fbe0e5a810, type: 3}
+      propertyPath: cameraHolder
+      value: 
+      objectReference: {fileID: 399066325}
     - target: {fileID: 7234618656428565112, guid: 66d716a37fb845f44aafd0fbe0e5a810, type: 3}
       propertyPath: m_Name
       value: Checkpoint
@@ -3968,6 +3980,14 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 99513069}
     m_Modifications:
+    - target: {fileID: 61845617477427675, guid: e019d16321449ac46a529bf08bf0be69, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 61845617477427675, guid: e019d16321449ac46a529bf08bf0be69, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 9.7
+      objectReference: {fileID: 0}
     - target: {fileID: 1173791434150509654, guid: e019d16321449ac46a529bf08bf0be69, type: 3}
       propertyPath: m_LocalScale.x
       value: 1
@@ -9850,7 +9870,7 @@ PrefabInstance:
     - target: {fileID: 2021627085422021189, guid: e019d16321449ac46a529bf08bf0be69, type: 3}
       propertyPath: cameraHolder
       value: 
-      objectReference: {fileID: 332796175}
+      objectReference: {fileID: 378235789}
     - target: {fileID: 7764216453158672094, guid: e019d16321449ac46a529bf08bf0be69, type: 3}
       propertyPath: m_Name
       value: Door to GC5
@@ -28205,7 +28225,7 @@ PrefabInstance:
     - target: {fileID: 2021627085422021189, guid: e019d16321449ac46a529bf08bf0be69, type: 3}
       propertyPath: cameraHolder
       value: 
-      objectReference: {fileID: 875853109}
+      objectReference: {fileID: 399066325}
     - target: {fileID: 7764216453158672094, guid: e019d16321449ac46a529bf08bf0be69, type: 3}
       propertyPath: m_Name
       value: Door to SR11
@@ -34277,7 +34297,7 @@ PrefabInstance:
     - target: {fileID: 2021627085422021189, guid: e019d16321449ac46a529bf08bf0be69, type: 3}
       propertyPath: cameraHolder
       value: 
-      objectReference: {fileID: 1470779528}
+      objectReference: {fileID: 1350473698}
     - target: {fileID: 7764216453158672094, guid: e019d16321449ac46a529bf08bf0be69, type: 3}
       propertyPath: m_Name
       value: Door to SR2
