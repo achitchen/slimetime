@@ -6,6 +6,15 @@ public class SwitchDoor : MonoBehaviour
 {
     [SerializeField] GameObject lockedDoor;
     public bool isTriggered;
+    private KeyManager keyManager;
+
+    private void Start()
+    {
+        if (keyManager == null)
+        {
+            keyManager = GameObject.Find("Game Manager").GetComponent<KeyManager>();
+        }
+    }
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
@@ -13,6 +22,7 @@ public class SwitchDoor : MonoBehaviour
         {
             if (collision.gameObject.tag == "Player")
             {
+                keyManager.switchDoorsOpened.Add(gameObject.transform.parent.gameObject);
                 lockedDoor.SetActive(false);
                 isTriggered = true;
             }
