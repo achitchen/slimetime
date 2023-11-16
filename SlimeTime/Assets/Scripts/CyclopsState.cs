@@ -2,14 +2,15 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ImpState : MonoBehaviour
+public class CyclopsState : MonoBehaviour
 {
-    [SerializeField] int nearRadius = 1;
+    [SerializeField] float nearRadius = 1;
     [SerializeField] int farRadius = 5;
     [SerializeField] int speed = 2;
     [SerializeField] float targetDist;
     [SerializeField] float attackDelay = 1f;
-    [SerializeField] float attackActive = 0.5f;
+    [SerializeField] float attackActive = 0.2f;
+    [SerializeField] float attackWait = 0.4f;
     [SerializeField] GameObject attackTelegraph;
     [SerializeField] GameObject attack;
     private bool canAttack = true;
@@ -18,7 +19,7 @@ public class ImpState : MonoBehaviour
     private Vector3 moveDir;
     private Vector3 targetPos;
     private GameObject player;
-
+    // Start is called before the first frame update
     void Start()
     {
         if (player == null)
@@ -28,7 +29,7 @@ public class ImpState : MonoBehaviour
         }
     }
 
-
+    // Update is called once per frame
     void Update()
     {
         isStaggered = gameObject.GetComponent<EnemyHealth>().isStaggered;
@@ -37,7 +38,7 @@ public class ImpState : MonoBehaviour
             targetPos = player.transform.position;
             targetDist = Vector3.Distance(targetPos, transform.position);
 
-            if(targetDist > farRadius)
+            if (targetDist > farRadius)
             {
                 //Idle
             }
@@ -63,7 +64,6 @@ public class ImpState : MonoBehaviour
             }
         }
     }
-
     private void MeleeAttack()
     {
         if (canAttack)
@@ -84,7 +84,11 @@ public class ImpState : MonoBehaviour
         attackTelegraph.SetActive(false);
         attack.SetActive(true);
         attack.transform.position = attackPos;
-        Debug.Log("Bite!");
+        yield return new WaitForSeconds(attackActive);
+        attack.SetActive(false);
+        yield return new WaitForSeconds(attackWait);
+        attack.SetActive(true);
+        attack.transform.position = attackPos;
         yield return new WaitForSeconds(attackActive);
         attack.SetActive(false);
         isAttacking = false;
