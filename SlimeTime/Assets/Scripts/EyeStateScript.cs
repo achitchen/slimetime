@@ -38,39 +38,41 @@ public class EyeStateScript : MonoBehaviour
         isStaggered = gameObject.GetComponent<EnemyHealth>().isStaggered;
         if (player != null && !player.GetComponent<PlayerDodge>().riposteActivated)
         {
-            targetPos = player.transform.position;
-            targetDist = Vector3.Distance(targetPos, transform.position);
+            {
+                targetPos = player.transform.position;
+                targetDist = Vector3.Distance(targetPos, transform.position);
 
-            if (targetDist > farRadius && !isStaggered)
-            {
-                if (!isAttacking)
+                if (targetDist > farRadius && !isStaggered)
                 {
-                    moveDir = (targetPos - transform.position).normalized;
-                    transform.Translate(moveDir * speed * Time.deltaTime);
+                    if (!isAttacking)
+                    {
+                        moveDir = (targetPos - transform.position).normalized;
+                        transform.Translate(moveDir * speed * Time.deltaTime);
+                    }
                 }
-            }
-            else if (farRadius >= targetDist && targetDist >= midRadius && !isStaggered)
-            {
-                RangedAttack();
-            }
-            else if (midRadius >= targetDist && targetDist > nearRadius)
-            {
-                if (!isAttacking && !isStaggered)
+                else if (farRadius >= targetDist && targetDist >= midRadius && !isStaggered)
                 {
-                    moveDir = (targetPos - transform.position).normalized;
-                    transform.Translate(moveDir * speed * Time.deltaTime);
+                    RangedAttack();
                 }
-            }
-            else if (GetComponent<EnemyHealth>().canBeRiposted)
-            {
+                else if (midRadius >= targetDist && targetDist > nearRadius)
+                {
+                    if (!isAttacking && !isStaggered)
+                    {
+                        moveDir = (targetPos - transform.position).normalized;
+                        transform.Translate(moveDir * speed * Time.deltaTime);
+                    }
+                }
+                else if (GetComponent<EnemyHealth>().canBeRiposted)
+                {
                     if (!isStaggered)
                     {
                         StartCoroutine("EnemyStaggered");
                     }
-            }
-            else if (!isStaggered)
-            {
-                MeleeAttack();
+                }
+                else if (!isStaggered)
+                {
+                    MeleeAttack();
+                }
             }
         }
     }
