@@ -11,6 +11,7 @@ public class GhostState : MonoBehaviour
     [SerializeField] float targetDist;
     [SerializeField] float attackDelay = 1f;
     [SerializeField] float attackActive = 0.5f;
+    [SerializeField] float attackRecovery = 0.6f;
     [SerializeField] float teleportOffset = 1f;
     [SerializeField] float teleportDelay = 1f;
     [SerializeField] float teleportRecharge = 3f;
@@ -102,6 +103,9 @@ public class GhostState : MonoBehaviour
         Debug.Log("Bite!");
         yield return new WaitForSeconds(attackActive);
         attack.SetActive(false);
+        moveDir = (targetPos - transform.position).normalized;
+        transform.Translate(moveDir * speed * Time.deltaTime);
+        yield return new WaitForSeconds(attackRecovery);
         isAttacking = false;
         canAttack = true;
     }

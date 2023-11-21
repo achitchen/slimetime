@@ -2,22 +2,22 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ImpState : MonoBehaviour
+public class WeaponImp : MonoBehaviour
 {
     [SerializeField] int nearRadius = 1;
-    [SerializeField] int midRadius = 3;
+    [SerializeField] int farRadius = 5;
     [SerializeField] int speed = 2;
     [SerializeField] float targetDist;
     [SerializeField] float attackDelay = 1f;
     [SerializeField] float attackActiveTime = 0.5f;
-    [SerializeField] float attackRecovery = 1.5f;
+    [SerializeField] float attackRecovery = 0.6f;
     [SerializeField] GameObject attackTelegraph;
     [SerializeField] GameObject attack;
     [SerializeField] GameObject spriteObject;
+    private Animator animator;
     private bool canAttack = true;
     private bool isAttacking = false;
     private bool isStaggered;
-    private Animator animator;
     private Vector3 moveDir;
     private Vector3 targetPos;
     private GameObject player;
@@ -30,6 +30,7 @@ public class ImpState : MonoBehaviour
             Physics2D.IgnoreCollision(player.GetComponent<Collider2D>(), GetComponent<Collider2D>());
         }
         animator = GetComponent<Animator>();
+        resetBools();
     }
 
 
@@ -48,7 +49,7 @@ public class ImpState : MonoBehaviour
             {
                 spriteObject.GetComponent<SpriteRenderer>().flipX = false;
             }
-            if (targetDist > midRadius && !isStaggered)
+            if (targetDist > farRadius && !isStaggered)
             {
                 if (!isAttacking)
                 {
@@ -61,17 +62,17 @@ public class ImpState : MonoBehaviour
                     animator.ResetTrigger("hitTrigger");
                 }
             }
-            else if (midRadius >= targetDist && targetDist > nearRadius && !isStaggered)
+            else if (farRadius >= targetDist && targetDist > nearRadius && !isStaggered)
             {
-                    if (!isAttacking)
-                    {
-                        moveDir = (targetPos - transform.position).normalized;
-                        transform.Translate(moveDir * speed * Time.deltaTime);
-                        animator.SetTrigger("runTrigger");
-                        animator.ResetTrigger("idleTrigger");
-                        animator.ResetTrigger("attackTrigger");
-                        animator.ResetTrigger("windupTrigger");
-                        animator.ResetTrigger("hitTrigger");
+                if (!isAttacking)
+                {
+                    moveDir = (targetPos - transform.position).normalized;
+                    transform.Translate(moveDir * speed * Time.deltaTime);
+                    animator.SetTrigger("runTrigger");
+                    animator.ResetTrigger("idleTrigger");
+                    animator.ResetTrigger("attackTrigger");
+                    animator.ResetTrigger("windupTrigger");
+                    animator.ResetTrigger("hitTrigger");
                 }
             }
             else if (GetComponent<EnemyHealth>().canBeRiposted)
@@ -136,7 +137,7 @@ public class ImpState : MonoBehaviour
         canAttack = true;
         isAttacking = false;
         isStaggered = false;
-        animator.ResetTrigger("idleTrigger");
+        animator.SetTrigger("idleTrigger");
         animator.ResetTrigger("attackTrigger");
         animator.ResetTrigger("windupTrigger");
         animator.ResetTrigger("runTrigger");

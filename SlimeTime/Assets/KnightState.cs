@@ -2,20 +2,21 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class CyclopsState : MonoBehaviour
+public class KnightState : MonoBehaviour
 {
-    [SerializeField] float nearRadius = 1;
-    [SerializeField] int farRadius = 5;
+    [SerializeField] float nearRadius = 1.5f;
     [SerializeField] int speed = 2;
     [SerializeField] float targetDist;
     [SerializeField] float attackDelay = 1f;
-    [SerializeField] float attackActive = 0.2f;
-    [SerializeField] float doubleAttackPause = 0.4f;
+    [SerializeField] float attackActive = 0.5f;
+    [SerializeField] float jumpDelay = 1f;
+    [SerializeField] float jumpAttackActive = 0.5f;
+    [SerializeField] float doubleAttackPause = 0.2f;
     [SerializeField] float attackRecovery = 0.6f;
     [SerializeField] GameObject attackTelegraph;
+    [SerializeField] GameObject jumpTelegraph;
     [SerializeField] GameObject attack;
-    [SerializeField] GameObject spriteObject;
-    private Animator animator;
+    [SerializeField] GameObject jumpAttack;
     private bool canAttack = true;
     private bool isAttacking = false;
     private bool isStaggered;
@@ -30,7 +31,6 @@ public class CyclopsState : MonoBehaviour
             player = GameObject.Find("Player");
             Physics2D.IgnoreCollision(player.GetComponent<Collider2D>(), GetComponent<Collider2D>());
         }
-        animator = GetComponent<Animator>();
     }
 
     // Update is called once per frame
@@ -41,46 +41,20 @@ public class CyclopsState : MonoBehaviour
         {
             targetPos = player.transform.position;
             targetDist = Vector3.Distance(targetPos, transform.position);
-            if ((targetPos - transform.position).normalized.x < 0)
-            {
-                spriteObject.GetComponent<SpriteRenderer>().flipX = true;
-            }
-            else
-            {
-                spriteObject.GetComponent<SpriteRenderer>().flipX = false;
-            }
-            if (targetDist > farRadius)
-            {
-                animator.SetTrigger("idleTrigger");
-                animator.ResetTrigger("runTrigger");
-                animator.ResetTrigger("attackTrigger");
-                animator.ResetTrigger("windupTrigger");
-                animator.ResetTrigger("hitTrigger");
-            }
 
-            if (farRadius >= targetDist && targetDist > nearRadius && !isStaggered)
+            if (targetDist > nearRadius && !isStaggered)
             {
                 if (!isAttacking)
                 {
                     moveDir = (targetPos - transform.position).normalized;
                     transform.Translate(moveDir * speed * Time.deltaTime);
-                    animator.SetTrigger("runTrigger");
-                    animator.ResetTrigger("idleTrigger");
-                    animator.ResetTrigger("attackTrigger");
-                    animator.ResetTrigger("windupTrigger");
-                    animator.ResetTrigger("hitTrigger");
                 }
             }
             else if (GetComponent<EnemyHealth>().canBeRiposted)
             {
-                animator.SetTrigger("hitTrigger");
                 if (!isStaggered)
                 {
                     GetComponent<EnemyHealth>().StartCoroutine("EnemyStaggered");
-                    animator.ResetTrigger("runTrigger");
-                    animator.ResetTrigger("idleTrigger");
-                    animator.ResetTrigger("attackTrigger");
-                    animator.ResetTrigger("windupTrigger");
                 }
             }
             else if (!isStaggered)
@@ -89,12 +63,17 @@ public class CyclopsState : MonoBehaviour
             }
         }
     }
+
     private void ChooseAttack()
     {
         if (canAttack)
         {
             int attackIndex = Random.Range(1, 100);
-            if (attackIndex >= 25)
+            if (attackIndex >= 75)
+            {
+                StartCoroutine("JumpAttack");
+            }
+            else if (attackIndex >= 25)
             {
                 StartCoroutine("MeleeAttack");
             }
@@ -106,27 +85,36 @@ public class CyclopsState : MonoBehaviour
         }
     }
 
+    private IEnumerator JumpAttack()
+    {
+        isAttacking = true;
+        Vector2 attackPos = targetPos;
+        jumpTelegraph.SetActive(true);
+        jumpTelegraph.transform.position = transform.position;
+        moveDir = Vector3.zero;
+        yield return new WaitForSeconds(jumpDelay);
+        jumpTelegraph.SetActive(false);
+        jumpAttack.SetActive(true);
+        yield return new WaitForSeconds(jumpAttackActive);
+        jumpAttack.SetActive(false);
+        isAttacking = false;
+        canAttack = true;
+
+    }
+
     private IEnumerator MeleeAttack()
     {
         isAttacking = true;
-        animator.SetTrigger("windupTrigger");
-        animator.ResetTrigger("runTrigger");
-        animator.ResetTrigger("idleTrigger");
-        animator.ResetTrigger("attackTrigger");
-        animator.ResetTrigger("hitTrigger");
         Vector2 attackPos = targetPos;
         attackTelegraph.SetActive(true);
         attackTelegraph.transform.position = attackPos;
         moveDir = Vector3.zero;
         yield return new WaitForSeconds(attackDelay);
-        animator.ResetTrigger("windupTrigger");
-        animator.SetTrigger("attackTrigger");
         attackTelegraph.SetActive(false);
         attack.SetActive(true);
         attack.transform.position = attackPos;
+        Debug.Log("Bite!");
         yield return new WaitForSeconds(attackActive);
-        animator.ResetTrigger("attackTrigger");
-        animator.SetTrigger("idleTrigger");
         attack.SetActive(false);
         moveDir = (targetPos - transform.position).normalized;
         transform.Translate(moveDir * speed * Time.deltaTime);
@@ -137,60 +125,25 @@ public class CyclopsState : MonoBehaviour
 
     private IEnumerator DoubleAttack()
     {
-        animator.SetTrigger("windupTrigger");
-        animator.ResetTrigger("runTrigger");
-        animator.ResetTrigger("idleTrigger");
-        animator.ResetTrigger("attackTrigger");
-        animator.ResetTrigger("hitTrigger");
         isAttacking = true;
         Vector2 attackPos = targetPos;
         attackTelegraph.SetActive(true);
         attackTelegraph.transform.position = attackPos;
         moveDir = Vector3.zero;
         yield return new WaitForSeconds(attackDelay);
-        animator.ResetTrigger("windupTrigger");
-        animator.SetTrigger("attackTrigger");
         attackTelegraph.SetActive(false);
         attack.SetActive(true);
         attack.transform.position = attackPos;
         yield return new WaitForSeconds(attackActive);
-        animator.ResetTrigger("attackTrigger");
-        animator.SetTrigger("windupTrigger");
         attack.SetActive(false);
         yield return new WaitForSeconds(doubleAttackPause);
-        animator.ResetTrigger("windupTrigger");
-        animator.SetTrigger("attackTrigger");
         attack.SetActive(true);
         yield return new WaitForSeconds(attackActive);
-        animator.ResetTrigger("attackTrigger");
-        animator.SetTrigger("idleTrigger");
         attack.SetActive(false);
         moveDir = (targetPos - transform.position).normalized;
         transform.Translate(moveDir * speed * Time.deltaTime);
         yield return new WaitForSeconds(attackRecovery);
         isAttacking = false;
         canAttack = true;
-    }
-
-
-    public void resetBools()
-    {
-        canAttack = true;
-        isAttacking = false;
-        isStaggered = false;
-        animator.ResetTrigger("idleTrigger");
-        animator.ResetTrigger("attackTrigger");
-        animator.ResetTrigger("windupTrigger");
-        animator.ResetTrigger("runTrigger");
-        animator.ResetTrigger("hitTrigger");
-    }
-
-    private void OnCollisionEnter2D(Collision2D collision)
-    {
-        if (collision.gameObject.tag == "Enemy" || collision.gameObject.tag == "Wall")
-        {
-            Vector3 collisionDir = -(collision.gameObject.transform.position - transform.position).normalized;
-            transform.Translate(collisionDir * 0.1f);
-        }
     }
 }
