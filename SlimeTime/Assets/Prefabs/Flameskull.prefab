@@ -407,7 +407,6 @@ MonoBehaviour:
   projectileRecharge: 2
   biteDelay: 0.5
   biteActive: 0.3
-  staggerDuration: 2.5
   biteTelegraph: {fileID: 557151333618650752}
   biteAttack: {fileID: 2648263111666866813}
   spriteObject: {fileID: 3035978860294133779}
@@ -437,7 +436,7 @@ Rigidbody2D:
   m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 0
-  m_Constraints: 0
+  m_Constraints: 4
 --- !u!58 &8603898928838788515
 CircleCollider2D:
   m_ObjectHideFlags: 0

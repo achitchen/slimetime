@@ -41,13 +41,16 @@ public class WeaponImp : MonoBehaviour
         {
             targetPos = player.transform.position;
             targetDist = Vector3.Distance(targetPos, transform.position);
-            if ((targetPos - transform.position).normalized.x < 0)
+            if (!isAttacking)
             {
-                spriteObject.GetComponent<SpriteRenderer>().flipX = true;
-            }
-            else
-            {
-                spriteObject.GetComponent<SpriteRenderer>().flipX = false;
+                if ((targetPos - transform.position).normalized.x < 0)
+                {
+                    spriteObject.GetComponent<SpriteRenderer>().flipX = true;
+                }
+                else
+                {
+                    spriteObject.GetComponent<SpriteRenderer>().flipX = false;
+                }
             }
             if (targetDist > farRadius && !isStaggered)
             {
@@ -58,7 +61,6 @@ public class WeaponImp : MonoBehaviour
                     animator.SetTrigger("runTrigger");
                     animator.ResetTrigger("idleTrigger");
                     animator.ResetTrigger("attackTrigger");
-                    animator.ResetTrigger("windupTrigger");
                     animator.ResetTrigger("hitTrigger");
                 }
             }
@@ -71,7 +73,6 @@ public class WeaponImp : MonoBehaviour
                     animator.SetTrigger("runTrigger");
                     animator.ResetTrigger("idleTrigger");
                     animator.ResetTrigger("attackTrigger");
-                    animator.ResetTrigger("windupTrigger");
                     animator.ResetTrigger("hitTrigger");
                 }
             }
@@ -84,7 +85,7 @@ public class WeaponImp : MonoBehaviour
                     animator.ResetTrigger("runTrigger");
                     animator.ResetTrigger("idleTrigger");
                     animator.ResetTrigger("attackTrigger");
-                    animator.ResetTrigger("windupTrigger");
+                    animator.ResetTrigger("hitTrigger");
                 }
             }
             else if (!isStaggered && nearRadius >= targetDist)
@@ -105,26 +106,18 @@ public class WeaponImp : MonoBehaviour
 
     private IEnumerator AttackWindup()
     {
-        animator.SetTrigger("windupTrigger");
         animator.ResetTrigger("runTrigger");
         animator.ResetTrigger("idleTrigger");
-        animator.ResetTrigger("attackTrigger");
+        animator.SetTrigger("attackTrigger");
         animator.ResetTrigger("hitTrigger");
         isAttacking = true;
         Vector2 attackPos = targetPos;
-        attackTelegraph.SetActive(true);
         attackTelegraph.transform.position = attackPos;
         moveDir = Vector3.zero;
         yield return new WaitForSeconds(attackDelay);
-        animator.ResetTrigger("windupTrigger");
-        animator.SetTrigger("attackTrigger");
-        attackTelegraph.SetActive(false);
-        attack.SetActive(true);
         attack.transform.position = attackPos;
         Debug.Log("Bite!");
         yield return new WaitForSeconds(attackActiveTime);
-        attack.SetActive(false);
-        //moveDir = (player.transform.position - transform.position).normalized;
         animator.ResetTrigger("attackTrigger");
         animator.SetTrigger("idleTrigger");
         yield return new WaitForSeconds(attackRecovery);
@@ -137,9 +130,8 @@ public class WeaponImp : MonoBehaviour
         canAttack = true;
         isAttacking = false;
         isStaggered = false;
-        animator.SetTrigger("idleTrigger");
+        animator.ResetTrigger("idleTrigger");
         animator.ResetTrigger("attackTrigger");
-        animator.ResetTrigger("windupTrigger");
         animator.ResetTrigger("runTrigger");
         animator.ResetTrigger("hitTrigger");
     }
@@ -148,8 +140,11 @@ public class WeaponImp : MonoBehaviour
     {
         if (collision.gameObject.tag == "Enemy" || collision.gameObject.tag == "Wall")
         {
-            Vector3 collisionDir = -(collision.gameObject.transform.position - transform.position).normalized;
-            transform.Translate(collisionDir * 0.1f);
+            if (!isAttacking)
+            {
+                Vector3 collisionDir = -(collision.gameObject.transform.position - transform.position).normalized;
+                transform.Translate(collisionDir * 0.1f);
+            }
         }
     }
 }

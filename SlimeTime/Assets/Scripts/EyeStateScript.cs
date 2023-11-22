@@ -13,7 +13,6 @@ public class EyeStateScript : MonoBehaviour
     [SerializeField] float projectileRecharge = 2f;
     [SerializeField] float biteDelay = 1f;
     [SerializeField] float biteActive = 0.5f;
-    [SerializeField] float staggerDuration = 1f;
     [SerializeField] GameObject biteTelegraph;
     [SerializeField] GameObject biteAttack;
     [SerializeField] GameObject spriteObject;
@@ -41,13 +40,16 @@ public class EyeStateScript : MonoBehaviour
         isStaggered = gameObject.GetComponent<EnemyHealth>().isStaggered;
         if (player != null && !player.GetComponent<PlayerDodge>().riposteActivated)
         {
-            if ((targetPos - transform.position).normalized.x < 0)
+            if (!isAttacking)
             {
-                spriteObject.GetComponent<SpriteRenderer>().flipX = true;
-            }
-            else
-            {
-                spriteObject.GetComponent<SpriteRenderer>().flipX = false;
+                if ((targetPos - transform.position).normalized.x < 0)
+                {
+                    spriteObject.GetComponent<SpriteRenderer>().flipX = true;
+                }
+                else
+                {
+                    spriteObject.GetComponent<SpriteRenderer>().flipX = false;
+                }
             }
             {
                 targetPos = player.transform.position;
@@ -88,7 +90,7 @@ public class EyeStateScript : MonoBehaviour
                     animator.SetTrigger("hitTrigger");
                     if (!isStaggered)
                     {
-                        StartCoroutine("EnemyStaggered");
+                        GetComponent<EnemyHealth>().StartCoroutine("EnemyStaggered");
                         animator.ResetTrigger("runTrigger");
                         animator.ResetTrigger("idleTrigger");
                         animator.ResetTrigger("attackTrigger");
@@ -173,17 +175,6 @@ public class EyeStateScript : MonoBehaviour
         canBite = true;
     }
 
-    public IEnumerator EnemyStaggered()
-    {
-        Debug.Log("Enemy is reeling! Riposte Ready!");
-        gameObject.GetComponent<EnemyHealth>().canBeRiposted = true;
-        gameObject.GetComponent<EnemyHealth>().isStaggered = true;
-        yield return new WaitForSeconds(staggerDuration);
-        gameObject.GetComponent<EnemyHealth>().isStaggered = false;
-        gameObject.GetComponent<EnemyHealth>().currentHits--;
-        gameObject.GetComponent<EnemyHealth>().canBeRiposted = false;
-    }
-
     public void resetBools()
     {
         canShoot = true;
@@ -200,9 +191,10 @@ public class EyeStateScript : MonoBehaviour
     private void OnCollisionEnter2D(Collision2D collision)
     {
         if (collision.gameObject.tag == "Enemy" || collision.gameObject.tag == "Wall")
-        {
-            Vector3 collisionDir = -(collision.gameObject.transform.position - transform.position).normalized;
-            transform.Translate(collisionDir * 0.1f);
-        }
+            if (!isAttacking)
+            {
+                Vector3 collisionDir = -(collision.gameObject.transform.position - transform.position).normalized;
+                transform.Translate(collisionDir * 0.1f);
+            }
     }
 }

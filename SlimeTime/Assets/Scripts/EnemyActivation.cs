@@ -7,8 +7,13 @@ public class EnemyActivation : MonoBehaviour
     [SerializeField] GameObject room;
     public List<GameObject> doorLocks;
     private bool isUnlocked = false;
+    private bool isActivated;
     private float doorCountDownFloat = 0.2f;
 
+    private void Start()
+    {
+        isActivated = false;
+    }
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.gameObject.tag == "Player")
@@ -17,6 +22,7 @@ public class EnemyActivation : MonoBehaviour
             {
                 foreach (GameObject doorLock in doorLocks){
                     doorLock.SetActive(true);
+                    isActivated = true;
                 }
                 foreach (GameObject enemy in room.GetComponent<EnemyManager>().enemies)
                 {
@@ -31,11 +37,17 @@ public class EnemyActivation : MonoBehaviour
     }
     private void Update()
     {
-        if (!isUnlocked)
+        if (isActivated)
         {
-            if (room.GetComponent<EnemyManager>().enemies.Count == 0)
+            if (!isUnlocked)
             {
-                StartCoroutine("DoorCountDown");
+                if (room != null)
+                {
+                    if (room.GetComponent<EnemyManager>().enemies.Count == 0)
+                    {
+                        StartCoroutine("DoorCountDown");
+                    }
+                }
             }
         }
     }

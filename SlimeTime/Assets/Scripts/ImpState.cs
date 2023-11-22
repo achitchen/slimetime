@@ -40,13 +40,16 @@ public class ImpState : MonoBehaviour
         {
             targetPos = player.transform.position;
             targetDist = Vector3.Distance(targetPos, transform.position);
-            if ((targetPos - transform.position).normalized.x < 0)
+            if (!isAttacking)
             {
-                spriteObject.GetComponent<SpriteRenderer>().flipX = true;
-            }
-            else
-            {
-                spriteObject.GetComponent<SpriteRenderer>().flipX = false;
+                if ((targetPos - transform.position).normalized.x < 0)
+                {
+                    spriteObject.GetComponent<SpriteRenderer>().flipX = true;
+                }
+                else
+                {
+                    spriteObject.GetComponent<SpriteRenderer>().flipX = false;
+                }
             }
             if (targetDist > midRadius && !isStaggered)
             {
@@ -57,7 +60,6 @@ public class ImpState : MonoBehaviour
                     animator.SetTrigger("runTrigger");
                     animator.ResetTrigger("idleTrigger");
                     animator.ResetTrigger("attackTrigger");
-                    animator.ResetTrigger("windupTrigger");
                     animator.ResetTrigger("hitTrigger");
                 }
             }
@@ -70,20 +72,18 @@ public class ImpState : MonoBehaviour
                         animator.SetTrigger("runTrigger");
                         animator.ResetTrigger("idleTrigger");
                         animator.ResetTrigger("attackTrigger");
-                        animator.ResetTrigger("windupTrigger");
                         animator.ResetTrigger("hitTrigger");
                 }
             }
             else if (GetComponent<EnemyHealth>().canBeRiposted)
             {
+                animator.ResetTrigger("runTrigger");
                 animator.SetTrigger("hitTrigger");
                 if (!isStaggered)
                 {
                     GetComponent<EnemyHealth>().StartCoroutine("EnemyStaggered");
-                    animator.ResetTrigger("runTrigger");
                     animator.ResetTrigger("idleTrigger");
                     animator.ResetTrigger("attackTrigger");
-                    animator.ResetTrigger("windupTrigger");
                 }
             }
             else if (!isStaggered && nearRadius >= targetDist)
@@ -104,10 +104,9 @@ public class ImpState : MonoBehaviour
 
     private IEnumerator AttackWindup()
     {
-        animator.SetTrigger("windupTrigger");
+        animator.SetTrigger("attackTrigger");
         animator.ResetTrigger("runTrigger");
         animator.ResetTrigger("idleTrigger");
-        animator.ResetTrigger("attackTrigger");
         animator.ResetTrigger("hitTrigger");
         isAttacking = true;
         Vector2 attackPos = targetPos;
@@ -115,8 +114,6 @@ public class ImpState : MonoBehaviour
         attackTelegraph.transform.position = attackPos;
         moveDir = Vector3.zero;
         yield return new WaitForSeconds(attackDelay);
-        animator.ResetTrigger("windupTrigger");
-        animator.SetTrigger("attackTrigger");
         attackTelegraph.SetActive(false);
         attack.SetActive(true);
         attack.transform.position = attackPos;
@@ -138,7 +135,6 @@ public class ImpState : MonoBehaviour
         isStaggered = false;
         animator.ResetTrigger("idleTrigger");
         animator.ResetTrigger("attackTrigger");
-        animator.ResetTrigger("windupTrigger");
         animator.ResetTrigger("runTrigger");
         animator.ResetTrigger("hitTrigger");
     }
@@ -147,8 +143,11 @@ public class ImpState : MonoBehaviour
     {
         if (collision.gameObject.tag == "Enemy" || collision.gameObject.tag == "Wall")
         {
-            Vector3 collisionDir = -(collision.gameObject.transform.position - transform.position).normalized;
-            transform.Translate(collisionDir * 0.1f);
+            if (!isAttacking)
+            {
+                Vector3 collisionDir = -(collision.gameObject.transform.position - transform.position).normalized;
+                transform.Translate(collisionDir * 0.1f);
+            }
         }
     }
 }

@@ -41,20 +41,22 @@ public class CyclopsState : MonoBehaviour
         {
             targetPos = player.transform.position;
             targetDist = Vector3.Distance(targetPos, transform.position);
-            if ((targetPos - transform.position).normalized.x < 0)
+            if (!isAttacking)
             {
-                spriteObject.GetComponent<SpriteRenderer>().flipX = true;
-            }
-            else
-            {
-                spriteObject.GetComponent<SpriteRenderer>().flipX = false;
+                if ((targetPos - transform.position).normalized.x < 0)
+                {
+                    spriteObject.GetComponent<SpriteRenderer>().flipX = true;
+                }
+                else
+                {
+                    spriteObject.GetComponent<SpriteRenderer>().flipX = false;
+                }
             }
             if (targetDist > farRadius)
             {
                 animator.SetTrigger("idleTrigger");
                 animator.ResetTrigger("runTrigger");
                 animator.ResetTrigger("attackTrigger");
-                animator.ResetTrigger("windupTrigger");
                 animator.ResetTrigger("hitTrigger");
             }
 
@@ -67,7 +69,6 @@ public class CyclopsState : MonoBehaviour
                     animator.SetTrigger("runTrigger");
                     animator.ResetTrigger("idleTrigger");
                     animator.ResetTrigger("attackTrigger");
-                    animator.ResetTrigger("windupTrigger");
                     animator.ResetTrigger("hitTrigger");
                 }
             }
@@ -80,7 +81,6 @@ public class CyclopsState : MonoBehaviour
                     animator.ResetTrigger("runTrigger");
                     animator.ResetTrigger("idleTrigger");
                     animator.ResetTrigger("attackTrigger");
-                    animator.ResetTrigger("windupTrigger");
                 }
             }
             else if (!isStaggered)
@@ -109,27 +109,18 @@ public class CyclopsState : MonoBehaviour
     private IEnumerator MeleeAttack()
     {
         isAttacking = true;
-        animator.SetTrigger("windupTrigger");
         animator.ResetTrigger("runTrigger");
         animator.ResetTrigger("idleTrigger");
-        animator.ResetTrigger("attackTrigger");
+        animator.SetTrigger("attackTrigger");
         animator.ResetTrigger("hitTrigger");
         Vector2 attackPos = targetPos;
-        attackTelegraph.SetActive(true);
         attackTelegraph.transform.position = attackPos;
         moveDir = Vector3.zero;
         yield return new WaitForSeconds(attackDelay);
-        animator.ResetTrigger("windupTrigger");
-        animator.SetTrigger("attackTrigger");
-        attackTelegraph.SetActive(false);
-        attack.SetActive(true);
         attack.transform.position = attackPos;
         yield return new WaitForSeconds(attackActive);
         animator.ResetTrigger("attackTrigger");
         animator.SetTrigger("idleTrigger");
-        attack.SetActive(false);
-        moveDir = (targetPos - transform.position).normalized;
-        transform.Translate(moveDir * speed * Time.deltaTime);
         yield return new WaitForSeconds(attackRecovery);
         isAttacking = false;
         canAttack = true;
@@ -137,36 +128,28 @@ public class CyclopsState : MonoBehaviour
 
     private IEnumerator DoubleAttack()
     {
-        animator.SetTrigger("windupTrigger");
         animator.ResetTrigger("runTrigger");
         animator.ResetTrigger("idleTrigger");
-        animator.ResetTrigger("attackTrigger");
+        animator.SetTrigger("attackTrigger");
         animator.ResetTrigger("hitTrigger");
         isAttacking = true;
         Vector2 attackPos = targetPos;
-        attackTelegraph.SetActive(true);
         attackTelegraph.transform.position = attackPos;
         moveDir = Vector3.zero;
         yield return new WaitForSeconds(attackDelay);
-        animator.ResetTrigger("windupTrigger");
-        animator.SetTrigger("attackTrigger");
         attackTelegraph.SetActive(false);
         attack.SetActive(true);
         attack.transform.position = attackPos;
         yield return new WaitForSeconds(attackActive);
         animator.ResetTrigger("attackTrigger");
-        animator.SetTrigger("windupTrigger");
         attack.SetActive(false);
         yield return new WaitForSeconds(doubleAttackPause);
-        animator.ResetTrigger("windupTrigger");
         animator.SetTrigger("attackTrigger");
         attack.SetActive(true);
         yield return new WaitForSeconds(attackActive);
         animator.ResetTrigger("attackTrigger");
         animator.SetTrigger("idleTrigger");
         attack.SetActive(false);
-        moveDir = (targetPos - transform.position).normalized;
-        transform.Translate(moveDir * speed * Time.deltaTime);
         yield return new WaitForSeconds(attackRecovery);
         isAttacking = false;
         canAttack = true;
@@ -180,7 +163,6 @@ public class CyclopsState : MonoBehaviour
         isStaggered = false;
         animator.ResetTrigger("idleTrigger");
         animator.ResetTrigger("attackTrigger");
-        animator.ResetTrigger("windupTrigger");
         animator.ResetTrigger("runTrigger");
         animator.ResetTrigger("hitTrigger");
     }
@@ -188,9 +170,10 @@ public class CyclopsState : MonoBehaviour
     private void OnCollisionEnter2D(Collision2D collision)
     {
         if (collision.gameObject.tag == "Enemy" || collision.gameObject.tag == "Wall")
-        {
-            Vector3 collisionDir = -(collision.gameObject.transform.position - transform.position).normalized;
-            transform.Translate(collisionDir * 0.1f);
-        }
+            if (!isAttacking)
+            {
+                Vector3 collisionDir = -(collision.gameObject.transform.position - transform.position).normalized;
+                transform.Translate(collisionDir * 0.1f);
+            }
     }
 }
