@@ -16,7 +16,9 @@ public class EyeStateScript : MonoBehaviour
     [SerializeField] float staggerDuration = 1f;
     [SerializeField] GameObject biteTelegraph;
     [SerializeField] GameObject biteAttack;
+    [SerializeField] GameObject spriteObject;
     private GameObject player;
+    private Animator animator;
     private bool canShoot = true;
     private bool canBite = true;
     private bool isAttacking = false;
@@ -31,6 +33,7 @@ public class EyeStateScript : MonoBehaviour
         {
             player = GameObject.Find("Player");
         }
+        animator = GetComponent<Animator>();
     }
 
     private void Update()
@@ -38,6 +41,14 @@ public class EyeStateScript : MonoBehaviour
         isStaggered = gameObject.GetComponent<EnemyHealth>().isStaggered;
         if (player != null && !player.GetComponent<PlayerDodge>().riposteActivated)
         {
+            if ((targetPos - transform.position).normalized.x < 0)
+            {
+                spriteObject.GetComponent<SpriteRenderer>().flipX = true;
+            }
+            else
+            {
+                spriteObject.GetComponent<SpriteRenderer>().flipX = false;
+            }
             {
                 targetPos = player.transform.position;
                 targetDist = Vector3.Distance(targetPos, transform.position);
@@ -48,6 +59,11 @@ public class EyeStateScript : MonoBehaviour
                     {
                         moveDir = (targetPos - transform.position).normalized;
                         transform.Translate(moveDir * speed * Time.deltaTime);
+                        animator.SetTrigger("runTrigger");
+                        animator.ResetTrigger("idleTrigger");
+                        animator.ResetTrigger("attackTrigger");
+                        animator.ResetTrigger("windupTrigger");
+                        animator.ResetTrigger("hitTrigger");
                     }
                 }
                 else if (farRadius >= targetDist && targetDist >= midRadius && !isStaggered)
@@ -60,13 +76,23 @@ public class EyeStateScript : MonoBehaviour
                     {
                         moveDir = (targetPos - transform.position).normalized;
                         transform.Translate(moveDir * speed * Time.deltaTime);
+                        animator.SetTrigger("runTrigger");
+                        animator.ResetTrigger("idleTrigger");
+                        animator.ResetTrigger("attackTrigger");
+                        animator.ResetTrigger("windupTrigger");
+                        animator.ResetTrigger("hitTrigger");
                     }
                 }
                 else if (GetComponent<EnemyHealth>().canBeRiposted)
                 {
+                    animator.SetTrigger("hitTrigger");
                     if (!isStaggered)
                     {
                         StartCoroutine("EnemyStaggered");
+                        animator.ResetTrigger("runTrigger");
+                        animator.ResetTrigger("idleTrigger");
+                        animator.ResetTrigger("attackTrigger");
+                        animator.ResetTrigger("windupTrigger");
                     }
                 }
                 else if (!isStaggered)
@@ -91,6 +117,8 @@ public class EyeStateScript : MonoBehaviour
         {
             if (canShoot)
             {
+                animator.ResetTrigger("runTrigger");
+                animator.SetTrigger("attackTrigger");
                 isAttacking = true;
                 moveDir = Vector3.zero;
                 GameObject clone = Instantiate(projectile, transform.position, transform.rotation);
@@ -107,26 +135,38 @@ public class EyeStateScript : MonoBehaviour
     {
         canShoot = false;
         yield return new WaitForSeconds(1f);
+        animator.ResetTrigger("attackTrigger");
+        animator.SetTrigger("runTrigger");
         float newDirX = Random.Range(-5, 5);
         float newDirY = Random.Range(-5, 5);
         moveDir = new Vector2(targetPos.x + newDirX, targetPos.y + newDirY).normalized;
         isAttacking = false;
         yield return new WaitForSeconds(projectileRecharge);
         canShoot = true;
+        
     }
 
     private IEnumerator BiteWindup()
     {
+        animator.ResetTrigger("runTrigger");
+        animator.SetTrigger("windupTrigger");
+        animator.ResetTrigger("idleTrigger");
+        animator.ResetTrigger("attackTrigger");
+        animator.ResetTrigger("hitTrigger");
         isAttacking = true;
         Vector2 attackPos = targetPos;
         biteTelegraph.SetActive(true);
         biteTelegraph.transform.position = attackPos;
         moveDir = Vector3.zero;
         yield return new WaitForSeconds(biteDelay);
+        animator.ResetTrigger("windupTrigger");
+        animator.SetTrigger("attackTrigger");
         biteTelegraph.SetActive(false);
         biteAttack.SetActive(true);
         biteAttack.transform.position = attackPos;
         Debug.Log("Bite!");
+        animator.ResetTrigger("attackTrigger");
+        animator.SetTrigger("idleTrigger");
         yield return new WaitForSeconds(biteActive);
         biteAttack.SetActive(false);
         isAttacking = false;
@@ -150,6 +190,11 @@ public class EyeStateScript : MonoBehaviour
         canBite = true;
         isAttacking = false;
         isStaggered = false;
+        animator.ResetTrigger("idleTrigger");
+        animator.ResetTrigger("attackTrigger");
+        animator.ResetTrigger("windupTrigger");
+        animator.ResetTrigger("runTrigger");
+        animator.ResetTrigger("hitTrigger");
     }
 
     private void OnCollisionEnter2D(Collision2D collision)

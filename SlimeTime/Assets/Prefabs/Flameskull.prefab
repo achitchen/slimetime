@@ -358,13 +358,14 @@ GameObject:
   - component: {fileID: 8603898928838788515}
   - component: {fileID: 5445886907167534227}
   - component: {fileID: 1333570869855712653}
+  - component: {fileID: 7189406508018958895}
   m_Layer: 0
   m_Name: Flameskull
   m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &1218537832605805826
 Transform:
   m_ObjectHideFlags: 0
@@ -409,6 +410,7 @@ MonoBehaviour:
   staggerDuration: 2.5
   biteTelegraph: {fileID: 557151333618650752}
   biteAttack: {fileID: 2648263111666866813}
+  spriteObject: {fileID: 3035978860294133779}
 --- !u!50 &5021748427345727455
 Rigidbody2D:
   serializedVersion: 4
@@ -503,6 +505,27 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   assignedDoor: {fileID: 0}
+--- !u!95 &7189406508018958895
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4583924003384607175}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: cd3e595c09e399b4d853b343f9eaa647, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &8565918392486925339
 GameObject:
   m_ObjectHideFlags: 0
@@ -569,4 +592,4 @@ CircleCollider2D:
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
-  m_Radius: 1.3
+  m_Radius: 2

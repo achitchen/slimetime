@@ -13,6 +13,7 @@ public class KnightState : MonoBehaviour
     [SerializeField] float jumpAttackActive = 0.5f;
     [SerializeField] float doubleAttackPause = 0.2f;
     [SerializeField] float attackRecovery = 0.6f;
+    [SerializeField] GameObject spriteObject;
     [SerializeField] GameObject attackTelegraph;
     [SerializeField] GameObject jumpTelegraph;
     [SerializeField] GameObject attack;
@@ -23,6 +24,7 @@ public class KnightState : MonoBehaviour
     private Vector3 moveDir;
     private Vector3 targetPos;
     private GameObject player;
+    private Animator animator;
     // Start is called before the first frame update
     void Start()
     {
@@ -31,6 +33,7 @@ public class KnightState : MonoBehaviour
             player = GameObject.Find("Player");
             Physics2D.IgnoreCollision(player.GetComponent<Collider2D>(), GetComponent<Collider2D>());
         }
+        animator = GetComponent<Animator>();
     }
 
     // Update is called once per frame
@@ -41,20 +44,45 @@ public class KnightState : MonoBehaviour
         {
             targetPos = player.transform.position;
             targetDist = Vector3.Distance(targetPos, transform.position);
-
+            if ((targetPos - transform.position).normalized.x < 0)
+            {
+                spriteObject.GetComponent<SpriteRenderer>().flipX = true;
+            }
+            else
+            {
+                spriteObject.GetComponent<SpriteRenderer>().flipX = false;
+            }
             if (targetDist > nearRadius && !isStaggered)
             {
                 if (!isAttacking)
                 {
                     moveDir = (targetPos - transform.position).normalized;
                     transform.Translate(moveDir * speed * Time.deltaTime);
+                    animator.SetTrigger("runTrigger");
+                    animator.ResetTrigger("idleTrigger");
+                    animator.ResetTrigger("attack0Trigger");
+                    animator.ResetTrigger("windup0Trigger");
+                    animator.ResetTrigger("attack1Trigger");
+                    animator.ResetTrigger("windup1Trigger");
+                    animator.ResetTrigger("attack2Trigger");
+                    animator.ResetTrigger("windup2Trigger");
+                    animator.ResetTrigger("hitTrigger");
                 }
             }
             else if (GetComponent<EnemyHealth>().canBeRiposted)
             {
+                animator.SetTrigger("hitTrigger");
                 if (!isStaggered)
                 {
                     GetComponent<EnemyHealth>().StartCoroutine("EnemyStaggered");
+                    animator.ResetTrigger("runTrigger");
+                    animator.ResetTrigger("idleTrigger");
+                    animator.ResetTrigger("attack0Trigger");
+                    animator.ResetTrigger("windup0Trigger");
+                    animator.ResetTrigger("attack1Trigger");
+                    animator.ResetTrigger("windup1Trigger");
+                    animator.ResetTrigger("attack2Trigger");
+                    animator.ResetTrigger("windup2Trigger");
                 }
             }
             else if (!isStaggered)
@@ -87,16 +115,26 @@ public class KnightState : MonoBehaviour
 
     private IEnumerator JumpAttack()
     {
+        animator.SetTrigger("windup2Trigger");
+        animator.ResetTrigger("runTrigger");
+        animator.ResetTrigger("idleTrigger");
+        animator.ResetTrigger("attack2Trigger");
+        animator.ResetTrigger("hitTrigger");
+        animator.ResetTrigger("attack0Trigger");
+        animator.ResetTrigger("windup0Trigger");
+        animator.ResetTrigger("attack1Trigger");
+        animator.ResetTrigger("windup1Trigger");
         isAttacking = true;
         Vector2 attackPos = targetPos;
-        jumpTelegraph.SetActive(true);
         jumpTelegraph.transform.position = transform.position;
         moveDir = Vector3.zero;
         yield return new WaitForSeconds(jumpDelay);
-        jumpTelegraph.SetActive(false);
-        jumpAttack.SetActive(true);
+        animator.SetTrigger("attack2Trigger");
+        animator.ResetTrigger("windup2Trigger");
         yield return new WaitForSeconds(jumpAttackActive);
-        jumpAttack.SetActive(false);
+        animator.ResetTrigger("attack2Trigger");
+        animator.SetTrigger("idleTrigger");
+        yield return new WaitForSeconds(attackRecovery);
         isAttacking = false;
         canAttack = true;
 
@@ -104,20 +142,27 @@ public class KnightState : MonoBehaviour
 
     private IEnumerator MeleeAttack()
     {
+        animator.SetTrigger("windup0Trigger");
+        animator.ResetTrigger("runTrigger");
+        animator.ResetTrigger("idleTrigger");
+        animator.ResetTrigger("attack0Trigger");
+        animator.ResetTrigger("hitTrigger");
+        animator.ResetTrigger("attack2Trigger");
+        animator.ResetTrigger("windup2Trigger");
+        animator.ResetTrigger("attack1Trigger");
+        animator.ResetTrigger("windup1Trigger");
         isAttacking = true;
         Vector2 attackPos = targetPos;
-        attackTelegraph.SetActive(true);
         attackTelegraph.transform.position = attackPos;
         moveDir = Vector3.zero;
         yield return new WaitForSeconds(attackDelay);
-        attackTelegraph.SetActive(false);
-        attack.SetActive(true);
+        animator.SetTrigger("attack0Trigger");
+        animator.ResetTrigger("windup0Trigger");
         attack.transform.position = attackPos;
         Debug.Log("Bite!");
         yield return new WaitForSeconds(attackActive);
-        attack.SetActive(false);
-        moveDir = (targetPos - transform.position).normalized;
-        transform.Translate(moveDir * speed * Time.deltaTime);
+        animator.SetTrigger("idleTrigger");
+        animator.ResetTrigger("attack0Trigger");
         yield return new WaitForSeconds(attackRecovery);
         isAttacking = false;
         canAttack = true;
@@ -125,23 +170,26 @@ public class KnightState : MonoBehaviour
 
     private IEnumerator DoubleAttack()
     {
+        animator.SetTrigger("windup1Trigger");
+        animator.ResetTrigger("runTrigger");
+        animator.ResetTrigger("idleTrigger");
+        animator.ResetTrigger("attack1Trigger");
+        animator.ResetTrigger("hitTrigger");
+        animator.ResetTrigger("attack2Trigger");
+        animator.ResetTrigger("windup2Trigger");
+        animator.ResetTrigger("attack0Trigger");
+        animator.ResetTrigger("windup0Trigger");
         isAttacking = true;
         Vector2 attackPos = targetPos;
-        attackTelegraph.SetActive(true);
         attackTelegraph.transform.position = attackPos;
         moveDir = Vector3.zero;
         yield return new WaitForSeconds(attackDelay);
-        attackTelegraph.SetActive(false);
-        attack.SetActive(true);
+        animator.SetTrigger("attack1Trigger");
+        animator.ResetTrigger("windup1Trigger");
         attack.transform.position = attackPos;
-        yield return new WaitForSeconds(attackActive);
-        attack.SetActive(false);
         yield return new WaitForSeconds(doubleAttackPause);
-        attack.SetActive(true);
-        yield return new WaitForSeconds(attackActive);
-        attack.SetActive(false);
-        moveDir = (targetPos - transform.position).normalized;
-        transform.Translate(moveDir * speed * Time.deltaTime);
+        animator.SetTrigger("idleTrigger");
+        animator.ResetTrigger("attack1Trigger");
         yield return new WaitForSeconds(attackRecovery);
         isAttacking = false;
         canAttack = true;

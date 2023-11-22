@@ -578,11 +578,6 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 5e8b8c6c3da0df04f8b0cf977ea5008e, type: 3}
---- !u!1 &1164140059 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 4971905465391480530, guid: 29b16191ecc393245b4ef3cc2de6f6b9, type: 3}
-  m_PrefabInstance: {fileID: 6624092023176625870}
-  m_PrefabAsset: {fileID: 0}
 --- !u!4 &1211008483 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 2982627791193379181, guid: 5e8b8c6c3da0df04f8b0cf977ea5008e, type: 3}
@@ -1092,6 +1087,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Ghost
       objectReference: {fileID: 0}
+    - target: {fileID: 8876998091099750662, guid: 5a98af7f10765ed478ea245d1a0dfc3f, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -1580,17 +1579,9 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 6000922080381221435, guid: 29b16191ecc393245b4ef3cc2de6f6b9, type: 3}
-      propertyPath: jumpAttack
-      value: 
-      objectReference: {fileID: 1164140059}
     - target: {fileID: 6012087288401095328, guid: 29b16191ecc393245b4ef3cc2de6f6b9, type: 3}
       propertyPath: m_Name
       value: Knight
-      objectReference: {fileID: 0}
-    - target: {fileID: 6012087288401095328, guid: 29b16191ecc393245b4ef3cc2de6f6b9, type: 3}
-      propertyPath: m_IsActive
-      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -1649,6 +1640,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Imp
       objectReference: {fileID: 0}
+    - target: {fileID: 4858348395246610187, guid: e9885a70713573b4db447db0df166589, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -1705,6 +1700,10 @@ PrefabInstance:
     - target: {fileID: 4583924003384607175, guid: 846036de2814fcf47a3e0ae6be6a9fa1, type: 3}
       propertyPath: m_Name
       value: Flameskull
+      objectReference: {fileID: 0}
+    - target: {fileID: 4583924003384607175, guid: 846036de2814fcf47a3e0ae6be6a9fa1, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
