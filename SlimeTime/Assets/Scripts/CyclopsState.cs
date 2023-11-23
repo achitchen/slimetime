@@ -72,20 +72,23 @@ public class CyclopsState : MonoBehaviour
                     animator.ResetTrigger("hitTrigger");
                 }
             }
-            else if (GetComponent<EnemyHealth>().canBeRiposted)
+            else if (targetDist <= nearRadius)
             {
-                animator.SetTrigger("hitTrigger");
-                if (!isStaggered)
+                if (GetComponent<EnemyHealth>().canBeRiposted)
                 {
-                    GetComponent<EnemyHealth>().StartCoroutine("EnemyStaggered");
-                    animator.ResetTrigger("runTrigger");
-                    animator.ResetTrigger("idleTrigger");
-                    animator.ResetTrigger("attackTrigger");
+                    animator.SetTrigger("hitTrigger");
+                    if (!isStaggered)
+                    {
+                        GetComponent<EnemyHealth>().StartCoroutine("EnemyStaggered");
+                        animator.ResetTrigger("runTrigger");
+                        animator.ResetTrigger("idleTrigger");
+                        animator.ResetTrigger("attackTrigger");
+                    }
                 }
-            }
-            else if (!isStaggered)
-            {
-                ChooseAttack();
+                else if (!isStaggered)
+                {
+                    ChooseAttack();
+                }
             }
         }
     }

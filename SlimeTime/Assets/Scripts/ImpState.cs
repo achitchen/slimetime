@@ -117,7 +117,6 @@ public class ImpState : MonoBehaviour
         attackTelegraph.SetActive(false);
         attack.SetActive(true);
         attack.transform.position = attackPos;
-        Debug.Log("Bite!");
         yield return new WaitForSeconds(attackActiveTime);
         attack.SetActive(false);
         //moveDir = (player.transform.position - transform.position).normalized;
