@@ -14,6 +14,7 @@ public class PlayerDodge : MonoBehaviour
     public bool riposteReady = false;
     public bool riposteActivated = false;
     public bool slimeShellActive = false;
+    private Animator animator;
     // Start is called before the first frame update
     void Start()
     {
@@ -22,6 +23,7 @@ public class PlayerDodge : MonoBehaviour
         riposteReady = false;
         slimeShellActive = false;
         slimeShellCount = GetComponent<ReloadAtCheckpoint>().slimeShellCountInit;
+        animator = GetComponent<Animator>();
     }
 
     // Update is called once per frame
@@ -49,14 +51,32 @@ public class PlayerDodge : MonoBehaviour
         {
             if (Input.GetKeyDown(KeyCode.RightShift))
             {
+                animator.SetTrigger("splitTrigger"); 
+                animator.ResetTrigger("idleTrigger");
+                animator.ResetTrigger("runTrigger");
+                animator.ResetTrigger("duckTrigger");
+                animator.ResetTrigger("spikeTrigger");
+                animator.ResetTrigger("reflectTrigger");
                 StartCoroutine(DodgeTimer(Dodge.Horizontal));
             }
             else if (Input.GetKeyDown(KeyCode.Return))
             {
+                animator.SetTrigger("duckTrigger");
+                animator.ResetTrigger("idleTrigger");
+                animator.ResetTrigger("runTrigger");
+                animator.ResetTrigger("splitTrigger");
+                animator.ResetTrigger("spikeTrigger");
+                animator.ResetTrigger("reflectTrigger");
                 StartCoroutine(DodgeTimer(Dodge.Vertical));
             }
             else if (Input.GetKeyDown(KeyCode.Space))
             {
+                animator.SetTrigger("reflectTrigger");
+                animator.ResetTrigger("idleTrigger");
+                animator.ResetTrigger("runTrigger");
+                animator.ResetTrigger("duckTrigger");
+                animator.ResetTrigger("spikeTrigger");
+                animator.ResetTrigger("splitTrigger");
                 StartCoroutine(DodgeTimer(Dodge.Reflect));
             }
         }
@@ -75,18 +95,47 @@ public class PlayerDodge : MonoBehaviour
         dodgeActive = dodge;
         yield return new WaitForSeconds(dodgeDuration);
         dodgeActive = Dodge.None;
+        if (GetComponent<PlayerMovement>().isMoving)
+        {
+            animator.SetTrigger("runTrigger");
+            animator.ResetTrigger("spikeTrigger");
+            animator.ResetTrigger("idleTrigger");
+            animator.ResetTrigger("duckTrigger");
+            animator.ResetTrigger("splitTrigger");
+            animator.ResetTrigger("reflectTrigger");
+        }
+        else
+        {
+            animator.SetTrigger("idleTrigger");
+            animator.ResetTrigger("spikeTrigger");
+            animator.ResetTrigger("runTrigger");
+            animator.ResetTrigger("duckTrigger");
+            animator.ResetTrigger("splitTrigger");
+            animator.ResetTrigger("reflectTrigger");
+        }
+    }
+    public void RiposteTrigger(Transform enemyPos)
+    {
+        StartCoroutine(RiposteActivate(enemyPos.transform));
+        animator.SetTrigger("spikeTrigger");
+        animator.ResetTrigger("idleTrigger");
+        animator.ResetTrigger("runTrigger");
+        animator.ResetTrigger("duckTrigger");
+        animator.ResetTrigger("splitTrigger");
+        animator.ResetTrigger("reflectTrigger");
     }
 
-    public IEnumerator RiposteActivate()
+    public IEnumerator RiposteActivate(Transform enemyPos)
     {
         if (!riposteActivated)
         {
             riposteActivated = true;
+            transform.position = enemyPos.position;
             yield return new WaitForSeconds(riposteDelay);
-            Debug.Log("A killing blow!");
             riposteReady = false;
             yield return new WaitForSeconds(riposteRecovery);
             riposteActivated = false;
+            animator.ResetTrigger("spikeTrigger");
         }
     }
     private void OnTriggerEnter2D(Collider2D collision)

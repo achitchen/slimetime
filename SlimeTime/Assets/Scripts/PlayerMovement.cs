@@ -3,9 +3,12 @@ using UnityEngine;
 public class PlayerMovement : MonoBehaviour
 {
     [SerializeField] int speed = 5;
+    [SerializeField] GameObject spriteObject;
     private Vector2 lookDir = Vector2.zero;
     private Vector2 moveDir = Vector2.zero;
     public Direction direction = Direction.Zero;
+    public bool isMoving;
+    private Animator animator;
     private PlayerDodge playerDodge;
 
     // Start is called before the first frame update
@@ -15,6 +18,7 @@ public class PlayerMovement : MonoBehaviour
         moveDir = Vector2.zero;
         direction = Direction.Zero;
         playerDodge = GetComponent<PlayerDodge>();
+        animator = GetComponent<Animator>();
     }
 
     // Update is called once per frame
@@ -24,6 +28,35 @@ public class PlayerMovement : MonoBehaviour
         {
             GetMoveDir();
             transform.Translate(speed * moveDir.normalized * Time.deltaTime);
+            if (playerDodge.dodgeActive == PlayerDodge.Dodge.None)
+            {
+                if (isMoving)
+                {
+                    animator.SetTrigger("runTrigger");
+                    animator.ResetTrigger("spikeTrigger");
+                    animator.ResetTrigger("idleTrigger");
+                    animator.ResetTrigger("duckTrigger");
+                    animator.ResetTrigger("splitTrigger");
+                    animator.ResetTrigger("reflectTrigger");
+                }
+                else
+                {
+                    animator.SetTrigger("idleTrigger");
+                    animator.ResetTrigger("spikeTrigger");
+                    animator.ResetTrigger("runTrigger");
+                    animator.ResetTrigger("duckTrigger");
+                    animator.ResetTrigger("splitTrigger");
+                    animator.ResetTrigger("reflectTrigger");
+                }
+            }
+            if (lookDir == Vector2.left)
+            {
+                spriteObject.GetComponent<SpriteRenderer>().flipX = false;
+            }
+            if (lookDir == Vector2.right)
+            {
+                spriteObject.GetComponent<SpriteRenderer>().flipX = true;
+            }
         }
     }
 
@@ -31,6 +64,7 @@ public class PlayerMovement : MonoBehaviour
     {
         if (Input.GetKey(KeyCode.A))
         {
+            isMoving = true;
             if (direction == Direction.Zero || direction == Direction.Right)
             {
                 direction = Direction.Left;
@@ -60,6 +94,7 @@ public class PlayerMovement : MonoBehaviour
 
         else if (Input.GetKey(KeyCode.W))
         {
+            isMoving = true;
             if (direction == Direction.Zero || direction == Direction.Down)
             {
                 direction = Direction.Up;
@@ -89,6 +124,7 @@ public class PlayerMovement : MonoBehaviour
 
         else if (Input.GetKey(KeyCode.D))
         {
+            isMoving = true;
             if (direction == Direction.Zero || direction == Direction.Left)
             {
                 direction = Direction.Right;
@@ -118,6 +154,7 @@ public class PlayerMovement : MonoBehaviour
 
         else if (Input.GetKey(KeyCode.S))
         {
+            isMoving = true;
             if (direction == Direction.Zero || direction == Direction.Up)
             {
                 direction = Direction.Down;
@@ -147,6 +184,7 @@ public class PlayerMovement : MonoBehaviour
 
         else if (direction != Direction.Zero)
         {
+            isMoving = false;
             direction = Direction.Zero;
             moveDir = Vector2.zero;
         }

@@ -26,7 +26,7 @@ public class EnemyHealth : MonoBehaviour
         {
             if (Input.GetKeyDown(KeyCode.R))
             {
-                player.GetComponent<PlayerDodge>().StartCoroutine("RiposteActivate");
+                player.GetComponent<PlayerDodge>().RiposteTrigger(gameObject.transform);
                 StopCoroutine("EnemyStaggered");
                 isStaggered = true;
                 Death();
