@@ -529,6 +529,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: ghost 16x16
       objectReference: {fileID: 0}
+    - target: {fileID: 3626916397498700004, guid: 07571e8376759bf409a62a201e80e37a, type: 3}
+      propertyPath: m_SortingOrder
+      value: 20
+      objectReference: {fileID: 0}
     - target: {fileID: 7878350319992209165, guid: 07571e8376759bf409a62a201e80e37a, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0

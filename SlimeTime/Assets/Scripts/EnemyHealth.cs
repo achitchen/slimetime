@@ -22,14 +22,17 @@ public class EnemyHealth : MonoBehaviour
 
     private void Update()
     {
-        if (player.GetComponent<PlayerDodge>().riposteReady = true && canBeRiposted)
+        if (player != null && player.activeSelf == true)
         {
-            if (Input.GetKeyDown(KeyCode.R))
+            if (player.GetComponent<PlayerDodge>().riposteReady = true && canBeRiposted)
             {
-                player.GetComponent<PlayerDodge>().RiposteTrigger(gameObject.transform);
-                StopCoroutine("EnemyStaggered");
-                isStaggered = true;
-                Death();
+                if (Input.GetKeyDown(KeyCode.R))
+                {
+                    player.GetComponent<PlayerDodge>().RiposteTrigger(gameObject.transform);
+                    StopCoroutine("EnemyStaggered");
+                    isStaggered = true;
+                    Death();
+                }
             }
         }
     }

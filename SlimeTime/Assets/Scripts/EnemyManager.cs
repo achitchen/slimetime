@@ -13,9 +13,12 @@ public class EnemyManager : MonoBehaviour
             {
                 foreach(GameObject enemy in enemies)
                 {
-                    if (enemy.GetComponent<EnemyHealth>().assignedRoom == null)
+                    if (enemy != null && enemy.activeSelf == true)
                     {
-                        enemy.GetComponent<EnemyHealth>().assignedRoom = gameObject;
+                        if (enemy.GetComponent<EnemyHealth>().assignedRoom == null)
+                        {
+                            enemy.GetComponent<EnemyHealth>().assignedRoom = gameObject;
+                        }
                     }
                 }
             }
@@ -30,7 +33,10 @@ public class EnemyManager : MonoBehaviour
             {
                 foreach (GameObject enemy in enemies)
                 {
-                    enemy.SetActive(false);
+                    if (enemy != null)
+                    {
+                        enemy.SetActive(false);
+                    }
                 }
             }
         }
