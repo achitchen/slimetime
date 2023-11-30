@@ -1087,6 +1087,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Ghost
       objectReference: {fileID: 0}
+    - target: {fileID: 8876998091099750662, guid: 5a98af7f10765ed478ea245d1a0dfc3f, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -1461,10 +1465,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: Sword Imp
       objectReference: {fileID: 0}
-    - target: {fileID: 8446647003268156483, guid: e2d227b33b3aa2f469eecb00609aa88a, type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -1485,6 +1485,10 @@ PrefabInstance:
     - target: {fileID: 2550964214362934826, guid: 28493c2f94196fc408100c4896026319, type: 3}
       propertyPath: dodgeDuration
       value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 5081197568657409373, guid: 28493c2f94196fc408100c4896026319, type: 3}
+      propertyPath: m_SortingOrder
+      value: 40
       objectReference: {fileID: 0}
     - target: {fileID: 7696188294721082017, guid: 28493c2f94196fc408100c4896026319, type: 3}
       propertyPath: m_LocalPosition.x
@@ -1585,7 +1589,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6012087288401095328, guid: 29b16191ecc393245b4ef3cc2de6f6b9, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -1639,10 +1643,6 @@ PrefabInstance:
     - target: {fileID: 47532555470359487, guid: e9885a70713573b4db447db0df166589, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4476147434837555539, guid: e9885a70713573b4db447db0df166589, type: 3}
-      propertyPath: attackRecovery
-      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4858348395246610187, guid: e9885a70713573b4db447db0df166589, type: 3}
       propertyPath: m_Name
@@ -1712,10 +1712,6 @@ PrefabInstance:
     - target: {fileID: 4583924003384607175, guid: 846036de2814fcf47a3e0ae6be6a9fa1, type: 3}
       propertyPath: m_IsActive
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5445886907167534227, guid: 846036de2814fcf47a3e0ae6be6a9fa1, type: 3}
-      propertyPath: maxHits
-      value: 2
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

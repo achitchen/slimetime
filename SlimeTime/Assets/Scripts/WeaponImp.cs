@@ -14,6 +14,8 @@ public class WeaponImp : MonoBehaviour
     [SerializeField] GameObject attackTelegraph;
     [SerializeField] GameObject attack;
     [SerializeField] GameObject spriteObject;
+    [SerializeField] GameObject verticalAttack;
+    [SerializeField] GameObject reflectiveAttack;
     private Animator animator;
     private bool canAttack = true;
     private bool isAttacking = false;
@@ -62,6 +64,7 @@ public class WeaponImp : MonoBehaviour
                     animator.ResetTrigger("idleTrigger");
                     animator.ResetTrigger("attackTrigger");
                     animator.ResetTrigger("hitTrigger");
+                    animator.ResetTrigger("reflectiveTrigger");
                 }
             }
             else if (farRadius >= targetDist && targetDist > nearRadius && !isStaggered)
@@ -74,6 +77,7 @@ public class WeaponImp : MonoBehaviour
                     animator.ResetTrigger("idleTrigger");
                     animator.ResetTrigger("attackTrigger");
                     animator.ResetTrigger("hitTrigger");
+                    animator.ResetTrigger("reflectiveTrigger");
                 }
             }
             else if (GetComponent<EnemyHealth>().canBeRiposted)
@@ -86,6 +90,7 @@ public class WeaponImp : MonoBehaviour
                     animator.ResetTrigger("idleTrigger");
                     animator.ResetTrigger("attackTrigger");
                     animator.ResetTrigger("hitTrigger");
+                    animator.ResetTrigger("reflectiveTrigger");
                 }
             }
             else if (!isStaggered && nearRadius >= targetDist)
@@ -99,26 +104,42 @@ public class WeaponImp : MonoBehaviour
     {
         if (canAttack)
         {
-            StartCoroutine("AttackWindup");
+            int attackIndex = Random.Range(1, 100);
+            if (attackIndex < 51)
+            {
+                StartCoroutine(AttackWindup(AttackType.vertical));
+            }
+            else if (attackIndex >= 51)
+            {
+                StartCoroutine(AttackWindup(AttackType.reflect));
+            }
             canAttack = false;
         }
     }
 
-    private IEnumerator AttackWindup()
+    private IEnumerator AttackWindup(AttackType attackType)
     {
+        if (attackType == AttackType.vertical)
+        {
+            animator.SetTrigger("attackTrigger");
+        }
+        else if (attackType == AttackType.reflect)
+        {
+            animator.SetTrigger("reflectiveTrigger");
+        }
         animator.ResetTrigger("runTrigger");
         animator.ResetTrigger("idleTrigger");
-        animator.SetTrigger("attackTrigger");
         animator.ResetTrigger("hitTrigger");
         isAttacking = true;
         Vector2 attackPos = targetPos;
-        attackTelegraph.transform.position = attackPos;
+        verticalAttack.transform.position = attackPos;
+        reflectiveAttack.transform.position = attackPos;
         moveDir = Vector3.zero;
         yield return new WaitForSeconds(attackDelay);
         attack.transform.position = attackPos;
-        Debug.Log("Bite!");
         yield return new WaitForSeconds(attackActiveTime);
         animator.ResetTrigger("attackTrigger");
+        animator.ResetTrigger("reflectiveTrigger");
         animator.SetTrigger("idleTrigger");
         yield return new WaitForSeconds(attackRecovery);
         isAttacking = false;
@@ -134,6 +155,7 @@ public class WeaponImp : MonoBehaviour
         animator.ResetTrigger("attackTrigger");
         animator.ResetTrigger("runTrigger");
         animator.ResetTrigger("hitTrigger");
+        animator.ResetTrigger("reflectiveTrigger");
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
@@ -146,5 +168,11 @@ public class WeaponImp : MonoBehaviour
                 transform.Translate(collisionDir * 0.1f);
             }
         }
+    }
+    private enum AttackType
+    {
+        horizontal,
+        vertical,
+        reflect
     }
 }

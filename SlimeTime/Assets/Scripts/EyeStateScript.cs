@@ -13,9 +13,13 @@ public class EyeStateScript : MonoBehaviour
     [SerializeField] float projectileRecharge = 2f;
     [SerializeField] float biteDelay = 1f;
     [SerializeField] float biteActive = 0.5f;
+    [SerializeField] float biteRecovery = 0.75f;
     [SerializeField] GameObject biteTelegraph;
-    [SerializeField] GameObject biteAttack;
+    [SerializeField] GameObject horizontalAttack;
+    [SerializeField] GameObject reflectiveAttack;
     [SerializeField] GameObject spriteObject;
+    [SerializeField] GameObject horizontalIcon;
+    [SerializeField] GameObject shieldIcon;
     private GameObject player;
     private Animator animator;
     private bool canShoot = true;
@@ -109,7 +113,15 @@ public class EyeStateScript : MonoBehaviour
     {
         if (canBite)
         {
-            StartCoroutine("BiteWindup");
+            int attackIndex = Random.Range(1, 100);
+            if (attackIndex < 51)
+            {
+                StartCoroutine(BiteWindup(AttackType.horizontal));
+            }
+            else
+            {
+                StartCoroutine(BiteWindup(AttackType.reflect));
+            }
             canBite = false;
         }
     }
@@ -148,13 +160,22 @@ public class EyeStateScript : MonoBehaviour
         
     }
 
-    private IEnumerator BiteWindup()
+    private IEnumerator BiteWindup(AttackType attackType)
     {
         animator.ResetTrigger("runTrigger");
         animator.SetTrigger("windupTrigger");
         animator.ResetTrigger("idleTrigger");
         animator.ResetTrigger("attackTrigger");
         animator.ResetTrigger("hitTrigger");
+        if (attackType == AttackType.horizontal)
+        {
+            horizontalIcon.SetActive(true);
+            horizontalIcon.GetComponent<SpriteRenderer>().flipX = spriteObject.GetComponent<SpriteRenderer>().flipX;
+        }
+        else if (attackType == AttackType.reflect)
+        {
+            shieldIcon.SetActive(true);
+        }
         isAttacking = true;
         Vector2 attackPos = targetPos;
         biteTelegraph.SetActive(true);
@@ -164,14 +185,26 @@ public class EyeStateScript : MonoBehaviour
         animator.ResetTrigger("windupTrigger");
         animator.SetTrigger("attackTrigger");
         biteTelegraph.SetActive(false);
-        biteAttack.SetActive(true);
-        biteAttack.transform.position = attackPos;
+        horizontalIcon.SetActive(false);
+        shieldIcon.SetActive(false);
+        if (attackType == AttackType.horizontal)
+        {
+            horizontalAttack.SetActive(true);
+            horizontalAttack.transform.position = attackPos;
+        }
+        else if (attackType == AttackType.reflect)
+        {
+            reflectiveAttack.SetActive(true);
+            reflectiveAttack.transform.position = attackPos;
+        }
         Debug.Log("Bite!");
         animator.ResetTrigger("attackTrigger");
         animator.SetTrigger("idleTrigger");
         yield return new WaitForSeconds(biteActive);
-        biteAttack.SetActive(false);
+        horizontalAttack.SetActive(false);
+        reflectiveAttack.SetActive(false);
         isAttacking = false;
+        yield return new WaitForSeconds(biteRecovery);
         canBite = true;
     }
 
@@ -196,5 +229,12 @@ public class EyeStateScript : MonoBehaviour
                 Vector3 collisionDir = -(collision.gameObject.transform.position - transform.position).normalized;
                 transform.Translate(collisionDir * 0.1f);
             }
+    }
+
+    private enum AttackType
+    {
+        horizontal,
+        vertical,
+        reflect
     }
 }

@@ -59,7 +59,14 @@ public class EnemyHealth : MonoBehaviour
         yield return new WaitForSeconds(staggerDuration);
         riposteRadius.SetActive(false);
         isStaggered = false;
-        currentHits--;
+        if (gameObject.GetComponent<CyclopsState>()!= null)
+        {
+            currentHits -= 2;
+        }
+        else
+        {
+            currentHits--;
+        }
         canBeRiposted = false;
     }
 }

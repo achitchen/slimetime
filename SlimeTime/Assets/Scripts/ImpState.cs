@@ -12,8 +12,10 @@ public class ImpState : MonoBehaviour
     [SerializeField] float attackActiveTime = 0.5f;
     [SerializeField] float attackRecovery = 1.5f;
     [SerializeField] GameObject attackTelegraph;
-    [SerializeField] GameObject attack;
+    [SerializeField] GameObject verticalAttack;
+    [SerializeField] GameObject horizontalAttack;
     [SerializeField] GameObject spriteObject;
+    [SerializeField] GameObject horizontalIcon;
     private bool canAttack = true;
     private bool isAttacking = false;
     private bool isStaggered;
@@ -59,8 +61,9 @@ public class ImpState : MonoBehaviour
                     transform.Translate(moveDir * speed * Time.deltaTime);
                     animator.SetTrigger("runTrigger");
                     animator.ResetTrigger("idleTrigger");
-                    animator.ResetTrigger("attackTrigger");
+                    animator.ResetTrigger("horizontalTrigger");
                     animator.ResetTrigger("hitTrigger");
+                    animator.ResetTrigger("verticalTrigger");
                 }
             }
             else if (midRadius >= targetDist && targetDist > nearRadius && !isStaggered)
@@ -71,19 +74,22 @@ public class ImpState : MonoBehaviour
                         transform.Translate(moveDir * speed * Time.deltaTime);
                         animator.SetTrigger("runTrigger");
                         animator.ResetTrigger("idleTrigger");
-                        animator.ResetTrigger("attackTrigger");
+                        animator.ResetTrigger("horizontalTrigger");
                         animator.ResetTrigger("hitTrigger");
+                        animator.ResetTrigger("verticalTrigger");
                 }
             }
             else if (GetComponent<EnemyHealth>().canBeRiposted)
             {
-                animator.ResetTrigger("runTrigger");
                 animator.SetTrigger("hitTrigger");
                 if (!isStaggered)
                 {
                     GetComponent<EnemyHealth>().StartCoroutine("EnemyStaggered");
                     animator.ResetTrigger("idleTrigger");
-                    animator.ResetTrigger("attackTrigger");
+                    animator.ResetTrigger("horizontalTrigger");
+                    animator.ResetTrigger("verticalTrigger");
+                    animator.ResetTrigger("hitTrigger");
+                    animator.ResetTrigger("runTrigger");
                 }
             }
             else if (!isStaggered && nearRadius >= targetDist)
@@ -97,30 +103,43 @@ public class ImpState : MonoBehaviour
     {
         if (canAttack)
         {
-            StartCoroutine("AttackWindup");
+            int attackIndex = Random.Range(1, 100);
+            if (attackIndex < 51)
+            {
+                StartCoroutine(AttackWindup(AttackType.horizontal));
+            }
+            else if (attackIndex >= 51)
+            {
+                StartCoroutine(AttackWindup(AttackType.vertical));
+            }
             canAttack = false;
         }
     }
 
-    private IEnumerator AttackWindup()
+    private IEnumerator AttackWindup(AttackType attackType)
     {
-        animator.SetTrigger("attackTrigger");
+        Vector2 attackPos = targetPos;
+        attackTelegraph.transform.position = attackPos;
+        if (attackType == AttackType.horizontal)
+        {
+            horizontalIcon.GetComponent<SpriteRenderer>().flipX = spriteObject.GetComponent<SpriteRenderer>().flipX;
+            animator.SetTrigger("horizontalTrigger");
+        }
+        else if (attackType == AttackType.vertical)
+        {
+            animator.SetTrigger("verticalTrigger");
+        }
         animator.ResetTrigger("runTrigger");
         animator.ResetTrigger("idleTrigger");
         animator.ResetTrigger("hitTrigger");
         isAttacking = true;
-        Vector2 attackPos = targetPos;
-        attackTelegraph.SetActive(true);
-        attackTelegraph.transform.position = attackPos;
         moveDir = Vector3.zero;
         yield return new WaitForSeconds(attackDelay);
-        attackTelegraph.SetActive(false);
-        attack.SetActive(true);
-        attack.transform.position = attackPos;
+        verticalAttack.transform.position = attackPos;
+        horizontalAttack.transform.position = attackPos;
         yield return new WaitForSeconds(attackActiveTime);
-        attack.SetActive(false);
-        //moveDir = (player.transform.position - transform.position).normalized;
-        animator.ResetTrigger("attackTrigger");
+        animator.ResetTrigger("horizontalTrigger");
+        animator.ResetTrigger("verticalTrigger");
         animator.SetTrigger("idleTrigger");
         yield return new WaitForSeconds(attackRecovery);
         isAttacking = false;
@@ -133,9 +152,10 @@ public class ImpState : MonoBehaviour
         isAttacking = false;
         isStaggered = false;
         animator.ResetTrigger("idleTrigger");
-        animator.ResetTrigger("attackTrigger");
+        animator.ResetTrigger("horizontalTrigger");
         animator.ResetTrigger("runTrigger");
         animator.ResetTrigger("hitTrigger");
+        animator.ResetTrigger("verticalTrigger");
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
@@ -148,5 +168,11 @@ public class ImpState : MonoBehaviour
                 transform.Translate(collisionDir * 0.1f);
             }
         }
+    }
+    private enum AttackType
+    {
+        horizontal,
+        vertical,
+        reflect
     }
 }

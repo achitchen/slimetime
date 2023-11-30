@@ -8,10 +8,8 @@ public class CyclopsState : MonoBehaviour
     [SerializeField] int farRadius = 5;
     [SerializeField] int speed = 2;
     [SerializeField] float targetDist;
-    [SerializeField] float attackDelay = 1f;
-    [SerializeField] float attackActive = 0.2f;
-    [SerializeField] float doubleAttackPause = 0.4f;
-    [SerializeField] float attackRecovery = 0.6f;
+    [SerializeField] float doubleAttackPause = 1f;
+    [SerializeField] float attackRecovery = 1.5f;
     [SerializeField] GameObject attackTelegraph;
     [SerializeField] GameObject attack;
     [SerializeField] GameObject spriteObject;
@@ -97,7 +95,7 @@ public class CyclopsState : MonoBehaviour
         if (canAttack)
         {
             int attackIndex = Random.Range(1, 100);
-            if (attackIndex >= 25)
+            if (attackIndex >= 45)
             {
                 StartCoroutine("MeleeAttack");
             }
@@ -119,11 +117,8 @@ public class CyclopsState : MonoBehaviour
         Vector2 attackPos = targetPos;
         attackTelegraph.transform.position = attackPos;
         moveDir = Vector3.zero;
-        yield return new WaitForSeconds(attackDelay);
         attack.transform.position = attackPos;
-        yield return new WaitForSeconds(attackActive);
         animator.ResetTrigger("attackTrigger");
-        animator.SetTrigger("idleTrigger");
         yield return new WaitForSeconds(attackRecovery);
         isAttacking = false;
         canAttack = true;
@@ -139,20 +134,10 @@ public class CyclopsState : MonoBehaviour
         Vector2 attackPos = targetPos;
         attackTelegraph.transform.position = attackPos;
         moveDir = Vector3.zero;
-        yield return new WaitForSeconds(attackDelay);
-        attackTelegraph.SetActive(false);
-        attack.SetActive(true);
         attack.transform.position = attackPos;
-        yield return new WaitForSeconds(attackActive);
-        animator.ResetTrigger("attackTrigger");
-        attack.SetActive(false);
         yield return new WaitForSeconds(doubleAttackPause);
-        animator.SetTrigger("attackTrigger");
-        attack.SetActive(true);
-        yield return new WaitForSeconds(attackActive);
         animator.ResetTrigger("attackTrigger");
         animator.SetTrigger("idleTrigger");
-        attack.SetActive(false);
         yield return new WaitForSeconds(attackRecovery);
         isAttacking = false;
         canAttack = true;
