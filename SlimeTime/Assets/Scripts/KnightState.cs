@@ -16,8 +16,10 @@ public class KnightState : MonoBehaviour
     [SerializeField] GameObject spriteObject;
     [SerializeField] GameObject attackTelegraph;
     [SerializeField] GameObject jumpTelegraph;
-    [SerializeField] GameObject attack;
+    [SerializeField] GameObject verticalAttack;
+    [SerializeField] GameObject horizontalAttack;
     [SerializeField] GameObject jumpAttack;
+    [SerializeField] GameObject horizontalIcon;
     private bool canAttack = true;
     private bool isAttacking = false;
     private bool isStaggered;
@@ -101,11 +103,11 @@ public class KnightState : MonoBehaviour
             {
                 StartCoroutine("JumpAttack");
             }
-            else if (attackIndex >= 25)
+            else if (attackIndex >= 30)
             {
                 StartCoroutine("MeleeAttack");
             }
-            else
+            else if (attackIndex < 30)
             {
                 StartCoroutine("DoubleAttack");
             }
@@ -158,7 +160,7 @@ public class KnightState : MonoBehaviour
         yield return new WaitForSeconds(attackDelay);
         animator.SetTrigger("attack0Trigger");
         animator.ResetTrigger("windup0Trigger");
-        attack.transform.position = attackPos;
+        verticalAttack.transform.position = attackPos;
         Debug.Log("Bite!");
         yield return new WaitForSeconds(attackActive);
         animator.SetTrigger("idleTrigger");
@@ -170,6 +172,7 @@ public class KnightState : MonoBehaviour
 
     private IEnumerator DoubleAttack()
     {
+        horizontalIcon.GetComponent<SpriteRenderer>().flipX = spriteObject.GetComponent<SpriteRenderer>().flipX;
         animator.SetTrigger("windup1Trigger");
         animator.ResetTrigger("runTrigger");
         animator.ResetTrigger("idleTrigger");
@@ -186,7 +189,8 @@ public class KnightState : MonoBehaviour
         yield return new WaitForSeconds(attackDelay);
         animator.SetTrigger("attack1Trigger");
         animator.ResetTrigger("windup1Trigger");
-        attack.transform.position = attackPos;
+        verticalAttack.transform.position = attackPos;
+        horizontalAttack.transform.position = attackPos;
         yield return new WaitForSeconds(doubleAttackPause);
         animator.SetTrigger("idleTrigger");
         animator.ResetTrigger("attack1Trigger");

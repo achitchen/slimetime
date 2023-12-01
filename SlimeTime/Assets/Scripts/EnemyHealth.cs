@@ -63,6 +63,10 @@ public class EnemyHealth : MonoBehaviour
         {
             currentHits -= 2;
         }
+        else if (gameObject.GetComponent<KnightState>() != null)
+        {
+            currentHits -= 3;
+        }
         else
         {
             currentHits--;

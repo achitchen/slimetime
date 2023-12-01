@@ -10,7 +10,6 @@ public class GhostState : MonoBehaviour
     [SerializeField] int speed = 2;
     [SerializeField] float targetDist;
     [SerializeField] float attackDelay = 1f;
-    [SerializeField] float attackActive = 0.5f;
     [SerializeField] float attackRecovery = 0.6f;
     [SerializeField] float teleportOffset = 1f;
     [SerializeField] float teleportDelay = 1f;
