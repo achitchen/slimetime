@@ -1465,6 +1465,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Sword Imp
       objectReference: {fileID: 0}
+    - target: {fileID: 8446647003268156483, guid: e2d227b33b3aa2f469eecb00609aa88a, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -1586,6 +1590,10 @@ PrefabInstance:
     - target: {fileID: 6012087288401095328, guid: 29b16191ecc393245b4ef3cc2de6f6b9, type: 3}
       propertyPath: m_Name
       value: Knight
+      objectReference: {fileID: 0}
+    - target: {fileID: 6012087288401095328, guid: 29b16191ecc393245b4ef3cc2de6f6b9, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

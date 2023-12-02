@@ -119,6 +119,10 @@ public class WeaponImp : MonoBehaviour
 
     private IEnumerator AttackWindup(AttackType attackType)
     {
+        Vector2 attackPos = targetPos;
+        verticalAttack.transform.position = attackPos;
+        reflectiveAttack.transform.position = attackPos;
+        attack.transform.position = attackPos;
         if (attackType == AttackType.vertical)
         {
             animator.SetTrigger("attackTrigger");
@@ -131,12 +135,8 @@ public class WeaponImp : MonoBehaviour
         animator.ResetTrigger("idleTrigger");
         animator.ResetTrigger("hitTrigger");
         isAttacking = true;
-        Vector2 attackPos = targetPos;
-        verticalAttack.transform.position = attackPos;
-        reflectiveAttack.transform.position = attackPos;
         moveDir = Vector3.zero;
         yield return new WaitForSeconds(attackDelay);
-        attack.transform.position = attackPos;
         yield return new WaitForSeconds(attackActiveTime);
         animator.ResetTrigger("attackTrigger");
         animator.ResetTrigger("reflectiveTrigger");

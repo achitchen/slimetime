@@ -120,6 +120,8 @@ public class ImpState : MonoBehaviour
     {
         Vector2 attackPos = targetPos;
         attackTelegraph.transform.position = attackPos;
+        verticalAttack.transform.position = attackPos;
+        horizontalAttack.transform.position = attackPos;
         if (attackType == AttackType.horizontal)
         {
             horizontalIcon.GetComponent<SpriteRenderer>().flipX = spriteObject.GetComponent<SpriteRenderer>().flipX;
@@ -135,8 +137,6 @@ public class ImpState : MonoBehaviour
         isAttacking = true;
         moveDir = Vector3.zero;
         yield return new WaitForSeconds(attackDelay);
-        verticalAttack.transform.position = attackPos;
-        horizontalAttack.transform.position = attackPos;
         yield return new WaitForSeconds(attackActiveTime);
         animator.ResetTrigger("horizontalTrigger");
         animator.ResetTrigger("verticalTrigger");
@@ -150,7 +150,6 @@ public class ImpState : MonoBehaviour
     {
         canAttack = true;
         isAttacking = false;
-        isStaggered = false;
         animator.ResetTrigger("idleTrigger");
         animator.ResetTrigger("horizontalTrigger");
         animator.ResetTrigger("runTrigger");
