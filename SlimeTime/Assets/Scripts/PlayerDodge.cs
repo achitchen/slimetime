@@ -154,9 +154,7 @@ public class PlayerDodge : MonoBehaviour
             }
             else
             {
-                GameObject.Find("Game Manager").GetComponent<GameManager>().isDead = true;
-                Debug.Log("You Died!");
-                Destroy(gameObject, 0.2f);
+                PlayerDeath();
             }
         }
 
@@ -175,9 +173,7 @@ public class PlayerDodge : MonoBehaviour
             }
             else
             {
-                GameObject.Find("Game Manager").GetComponent<GameManager>().isDead = true;
-                Debug.Log("You Died!");
-                Destroy(gameObject, 0.2f);
+                PlayerDeath();
             }
         }
         else if (collision.gameObject.tag == "reflectiveAttack")
@@ -192,9 +188,7 @@ public class PlayerDodge : MonoBehaviour
             }
             else
             {
-                GameObject.Find("Game Manager").GetComponent<GameManager>().isDead = true;
-                Debug.Log("You Died!");
-                Destroy(gameObject, 0.2f);
+                PlayerDeath();
             }
         }
         else if (collision.gameObject.tag == "RiposteArea")
@@ -225,5 +219,13 @@ public class PlayerDodge : MonoBehaviour
         slimeShield.SetActive(false);
         slimeShellActive = false;
 
+    }
+
+    private void PlayerDeath()
+    {
+        GameObject.Find("Game Manager").GetComponent<GameManager>().isDead = true;
+        GameObject.Find("Game Manager").GetComponent<GameManager>().Invoke("CanReload", 0.5f);
+        Debug.Log("You Died!");
+        Destroy(gameObject, 0.2f);
     }
 }

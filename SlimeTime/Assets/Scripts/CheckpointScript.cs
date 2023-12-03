@@ -16,6 +16,7 @@ public class CheckpointScript : MonoBehaviour
         {
             gameManager.lastCheckPointPos = transform.position;
             gameManager.lastCheckPointCameraHolder = cameraHolder.transform.position;
+            collision.GetComponent<PlayerDodge>().slimeShellCount = 1;
         }
     }
 }

@@ -12,6 +12,8 @@ public class GameManager : MonoBehaviour
     public bool coreOneDestroyed;
     public bool coreTwoDestroyed;
     public bool coreThreeDestroyed;
+    public bool isQuitting = false;
+    private bool canReload;
     [SerializeField] GameObject initialCheckPoint;
     [SerializeField] GameObject initialCameraHolder;
 
@@ -31,22 +33,46 @@ public class GameManager : MonoBehaviour
         coreOneDestroyed = false;
         coreTwoDestroyed = false;
         coreThreeDestroyed = false;
-
     }
 
     private void Start()
     {
         isDead = false;
+        isQuitting = false;
+        canReload = false;
     }
     void Update()
     {
-        if (isDead)
+        if (isDead && canReload)
         {
             if (Input.GetKeyDown(KeyCode.Return))
             {
                 SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
                 isDead = false;
+                canReload = false;
             }
         }
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            if (!isQuitting)
+            {
+                isQuitting = true;
+                Invoke("CancelQuitting", 0.5f);
+            }
+            else if (isQuitting)
+            {
+                Application.Quit();
+            }
+        }
+    }
+
+    private void CancelQuitting()
+    {
+        isQuitting = false;
+    }
+
+    public void CanReload()
+    {
+        canReload = true;
     }
 }
