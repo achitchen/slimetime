@@ -26,6 +26,7 @@ public class GhostState : MonoBehaviour
     private bool isTeleporting = false;
     private bool canTeleport = true;
     private Animator animator;
+    private EnemySounds enemySounds;
     private Vector3 moveDir;
     private Vector3 targetPos;
     private GameObject player;
@@ -39,6 +40,10 @@ public class GhostState : MonoBehaviour
         }
         animator = GetComponent<Animator>();
         resetBools();
+        if (enemySounds == null)
+        {
+            enemySounds = GetComponent<EnemySounds>();
+        }
     }
 
     // Update is called once per frame
@@ -94,24 +99,24 @@ public class GhostState : MonoBehaviour
                 animator.ResetTrigger("hitTrigger");
                 animator.ResetTrigger("teleportTrigger");
             }
-            else if (GetComponent<EnemyHealth>().canBeRiposted)
-            {
-                animator.ResetTrigger("runTrigger");
-                animator.SetTrigger("hitTrigger");
-                if (!isStaggered)
-                {
-                    GetComponent<EnemyHealth>().StartCoroutine("EnemyStaggered");
-                    animator.ResetTrigger("idleTrigger");
-                    animator.ResetTrigger("horizontalTrigger");
-                    animator.ResetTrigger("reflectiveTrigger");
-                    animator.ResetTrigger("teleportTrigger");
-                }
-            }
-            else if (targetDist <= nearRadius && !isStaggered)
+            if (targetDist <= nearRadius && !isStaggered)
             {
                 MeleeAttack();
             }
-        }   
+        }
+        if (GetComponent<EnemyHealth>().canBeRiposted)
+        {
+            animator.ResetTrigger("runTrigger");
+            animator.SetTrigger("hitTrigger");
+            if (!isStaggered)
+            {
+                GetComponent<EnemyHealth>().StartCoroutine("EnemyStaggered");
+                animator.ResetTrigger("idleTrigger");
+                animator.ResetTrigger("horizontalTrigger");
+                animator.ResetTrigger("reflectiveTrigger");
+                animator.ResetTrigger("teleportTrigger");
+            }
+        }
     }
 
     private void MeleeAttack()
@@ -195,6 +200,7 @@ public class GhostState : MonoBehaviour
     {
         canTeleport = false;
         isTeleporting = true;
+        enemySounds.enemySoundSource.PlayOneShot(enemySounds.ghostTeleportSound);
         animator.SetTrigger("teleportTrigger");
         yield return new WaitForSeconds(teleportDelay);
         Vector3 teleportPos = player.transform.position + (player.transform.right * teleportOffset);

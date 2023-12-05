@@ -71,25 +71,25 @@ public class KnightState : MonoBehaviour
                     animator.ResetTrigger("hitTrigger");
                 }
             }
-            else if (GetComponent<EnemyHealth>().canBeRiposted)
-            {
-                animator.SetTrigger("hitTrigger");
-                if (!isStaggered)
-                {
-                    GetComponent<EnemyHealth>().StartCoroutine("EnemyStaggered");
-                    animator.ResetTrigger("runTrigger");
-                    animator.ResetTrigger("idleTrigger");
-                    animator.ResetTrigger("attack0Trigger");
-                    animator.ResetTrigger("windup0Trigger");
-                    animator.ResetTrigger("attack1Trigger");
-                    animator.ResetTrigger("windup1Trigger");
-                    animator.ResetTrigger("attack2Trigger");
-                    animator.ResetTrigger("windup2Trigger");
-                }
-            }
             else if (!isStaggered)
             {
                 ChooseAttack();
+            }
+        }
+        if (GetComponent<EnemyHealth>().canBeRiposted)
+        {
+            animator.SetTrigger("hitTrigger");
+            if (!isStaggered)
+            {
+                GetComponent<EnemyHealth>().StartCoroutine("EnemyStaggered");
+                animator.ResetTrigger("runTrigger");
+                animator.ResetTrigger("idleTrigger");
+                animator.ResetTrigger("attack0Trigger");
+                animator.ResetTrigger("windup0Trigger");
+                animator.ResetTrigger("attack1Trigger");
+                animator.ResetTrigger("windup1Trigger");
+                animator.ResetTrigger("attack2Trigger");
+                animator.ResetTrigger("windup2Trigger");
             }
         }
     }

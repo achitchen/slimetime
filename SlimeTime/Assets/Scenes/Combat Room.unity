@@ -1421,6 +1421,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 2208763336941599906, guid: e2d227b33b3aa2f469eecb00609aa88a, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 6350513192340634909, guid: e2d227b33b3aa2f469eecb00609aa88a, type: 3}
       propertyPath: m_LocalPosition.x
       value: -2.53
@@ -1469,6 +1473,10 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 8531338019642974793, guid: e2d227b33b3aa2f469eecb00609aa88a, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -1485,14 +1493,6 @@ PrefabInstance:
     - target: {fileID: 31083513158929577, guid: 28493c2f94196fc408100c4896026319, type: 3}
       propertyPath: m_Name
       value: Player
-      objectReference: {fileID: 0}
-    - target: {fileID: 2550964214362934826, guid: 28493c2f94196fc408100c4896026319, type: 3}
-      propertyPath: dodgeDuration
-      value: 0.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 5081197568657409373, guid: 28493c2f94196fc408100c4896026319, type: 3}
-      propertyPath: m_SortingOrder
-      value: 40
       objectReference: {fileID: 0}
     - target: {fileID: 7696188294721082017, guid: 28493c2f94196fc408100c4896026319, type: 3}
       propertyPath: m_LocalPosition.x

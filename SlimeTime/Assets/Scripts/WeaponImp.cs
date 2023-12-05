@@ -80,22 +80,22 @@ public class WeaponImp : MonoBehaviour
                     animator.ResetTrigger("reflectiveTrigger");
                 }
             }
-            else if (GetComponent<EnemyHealth>().canBeRiposted)
-            {
-                animator.SetTrigger("hitTrigger");
-                if (!isStaggered)
-                {
-                    GetComponent<EnemyHealth>().StartCoroutine("EnemyStaggered");
-                    animator.ResetTrigger("runTrigger");
-                    animator.ResetTrigger("idleTrigger");
-                    animator.ResetTrigger("attackTrigger");
-                    animator.ResetTrigger("hitTrigger");
-                    animator.ResetTrigger("reflectiveTrigger");
-                }
-            }
             else if (!isStaggered && nearRadius >= targetDist)
             {
                 MeleeAttack();
+            }
+        }
+        if (GetComponent<EnemyHealth>().canBeRiposted)
+        {
+            animator.SetTrigger("hitTrigger");
+            if (!isStaggered)
+            {
+                GetComponent<EnemyHealth>().StartCoroutine("EnemyStaggered");
+                animator.ResetTrigger("runTrigger");
+                animator.ResetTrigger("idleTrigger");
+                animator.ResetTrigger("attackTrigger");
+                animator.ResetTrigger("hitTrigger");
+                animator.ResetTrigger("reflectiveTrigger");
             }
         }
     }

@@ -22,6 +22,7 @@ public class EyeStateScript : MonoBehaviour
     [SerializeField] GameObject shieldIcon;
     private GameObject player;
     private Animator animator;
+    private EnemySounds enemySounds;
     private bool canShoot = true;
     private bool canBite = true;
     private bool isAttacking = false;
@@ -37,6 +38,10 @@ public class EyeStateScript : MonoBehaviour
             player = GameObject.Find("Player");
         }
         animator = GetComponent<Animator>();
+        if (enemySounds == null)
+        {
+            enemySounds = GetComponent<EnemySounds>();
+        }
     }
 
     private void Update()
@@ -54,44 +59,49 @@ public class EyeStateScript : MonoBehaviour
                 {
                     spriteObject.GetComponent<SpriteRenderer>().flipX = false;
                 }
-            }
-            {
-                targetPos = player.transform.position;
-                targetDist = Vector3.Distance(targetPos, transform.position);
+                {
+                    targetPos = player.transform.position;
+                    targetDist = Vector3.Distance(targetPos, transform.position);
 
-                if (targetDist > farRadius && !isStaggered)
-                {
-                    if (!isAttacking)
+                    if (targetDist > farRadius && !isStaggered)
                     {
-                        moveDir = (targetPos - transform.position).normalized;
-                        transform.Translate(moveDir * speed * Time.deltaTime);
-                        animator.SetTrigger("runTrigger");
-                        animator.ResetTrigger("idleTrigger");
-                        animator.ResetTrigger("attackTrigger");
-                        animator.ResetTrigger("windupTrigger");
-                        animator.ResetTrigger("hitTrigger");
+                        if (!isAttacking)
+                        {
+                            moveDir = (targetPos - transform.position).normalized;
+                            transform.Translate(moveDir * speed * Time.deltaTime);
+                            animator.SetTrigger("runTrigger");
+                            animator.ResetTrigger("idleTrigger");
+                            animator.ResetTrigger("attackTrigger");
+                            animator.ResetTrigger("windupTrigger");
+                            animator.ResetTrigger("hitTrigger");
+                        }
+                    }
+                    else if (farRadius >= targetDist && targetDist >= midRadius && !isStaggered)
+                    {
+                        RangedAttack();
+                    }
+                    else if (midRadius >= targetDist && targetDist > nearRadius)
+                    {
+                        if (!isAttacking && !isStaggered)
+                        {
+                            moveDir = (targetPos - transform.position).normalized;
+                            transform.Translate(moveDir * speed * Time.deltaTime);
+                            animator.SetTrigger("runTrigger");
+                            animator.ResetTrigger("idleTrigger");
+                            animator.ResetTrigger("attackTrigger");
+                            animator.ResetTrigger("windupTrigger");
+                            animator.ResetTrigger("hitTrigger");
+                        }
+                    }
+                    else if (!isStaggered)
+                    {
+                        MeleeAttack();
                     }
                 }
-                else if (farRadius >= targetDist && targetDist >= midRadius && !isStaggered)
-                {
-                    RangedAttack();
-                }
-                else if (midRadius >= targetDist && targetDist > nearRadius)
-                {
-                    if (!isAttacking && !isStaggered)
-                    {
-                        moveDir = (targetPos - transform.position).normalized;
-                        transform.Translate(moveDir * speed * Time.deltaTime);
-                        animator.SetTrigger("runTrigger");
-                        animator.ResetTrigger("idleTrigger");
-                        animator.ResetTrigger("attackTrigger");
-                        animator.ResetTrigger("windupTrigger");
-                        animator.ResetTrigger("hitTrigger");
-                    }
-                }
-                else if (GetComponent<EnemyHealth>().canBeRiposted)
+                if (GetComponent<EnemyHealth>().canBeRiposted)
                 {
                     animator.SetTrigger("hitTrigger");
+                    StopAllCoroutines();
                     if (!isStaggered)
                     {
                         GetComponent<EnemyHealth>().StartCoroutine("EnemyStaggered");
@@ -100,10 +110,6 @@ public class EyeStateScript : MonoBehaviour
                         animator.ResetTrigger("attackTrigger");
                         animator.ResetTrigger("windupTrigger");
                     }
-                }
-                else if (!isStaggered)
-                {
-                    MeleeAttack();
                 }
             }
         }
@@ -169,11 +175,13 @@ public class EyeStateScript : MonoBehaviour
         animator.ResetTrigger("hitTrigger");
         if (attackType == AttackType.horizontal)
         {
+            enemySounds.enemySoundSource.PlayOneShot(enemySounds.horizontalWindupSound);
             horizontalIcon.SetActive(true);
             horizontalIcon.GetComponent<SpriteRenderer>().flipX = spriteObject.GetComponent<SpriteRenderer>().flipX;
         }
         else if (attackType == AttackType.reflect)
         {
+            enemySounds.enemySoundSource.PlayOneShot(enemySounds.reflectWindupSound);
             shieldIcon.SetActive(true);
         }
         isAttacking = true;
@@ -197,6 +205,7 @@ public class EyeStateScript : MonoBehaviour
             reflectiveAttack.SetActive(true);
             reflectiveAttack.transform.position = attackPos;
         }
+        enemySounds.enemySoundSource.PlayOneShot(enemySounds.bluntAttackSound);
         Debug.Log("Bite!");
         animator.ResetTrigger("attackTrigger");
         animator.SetTrigger("idleTrigger");

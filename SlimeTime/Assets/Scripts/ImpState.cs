@@ -79,22 +79,22 @@ public class ImpState : MonoBehaviour
                         animator.ResetTrigger("verticalTrigger");
                 }
             }
-            else if (GetComponent<EnemyHealth>().canBeRiposted)
-            {
-                animator.SetTrigger("hitTrigger");
-                if (!isStaggered)
-                {
-                    GetComponent<EnemyHealth>().StartCoroutine("EnemyStaggered");
-                    animator.ResetTrigger("idleTrigger");
-                    animator.ResetTrigger("horizontalTrigger");
-                    animator.ResetTrigger("verticalTrigger");
-                    animator.ResetTrigger("hitTrigger");
-                    animator.ResetTrigger("runTrigger");
-                }
-            }
             else if (!isStaggered && nearRadius >= targetDist)
             {
                 MeleeAttack();
+            }
+        }
+        if (GetComponent<EnemyHealth>().canBeRiposted)
+        {
+            animator.SetTrigger("hitTrigger");
+            if (!isStaggered)
+            {
+                GetComponent<EnemyHealth>().StartCoroutine("EnemyStaggered");
+                animator.ResetTrigger("idleTrigger");
+                animator.ResetTrigger("horizontalTrigger");
+                animator.ResetTrigger("verticalTrigger");
+                animator.ResetTrigger("hitTrigger");
+                animator.ResetTrigger("runTrigger");
             }
         }
     }

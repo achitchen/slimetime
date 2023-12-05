@@ -472,6 +472,7 @@ GameObject:
   - component: {fileID: 2022859062185191410}
   - component: {fileID: 2868478895075925019}
   - component: {fileID: 31636919829661325}
+  - component: {fileID: -6907122558052324660}
   m_Layer: 0
   m_Name: Ghost
   m_TagString: Enemy
@@ -608,7 +609,6 @@ MonoBehaviour:
   speed: 2
   targetDist: 0
   attackDelay: 1
-  attackActive: 0.5
   attackRecovery: 0.6
   teleportOffset: 1
   teleportDelay: 0.5
@@ -653,6 +653,29 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &-6907122558052324660
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8876998091099750662}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 58e74134bf97c1d40a57ac408de43488, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  horizontalWindupSound: {fileID: 8300000, guid: b9642d7a40549114bbb1a1cac30338f3, type: 3}
+  verticalWindupSound: {fileID: 8300000, guid: dc62d0c93ba78844db5dbb715ed0ec1b, type: 3}
+  reflectWindupSound: {fileID: 8300000, guid: 59874c5ac35ed7f47b3a422a0f4af755, type: 3}
+  smashSound: {fileID: 8300000, guid: 9452bf7081eb0e24b96398862cf14d09, type: 3}
+  weaponSound: {fileID: 8300000, guid: 64a810c2f623fb2408bac19ffee4c839, type: 3}
+  bluntAttackSound: {fileID: 8300000, guid: f6abe00828d1149408113936b45b6d09, type: 3}
+  enemyStaggeredSound: {fileID: 8300000, guid: 42673c9ff766f2a45b94fcfe8af77420, type: 3}
+  projectileLaunchSound: {fileID: 0}
+  bossWindupSound: {fileID: 8300000, guid: 9a9df46bcb274714bb5636671740bc62, type: 3}
+  ghostTeleportSound: {fileID: 8300000, guid: 3d4b0a61df822634eacf9a329ab799af, type: 3}
+  enemySoundSource: {fileID: 0}
 --- !u!1001 &2006264376796284961
 PrefabInstance:
   m_ObjectHideFlags: 0

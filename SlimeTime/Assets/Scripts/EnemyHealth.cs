@@ -52,6 +52,11 @@ public class EnemyHealth : MonoBehaviour
 
     public IEnumerator EnemyStaggered()
     {
+        if (gameObject.GetComponent<EnemySounds>() != null)
+        {
+            GetComponent<EnemySounds>().enemySoundSource.PlayOneShot(GetComponent<EnemySounds>().enemyStaggeredSound);
+        }
+        
         riposteRadius.SetActive(true);
         Debug.Log("Enemy is reeling! Riposte Ready!");
         canBeRiposted = true;

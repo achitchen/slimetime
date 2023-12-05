@@ -15,6 +15,8 @@ public class PlayerDodge : MonoBehaviour
     public bool riposteActivated = false;
     public bool slimeShellActive = false;
     private Animator animator;
+    private PlayerSounds playerSounds;
+    private GameManager gameManager;
     // Start is called before the first frame update
     void Start()
     {
@@ -24,6 +26,14 @@ public class PlayerDodge : MonoBehaviour
         slimeShellActive = false;
         slimeShellCount = GetComponent<ReloadAtCheckpoint>().slimeShellCountInit;
         animator = GetComponent<Animator>();
+        if (playerSounds == null)
+        {
+            playerSounds = GetComponent<PlayerSounds>();
+        }
+        if (gameManager == null)
+        {
+            gameManager = GameObject.Find("Game Manager").GetComponent<GameManager>();
+        }
     }
 
     // Update is called once per frame
@@ -38,6 +48,7 @@ public class PlayerDodge : MonoBehaviour
         {
             if (Input.GetKeyDown(KeyCode.Y))
             {
+                playerSounds.playerSoundSource.PlayOneShot(playerSounds.slimeShieldActivation);
                 slimeShield.SetActive(true);
                 slimeShellActive = true;
                 slimeShellCount--;
@@ -51,6 +62,7 @@ public class PlayerDodge : MonoBehaviour
         {
             if (Input.GetKeyDown(KeyCode.RightShift))
             {
+                playerSounds.playerSoundSource.PlayOneShot(playerSounds.dodgeSound);
                 animator.SetTrigger("splitTrigger"); 
                 animator.ResetTrigger("idleTrigger");
                 animator.ResetTrigger("runTrigger");
@@ -61,6 +73,7 @@ public class PlayerDodge : MonoBehaviour
             }
             else if (Input.GetKeyDown(KeyCode.Return))
             {
+                playerSounds.playerSoundSource.PlayOneShot(playerSounds.dodgeSound);
                 animator.SetTrigger("duckTrigger");
                 animator.ResetTrigger("idleTrigger");
                 animator.ResetTrigger("runTrigger");
@@ -71,6 +84,7 @@ public class PlayerDodge : MonoBehaviour
             }
             else if (Input.GetKeyDown(KeyCode.Space))
             {
+                playerSounds.playerSoundSource.PlayOneShot(playerSounds.dodgeSound);
                 animator.SetTrigger("reflectTrigger");
                 animator.ResetTrigger("idleTrigger");
                 animator.ResetTrigger("runTrigger");
@@ -130,6 +144,7 @@ public class PlayerDodge : MonoBehaviour
         if (!riposteActivated)
         {
             riposteActivated = true;
+            playerSounds.playerSoundSource.PlayOneShot(playerSounds.riposteSound);
             transform.position = enemyPos.position;
             yield return new WaitForSeconds(riposteDelay);
             riposteReady = false;
@@ -144,6 +159,7 @@ public class PlayerDodge : MonoBehaviour
         {
             if (dodgeActive == Dodge.Horizontal)
             {
+                playerSounds.playerSoundSource.PlayOneShot(playerSounds.dodgeSuccess);
                 //add riposte to enemy health
                 DamageEnemy(collision.gameObject);
                 Debug.Log("horizontal attack riposted");
@@ -162,7 +178,7 @@ public class PlayerDodge : MonoBehaviour
         {
             if (dodgeActive == Dodge.Vertical)
             {
-                //ignore damage
+                playerSounds.playerSoundSource.PlayOneShot(playerSounds.dodgeSuccess);
                 //add riposte to enemy health
                 DamageEnemy(collision.gameObject);
                 Debug.Log("vertical attack riposted");
@@ -180,7 +196,12 @@ public class PlayerDodge : MonoBehaviour
         {
             if (dodgeActive == Dodge.Reflect)
             {
-                Debug.Log("attack reflected");
+                playerSounds.playerSoundSource.PlayOneShot(playerSounds.dodgeSuccess);
+                if (collision.gameObject.name != "Projectile")
+                {
+                    DamageEnemy(collision.gameObject);
+                    Debug.Log("attack reflected");
+                }
             }
             else if (slimeShellActive)
             {
@@ -215,6 +236,7 @@ public class PlayerDodge : MonoBehaviour
 
     public IEnumerator DeactivateSlimeShield()
     {
+        playerSounds.playerSoundSource.PlayOneShot(playerSounds.slimeShieldPop);
         yield return new WaitForSeconds(slimeIFrameDelay);
         slimeShield.SetActive(false);
         slimeShellActive = false;
@@ -223,8 +245,9 @@ public class PlayerDodge : MonoBehaviour
 
     private void PlayerDeath()
     {
-        GameObject.Find("Game Manager").GetComponent<GameManager>().isDead = true;
-        GameObject.Find("Game Manager").GetComponent<GameManager>().Invoke("CanReload", 0.5f);
+        gameManager.GetComponent<GameManager>().isDead = true;
+        gameManager.GetComponent<GameManager>().Invoke("CanReload", 0.5f);
+        gameManager.GetComponent<GameManagerSounds>().gameManagerSoundSource.PlayOneShot(gameManager.GetComponent<GameManagerSounds>().playerDeathSound);
         Debug.Log("You Died!");
         Destroy(gameObject, 0.2f);
     }

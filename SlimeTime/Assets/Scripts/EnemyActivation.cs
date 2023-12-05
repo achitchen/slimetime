@@ -9,11 +9,16 @@ public class EnemyActivation : MonoBehaviour
     public List<GameObject> enemyList;
     private bool isUnlocked = false;
     private bool isActivated;
+    private GameManagerSounds gameManagerSounds;
     private float doorCountDownFloat = 0.2f;
 
     private void Start()
     {
         isActivated = false;
+        if (gameManagerSounds == null)
+        {
+            gameManagerSounds = GameObject.Find("Game Manager").GetComponent<GameManagerSounds>();
+        }
     }
     private void OnTriggerEnter2D(Collider2D collision)
     {
@@ -26,6 +31,7 @@ public class EnemyActivation : MonoBehaviour
                 {
                     foreach (GameObject doorLock in doorLocks)
                     {
+                        gameManagerSounds.gameManagerSoundSource.PlayOneShot(gameManagerSounds.doorsLockedSound);
                         doorLock.SetActive(true);
                         isActivated = true;
                     }
@@ -94,11 +100,12 @@ public class EnemyActivation : MonoBehaviour
     }
     private IEnumerator DoorCountDown()
     {
+        gameManagerSounds.gameManagerSoundSource.PlayOneShot(gameManagerSounds.doorsUnlockedSound);
+        isUnlocked = true;
         yield return new WaitForSeconds(doorCountDownFloat);
         foreach (GameObject doorLock in doorLocks)
         {
             doorLock.SetActive(false);
         }
-        isUnlocked = true;
     }
 }

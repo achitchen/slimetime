@@ -6,6 +6,11 @@ public class ProjectileScript : MonoBehaviour
 {
     [SerializeField] GameObject reflectedProjectile;
 
+    private void Start()
+    {
+        gameObject.name = "Projectile";
+    }
+
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.gameObject.tag == "Wall")

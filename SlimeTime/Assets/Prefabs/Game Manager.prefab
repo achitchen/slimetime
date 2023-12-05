@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 4055380785813850240}
   - component: {fileID: 7383448585406557554}
   - component: {fileID: 75862912439991951}
+  - component: {fileID: 1278335606816007371}
   m_Layer: 0
   m_Name: Game Manager
   m_TagString: Untagged
@@ -51,6 +52,7 @@ MonoBehaviour:
   coreOneDestroyed: 0
   coreTwoDestroyed: 0
   coreThreeDestroyed: 0
+  isQuitting: 0
   initialCheckPoint: {fileID: 0}
   initialCameraHolder: {fileID: 0}
 --- !u!114 &75862912439991951
@@ -68,3 +70,22 @@ MonoBehaviour:
   keysFound: []
   keyDoorsOpened: []
   switchDoorsOpened: []
+--- !u!114 &1278335606816007371
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4663260817238482311}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c49349bfdbc47d4458dbedb86c892a8a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playerDeathSound: {fileID: 8300000, guid: 42673c9ff766f2a45b94fcfe8af77420, type: 3}
+  bgmSound: {fileID: 8300000, guid: c0bbe124cc23ceb46987c0e0b3d07b2a, type: 3}
+  checkpointSound: {fileID: 8300000, guid: bffb94ad19a5dbf489443c828d404441, type: 3}
+  doorsLockedSound: {fileID: 8300000, guid: 30838b9a022082f4887e5c5d9c38e0d6, type: 3}
+  doorsUnlockedSound: {fileID: 8300000, guid: bc21d630aa871ef46a79148a1284c015, type: 3}
+  gameManagerSoundSource: {fileID: 0}
+  bgmSoundSource: {fileID: 0}

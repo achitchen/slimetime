@@ -14,6 +14,7 @@ public class CyclopsState : MonoBehaviour
     [SerializeField] GameObject attack;
     [SerializeField] GameObject spriteObject;
     private Animator animator;
+    private EnemySounds enemySounds;
     private bool canAttack = true;
     private bool isAttacking = false;
     private bool isStaggered;
@@ -29,6 +30,10 @@ public class CyclopsState : MonoBehaviour
             Physics2D.IgnoreCollision(player.GetComponent<Collider2D>(), GetComponent<Collider2D>());
         }
         animator = GetComponent<Animator>();
+        if (enemySounds == null)
+        {
+            enemySounds = GetComponent<EnemySounds>();
+        }
     }
 
     // Update is called once per frame
@@ -72,20 +77,20 @@ public class CyclopsState : MonoBehaviour
             }
             else if (targetDist <= nearRadius)
             {
-                if (GetComponent<EnemyHealth>().canBeRiposted)
-                {
-                    animator.SetTrigger("hitTrigger");
-                    if (!isStaggered)
-                    {
-                        GetComponent<EnemyHealth>().StartCoroutine("EnemyStaggered");
-                        animator.ResetTrigger("runTrigger");
-                        animator.ResetTrigger("idleTrigger");
-                        animator.ResetTrigger("attackTrigger");
-                    }
-                }
-                else if (!isStaggered)
+                if (!isStaggered)
                 {
                     ChooseAttack();
+                }
+            }
+            if (GetComponent<EnemyHealth>().canBeRiposted)
+            {
+                animator.SetTrigger("hitTrigger");
+                if (!isStaggered)
+                {
+                    GetComponent<EnemyHealth>().StartCoroutine("EnemyStaggered");
+                    animator.ResetTrigger("runTrigger");
+                    animator.ResetTrigger("idleTrigger");
+                    animator.ResetTrigger("attackTrigger");
                 }
             }
         }

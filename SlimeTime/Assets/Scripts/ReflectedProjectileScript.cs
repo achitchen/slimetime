@@ -28,6 +28,7 @@ public class ReflectedProjectileScript : MonoBehaviour
         if (enemy.GetComponent<EnemyHealth>().currentHits < enemy.gameObject.GetComponent<EnemyHealth>().maxHits)
         {
             enemy.gameObject.GetComponent<EnemyHealth>().currentHits++;
+            enemy.gameObject.GetComponent<EnemySounds>().enemySoundSource.PlayOneShot(enemy.gameObject.GetComponent<EnemySounds>().bluntAttackSound);
         }
         else
         {

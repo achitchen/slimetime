@@ -16,6 +16,7 @@ GameObject:
   - component: {fileID: 5672680442014136711}
   - component: {fileID: 4638010512830856832}
   - component: {fileID: 8040709617622268700}
+  - component: {fileID: 3538463808069957671}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -104,7 +105,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   dodgeActive: 0
-  dodgeDuration: 0.4
+  dodgeDuration: 0.5
   riposteDelay: 0.2
   riposteRecovery: 0.5
   slimeIFrameDelay: 0.2
@@ -188,6 +189,26 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &3538463808069957671
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 31083513158929577}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bd2be7ef41b2dab4da446601fb2510d7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  dodgeSound: {fileID: 8300000, guid: e09c2d2fa79c3f2418e1bce08562c672, type: 3}
+  dodgeSuccess: {fileID: 8300000, guid: 21f1a1a5fcd781e4d9827dc3273c475d, type: 3}
+  deathSound: {fileID: 8300000, guid: d386698635a90474e927559506eb6d89, type: 3}
+  slimeShieldActivation: {fileID: 8300000, guid: ef92c99a8efb1f84fa43d59da3c68b11, type: 3}
+  slimeShieldPop: {fileID: 8300000, guid: 0fa6804ba3a0cfa43b6efe9659ade10f, type: 3}
+  keyPickup: {fileID: 8300000, guid: 3f011ecbca13e0b4e94f7c9c02f70d93, type: 3}
+  riposteSound: {fileID: 8300000, guid: 2834060d60c577648a8f72092631e540, type: 3}
+  playerSoundSource: {fileID: 0}
 --- !u!1 &3572817546884370357
 GameObject:
   m_ObjectHideFlags: 0
@@ -260,7 +281,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 10
+  m_SortingOrder: 50
   m_Sprite: {fileID: -2413806693520163455, guid: ebe73ca9363db456bacf42c025bb4847, type: 3}
   m_Color: {r: 0.32479203, g: 0.9528302, b: 0.22921856, a: 0.39607844}
   m_FlipX: 0
@@ -286,7 +307,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3626916397498700004, guid: b96ad207a7bab7d47b838c8bf0efb144, type: 3}
       propertyPath: m_SortingOrder
-      value: 16
+      value: 40
       objectReference: {fileID: 0}
     - target: {fileID: 7878350319992209165, guid: b96ad207a7bab7d47b838c8bf0efb144, type: 3}
       propertyPath: m_LocalPosition.x

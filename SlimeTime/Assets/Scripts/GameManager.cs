@@ -16,6 +16,7 @@ public class GameManager : MonoBehaviour
     private bool canReload;
     [SerializeField] GameObject initialCheckPoint;
     [SerializeField] GameObject initialCameraHolder;
+    private GameManagerSounds gameManagerSounds;
 
     private void Awake()
     {
@@ -40,6 +41,11 @@ public class GameManager : MonoBehaviour
         isDead = false;
         isQuitting = false;
         canReload = false;
+        if (gameManagerSounds == null)
+        {
+            gameManagerSounds = GetComponent<GameManagerSounds>();
+        }
+        gameManagerSounds.bgmSoundSource.Play();
     }
     void Update()
     {
