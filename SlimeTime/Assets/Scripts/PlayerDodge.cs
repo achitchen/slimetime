@@ -63,10 +63,10 @@ public class PlayerDodge : MonoBehaviour
             if (Input.GetKeyDown(KeyCode.RightShift))
             {
                 playerSounds.playerSoundSource.PlayOneShot(playerSounds.dodgeSound);
-                animator.SetTrigger("splitTrigger"); 
+                animator.SetTrigger("duckTrigger"); 
                 animator.ResetTrigger("idleTrigger");
                 animator.ResetTrigger("runTrigger");
-                animator.ResetTrigger("duckTrigger");
+                animator.ResetTrigger("splitTrigger");
                 animator.ResetTrigger("spikeTrigger");
                 animator.ResetTrigger("reflectTrigger");
                 StartCoroutine(DodgeTimer(Dodge.Horizontal));
@@ -74,10 +74,10 @@ public class PlayerDodge : MonoBehaviour
             else if (Input.GetKeyDown(KeyCode.Return))
             {
                 playerSounds.playerSoundSource.PlayOneShot(playerSounds.dodgeSound);
-                animator.SetTrigger("duckTrigger");
+                animator.SetTrigger("splitTrigger");
                 animator.ResetTrigger("idleTrigger");
                 animator.ResetTrigger("runTrigger");
-                animator.ResetTrigger("splitTrigger");
+                animator.ResetTrigger("duckTrigger");
                 animator.ResetTrigger("spikeTrigger");
                 animator.ResetTrigger("reflectTrigger");
                 StartCoroutine(DodgeTimer(Dodge.Vertical));
