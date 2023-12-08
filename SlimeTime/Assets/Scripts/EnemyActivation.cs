@@ -5,6 +5,7 @@ using UnityEngine;
 public class EnemyActivation : MonoBehaviour
 {
     [SerializeField] GameObject room;
+    [SerializeField] GameObject dustParticle;
     public List<GameObject> doorLocks;
     public List<GameObject> enemyList;
     private bool isUnlocked = false;
@@ -106,6 +107,12 @@ public class EnemyActivation : MonoBehaviour
         foreach (GameObject doorLock in doorLocks)
         {
             doorLock.SetActive(false);
+            if (doorLock.GetComponent<DustParticleScript>() == null)
+            {
+                doorLock.AddComponent<DustParticleScript>();
+            }
+            doorLock.GetComponent<DustParticleScript>().dustParticle = dustParticle;
+            doorLock.GetComponent<DustParticleScript>().ActivateDust();
         }
     }
 }

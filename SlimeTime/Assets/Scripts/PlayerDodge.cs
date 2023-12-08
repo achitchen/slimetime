@@ -248,6 +248,7 @@ public class PlayerDodge : MonoBehaviour
 
     private void PlayerDeath()
     {
+        GetComponent<DustParticleScript>().ActivateDust();
         gameManager.GetComponent<GameManager>().isDead = true;
         gameManager.GetComponent<GameManager>().Invoke("CanReload", 0.5f);
         gameManager.GetComponent<GameManagerSounds>().gameManagerSoundSource.PlayOneShot(gameManager.GetComponent<GameManagerSounds>().playerDeathSound);

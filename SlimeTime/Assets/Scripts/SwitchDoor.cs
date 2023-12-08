@@ -23,8 +23,10 @@ public class SwitchDoor : MonoBehaviour
             if (collision.gameObject.tag == "Player")
             {
                 keyManager.switchDoorsOpened.Add(gameObject.transform.parent.gameObject);
+                lockedDoor.GetComponent<DustParticleScript>().ActivateDust();
                 lockedDoor.SetActive(false);
                 isTriggered = true;
+                gameObject.SetActive(false);
             }
         }
     }

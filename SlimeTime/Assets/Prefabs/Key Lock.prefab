@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 6968225308170075413}
   - component: {fileID: 4323473863658169371}
   - component: {fileID: 4588151968304747666}
+  - component: {fileID: 3144598030674684792}
   m_Layer: 0
   m_Name: Obstacle
   m_TagString: Lock
@@ -131,6 +132,19 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 2.009911, y: 1}
   m_EdgeRadius: 0
+--- !u!114 &3144598030674684792
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1009466524030289854}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7e22ea52472d2644ebe7eb8c64662afb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  dustParticle: {fileID: 148700827585694222, guid: f23308f48abaf854c9c6b3c5f48d0b9d, type: 3}
 --- !u!1 &2399020939488506488
 GameObject:
   m_ObjectHideFlags: 0

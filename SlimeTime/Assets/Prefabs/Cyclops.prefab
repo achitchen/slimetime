@@ -427,6 +427,7 @@ GameObject:
   - component: {fileID: 1544898376550280680}
   - component: {fileID: 1822171700731083805}
   - component: {fileID: 5609806453049172915}
+  - component: {fileID: 4587382164599423264}
   m_Layer: 0
   m_Name: Cyclops
   m_TagString: Enemy
@@ -626,6 +627,19 @@ MonoBehaviour:
   bossAttackSound: {fileID: 0}
   ghostTeleportSound: {fileID: 8300000, guid: 3d4b0a61df822634eacf9a329ab799af, type: 3}
   enemySoundSource: {fileID: 0}
+--- !u!114 &4587382164599423264
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8800578972654792175}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7e22ea52472d2644ebe7eb8c64662afb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  dustParticle: {fileID: 148700827585694222, guid: f23308f48abaf854c9c6b3c5f48d0b9d, type: 3}
 --- !u!1001 &2963569043103716112
 PrefabInstance:
   m_ObjectHideFlags: 0

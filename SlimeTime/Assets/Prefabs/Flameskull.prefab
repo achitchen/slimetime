@@ -490,6 +490,7 @@ GameObject:
   - component: {fileID: 1333570869855712653}
   - component: {fileID: 7189406508018958895}
   - component: {fileID: -4718688469681870507}
+  - component: {fileID: -6656940130528630332}
   m_Layer: 0
   m_Name: Flameskull
   m_TagString: Enemy
@@ -688,6 +689,19 @@ MonoBehaviour:
   bossAttackSound: {fileID: 0}
   ghostTeleportSound: {fileID: 8300000, guid: 3d4b0a61df822634eacf9a329ab799af, type: 3}
   enemySoundSource: {fileID: 0}
+--- !u!114 &-6656940130528630332
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4583924003384607175}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7e22ea52472d2644ebe7eb8c64662afb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  dustParticle: {fileID: 148700827585694222, guid: f23308f48abaf854c9c6b3c5f48d0b9d, type: 3}
 --- !u!1 &8565918392486925339
 GameObject:
   m_ObjectHideFlags: 0

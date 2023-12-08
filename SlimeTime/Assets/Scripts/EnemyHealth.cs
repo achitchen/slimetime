@@ -47,6 +47,7 @@ public class EnemyHealth : MonoBehaviour
         {
             assignedRoom.GetComponent<EnemyManager>().enemies.Remove(gameObject);
         }
+        GetComponent<DustParticleScript>().ActivateDust();
         Destroy(gameObject, 0.3f);
     }
 

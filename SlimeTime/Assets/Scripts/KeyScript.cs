@@ -54,6 +54,7 @@ public class KeyScript : MonoBehaviour
                 gameManagerSounds.gameManagerSoundSource.PlayOneShot(gameManagerSounds.doorsUnlockedSound);
                 keyManager.keyDoorsOpened.Add(collision.gameObject.transform.parent.gameObject);
                 keyManager.keysFound.Add(lastKeyCollected);
+                collision.gameObject.GetComponent<DustParticleScript>().ActivateDust();
                 collision.gameObject.SetActive(false);
                 
                 keyCount--;
