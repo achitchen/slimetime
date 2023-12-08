@@ -212,7 +212,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 1, y: 1}
+  m_Size: {x: 1.3, y: 1.3}
   m_EdgeRadius: 0
 --- !u!1 &6664383820828252711
 GameObject:
@@ -627,7 +627,7 @@ MonoBehaviour:
   bluntAttackSound: {fileID: 8300000, guid: f6abe00828d1149408113936b45b6d09, type: 3}
   enemyStaggeredSound: {fileID: 8300000, guid: 42673c9ff766f2a45b94fcfe8af77420, type: 3}
   projectileLaunchSound: {fileID: 0}
-  bossWindupSound: {fileID: 8300000, guid: 9a9df46bcb274714bb5636671740bc62, type: 3}
+  bossAttackSound: {fileID: 0}
   ghostTeleportSound: {fileID: 8300000, guid: 3d4b0a61df822634eacf9a329ab799af, type: 3}
   enemySoundSource: {fileID: 0}
 --- !u!1 &8531338019642974793
@@ -758,7 +758,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 1, y: 1}
+  m_Size: {x: 1.3, y: 1.3}
   m_EdgeRadius: 0
 --- !u!1001 &1562749972419328337
 PrefabInstance:

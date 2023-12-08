@@ -11,6 +11,8 @@ public class TutorialScript : MonoBehaviour
     [SerializeField] GameObject tutorialPanel3;
     [SerializeField] GameObject tutorialPanel4;
     [SerializeField] GameObject tutorialPanel5;
+    [SerializeField] GameObject key;
+    private bool isKeyGiven;
     public bool isPageTurned;
     public bool canTurnPage;
     private bool isTutorialAvailable;
@@ -18,6 +20,7 @@ public class TutorialScript : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        isKeyGiven = false;
         isPageTurned = false;
         returnPrompt.SetActive(false);
         isTutorialActive = false;
@@ -83,6 +86,11 @@ public class TutorialScript : MonoBehaviour
                 else if (tutorialPanel5.activeSelf == true && canTurnPage)
                 {
                     tutorialPanel5.SetActive(false);
+                    if (!isKeyGiven)
+                    {
+                        key.SetActive(true);
+                        isKeyGiven = true;
+                    }
                     isTutorialActive = false;
                     if (!isPageTurned)
                     {

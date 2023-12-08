@@ -226,11 +226,14 @@ public class PlayerDodge : MonoBehaviour
     }
     private void DamageEnemy(GameObject enemy)
     {
-        enemy.gameObject.GetComponentInParent<EnemyHealth>().currentHits++;
-        if (enemy.GetComponentInParent<EnemyHealth>().currentHits == enemy.gameObject.GetComponentInParent<EnemyHealth>().maxHits)
+        if (enemy.gameObject.GetComponentInParent<EnemyHealth>() != null)
         {
-            enemy.gameObject.GetComponentInParent<EnemyHealth>().canBeRiposted = true;
-            Debug.Log("Enemy can be riposted!");
+            enemy.gameObject.GetComponentInParent<EnemyHealth>().currentHits++;
+            if (enemy.GetComponentInParent<EnemyHealth>().currentHits == enemy.gameObject.GetComponentInParent<EnemyHealth>().maxHits)
+            {
+                enemy.gameObject.GetComponentInParent<EnemyHealth>().canBeRiposted = true;
+                Debug.Log("Enemy can be riposted!");
+            }
         }
     }
 

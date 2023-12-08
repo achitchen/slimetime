@@ -321,7 +321,7 @@ SpriteRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7034101068706452102}
-  m_Enabled: 0
+  m_Enabled: 1
   m_CastShadows: 0
   m_ReceiveShadows: 0
   m_DynamicOccludee: 1
@@ -433,7 +433,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &4737309195237643063
 Transform:
   m_ObjectHideFlags: 0
@@ -623,7 +623,7 @@ MonoBehaviour:
   bluntAttackSound: {fileID: 8300000, guid: f6abe00828d1149408113936b45b6d09, type: 3}
   enemyStaggeredSound: {fileID: 8300000, guid: 42673c9ff766f2a45b94fcfe8af77420, type: 3}
   projectileLaunchSound: {fileID: 0}
-  bossWindupSound: {fileID: 8300000, guid: 9a9df46bcb274714bb5636671740bc62, type: 3}
+  bossAttackSound: {fileID: 0}
   ghostTeleportSound: {fileID: 8300000, guid: 3d4b0a61df822634eacf9a329ab799af, type: 3}
   enemySoundSource: {fileID: 0}
 --- !u!1001 &2963569043103716112
