@@ -4,16 +4,14 @@ using UnityEngine;
 
 public class SwitchDoor : MonoBehaviour
 {
+    [SerializeField] int switchIdNumber;
     [SerializeField] GameObject lockedDoor;
+    private ProgressScript progressScript;
     public bool isTriggered;
-    private KeyManager keyManager;
 
     private void Start()
     {
-        if (keyManager == null)
-        {
-            keyManager = GameObject.Find("Game Manager").GetComponent<KeyManager>();
-        }
+        Invoke("InitialiseSwitch", 0.1f);
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
@@ -22,12 +20,22 @@ public class SwitchDoor : MonoBehaviour
         {
             if (collision.gameObject.tag == "Player")
             {
-                keyManager.switchDoorsOpened.Add(gameObject.transform.parent.gameObject);
                 lockedDoor.GetComponent<DustParticleScript>().ActivateDust();
                 lockedDoor.SetActive(false);
                 isTriggered = true;
                 gameObject.SetActive(false);
             }
         }
+    }
+
+    private void InitialiseSwitch()
+    {
+        if (progressScript == null)
+        {
+            progressScript = GameObject.Find("Game Manager").GetComponent<ProgressScript>();
+        }
+        isTriggered = progressScript.areSwitchesPressed[switchIdNumber];
+        lockedDoor.SetActive(!progressScript.areSwitchesPressed[switchIdNumber]);
+        gameObject.SetActive(!progressScript.areSwitchesPressed[switchIdNumber]);
     }
 }

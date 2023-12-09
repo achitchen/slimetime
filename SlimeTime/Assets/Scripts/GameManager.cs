@@ -53,6 +53,7 @@ public class GameManager : MonoBehaviour
         {
             if (Input.GetKeyDown(KeyCode.Return))
             {
+                GetComponent<ProgressScript>().UpdateBools();
                 SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
                 isDead = false;
                 canReload = false;

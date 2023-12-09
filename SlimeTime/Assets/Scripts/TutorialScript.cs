@@ -17,6 +17,7 @@ public class TutorialScript : MonoBehaviour
     public bool canTurnPage;
     private bool isTutorialAvailable;
     private bool isTutorialActive;
+    private ProgressScript progressScript;
     // Start is called before the first frame update
     void Start()
     {
@@ -26,6 +27,10 @@ public class TutorialScript : MonoBehaviour
         isTutorialActive = false;
         canTurnPage = true;
         tutorialPanel1.SetActive(false);
+        if (progressScript == null)
+        {
+            progressScript = GameObject.Find("Game Manager").GetComponent<ProgressScript>();
+        }
     }
 
     private void Update()
@@ -86,7 +91,7 @@ public class TutorialScript : MonoBehaviour
                 else if (tutorialPanel5.activeSelf == true && canTurnPage)
                 {
                     tutorialPanel5.SetActive(false);
-                    if (!isKeyGiven)
+                    if (!isKeyGiven && !progressScript.isKeyCollected1)
                     {
                         key.SetActive(true);
                         isKeyGiven = true;

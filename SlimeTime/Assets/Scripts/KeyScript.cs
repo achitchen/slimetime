@@ -6,19 +6,12 @@ public class KeyScript : MonoBehaviour
 {
     public bool hasKey = false;
     public int keyCount = 0;
-    private KeyManager keyManager;
     private GameManagerSounds gameManagerSounds;
-    private GameObject lastKeyCollected;
     private PlayerSounds playerSounds;
+    private ProgressScript progressScript;
 
     private void Start()
     {
-        if(keyManager == null)
-        {
-            keyManager = GameObject.Find("Game Manager").GetComponent<KeyManager>();
-        }
-        lastKeyCollected = null;
-
         if (playerSounds == null)
         {
             playerSounds = GetComponent<PlayerSounds>();
@@ -27,6 +20,15 @@ public class KeyScript : MonoBehaviour
         {
             gameManagerSounds = GameObject.Find("Game Manager").GetComponent<GameManagerSounds>();
         }
+        if (progressScript == null)
+        {
+            progressScript = GameObject.Find("Game Manager").GetComponent<ProgressScript>();
+        }
+        keyCount = progressScript.keysPossessed;
+        if (keyCount != 0)
+        {
+            hasKey = true;
+        }
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
@@ -34,12 +36,13 @@ public class KeyScript : MonoBehaviour
         if (collision.gameObject.tag == "Key")
         {
             playerSounds.playerSoundSource.PlayOneShot(playerSounds.keyPickup);
-            lastKeyCollected = collision.gameObject.transform.parent.gameObject;
             if (!hasKey)
             {
                 hasKey = true;
             }
             keyCount++;
+            progressScript.keysPossessed++;
+            progressScript.areKeysCollected[collision.gameObject.GetComponentInParent<KeyIdentifier>().keyIdNumber] = true;
 
             collision.gameObject.SetActive(false);
         }
@@ -52,12 +55,12 @@ public class KeyScript : MonoBehaviour
             if (hasKey)
             {
                 gameManagerSounds.gameManagerSoundSource.PlayOneShot(gameManagerSounds.doorsUnlockedSound);
-                keyManager.keyDoorsOpened.Add(collision.gameObject.transform.parent.gameObject);
-                keyManager.keysFound.Add(lastKeyCollected);
+                progressScript.areLocksOpened[collision.gameObject.GetComponent<KeyLockIdentifier>().lockIdNumber] = true;
                 collision.gameObject.GetComponent<DustParticleScript>().ActivateDust();
                 collision.gameObject.SetActive(false);
                 
                 keyCount--;
+                progressScript.keysPossessed--;
                 if (keyCount == 0)
                 {
                     hasKey = false;

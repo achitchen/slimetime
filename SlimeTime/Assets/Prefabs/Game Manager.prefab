@@ -10,8 +10,8 @@ GameObject:
   m_Component:
   - component: {fileID: 4055380785813850240}
   - component: {fileID: 7383448585406557554}
-  - component: {fileID: 75862912439991951}
   - component: {fileID: 1278335606816007371}
+  - component: {fileID: 3608052381964380318}
   m_Layer: 0
   m_Name: Game Manager
   m_TagString: Untagged
@@ -55,21 +55,6 @@ MonoBehaviour:
   isQuitting: 0
   initialCheckPoint: {fileID: 0}
   initialCameraHolder: {fileID: 0}
---- !u!114 &75862912439991951
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4663260817238482311}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 646bd5945be727c47a4f970115e165bf, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  keysFound: []
-  keyDoorsOpened: []
-  switchDoorsOpened: []
 --- !u!114 &1278335606816007371
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -89,3 +74,51 @@ MonoBehaviour:
   doorsUnlockedSound: {fileID: 8300000, guid: bc21d630aa871ef46a79148a1284c015, type: 3}
   gameManagerSoundSource: {fileID: 0}
   bgmSoundSource: {fileID: 0}
+--- !u!114 &3608052381964380318
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4663260817238482311}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 09844d8953806964c84c872677b3c72e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isKeyCollected1: 0
+  isKeyCollected2: 0
+  isKeyCollected3: 0
+  isKeyCollected4: 0
+  isKeyCollected5: 0
+  isKeyCollected6: 0
+  isKeyCollected7: 0
+  isKeyCollected8: 0
+  isLockOpened1: 0
+  isLockOpened2: 0
+  isLockOpened3: 0
+  isLockOpened4: 0
+  isLockOpened5: 0
+  isLockOpened6: 0
+  isLockOpened7: 0
+  isLockOpened8: 0
+  isSwitchPressed1: 0
+  isSwitchPressed2: 0
+  isSwitchPressed3: 0
+  isSwitchPressed4: 0
+  isSwitchPressed5: 0
+  isSwitchPressed6: 0
+  isSwitchPressed7: 0
+  isSwitchPressed8: 0
+  isSwitchPressed9: 0
+  isSwitchPressed10: 0
+  isSwitchPressed11: 0
+  isSwitchPressed12: 0
+  isSwitchPressed13: 0
+  areKeysCollected: 
+  areLocksOpened: 
+  areSwitchesPressed: 
+  keys: []
+  keyLocks: []
+  switches: []
+  keysPossessed: 0
