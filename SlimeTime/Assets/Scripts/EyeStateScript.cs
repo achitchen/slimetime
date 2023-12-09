@@ -36,6 +36,7 @@ public class EyeStateScript : MonoBehaviour
         if (player == null)
         {
             player = GameObject.Find("Player");
+            Physics2D.IgnoreCollision(player.GetComponent<Collider2D>(), GetComponent<Collider2D>());
         }
         animator = GetComponent<Animator>();
         if (enemySounds == null)

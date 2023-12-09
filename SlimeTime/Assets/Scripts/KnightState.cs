@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class KnightState : MonoBehaviour
 {
+    public int KnightIdentifier;
     [SerializeField] float nearRadius = 1.5f;
     [SerializeField] int speed = 2;
     [SerializeField] float targetDist;
@@ -27,6 +28,7 @@ public class KnightState : MonoBehaviour
     private Vector3 targetPos;
     private GameObject player;
     private Animator animator;
+    private GameManager gameManager;
     // Start is called before the first frame update
     void Start()
     {
@@ -35,6 +37,11 @@ public class KnightState : MonoBehaviour
             player = GameObject.Find("Player");
             Physics2D.IgnoreCollision(player.GetComponent<Collider2D>(), GetComponent<Collider2D>());
         }
+        if (gameManager == null)
+        {
+            gameManager = GameObject.Find("Game Manager").GetComponent<GameManager>();
+        }
+        InitiateKnight();
         animator = GetComponent<Animator>();
     }
 
@@ -127,7 +134,6 @@ public class KnightState : MonoBehaviour
         animator.ResetTrigger("attack1Trigger");
         animator.ResetTrigger("windup1Trigger");
         isAttacking = true;
-        Vector2 attackPos = targetPos;
         jumpTelegraph.transform.position = transform.position;
         moveDir = Vector3.zero;
         yield return new WaitForSeconds(jumpDelay);
@@ -197,5 +203,68 @@ public class KnightState : MonoBehaviour
         yield return new WaitForSeconds(attackRecovery);
         isAttacking = false;
         canAttack = true;
+    }
+
+    private void InitiateKnight()
+    {
+        switch (KnightIdentifier)
+        {
+            case 0:
+                if (gameManager.coreDestroyed1)
+                {
+                    if (gameObject.GetComponent<DoorController>().assignedDoor != null)
+                    {
+                        gameObject.GetComponent<DoorController>().assignedDoor.GetComponent<CombatDoor>().roomEnemies.Remove(gameObject);
+                    }
+                    if (gameObject.GetComponent<EnemyHealth>().assignedRoom != null)
+                    {
+                        gameObject.GetComponent<EnemyHealth>().assignedRoom.GetComponent<EnemyManager>().enemies.Remove(gameObject);
+                    }
+                    Destroy(gameObject);
+                }
+                break;
+            case 1:
+                if (gameManager.coreDestroyed2)
+                {
+                    if (gameObject.GetComponent<DoorController>().assignedDoor != null)
+                    {
+                        gameObject.GetComponent<DoorController>().assignedDoor.GetComponent<CombatDoor>().roomEnemies.Remove(gameObject);
+                    }
+                    if (gameObject.GetComponent<EnemyHealth>().assignedRoom != null)
+                    {
+                        gameObject.GetComponent<EnemyHealth>().assignedRoom.GetComponent<EnemyManager>().enemies.Remove(gameObject);
+                    }
+                    Destroy(gameObject);
+                }
+                break;
+            case 2:
+                if (gameManager.coreDestroyed3)
+                {
+                    if (gameObject.GetComponent<DoorController>().assignedDoor != null)
+                    {
+                        gameObject.GetComponent<DoorController>().assignedDoor.GetComponent<CombatDoor>().roomEnemies.Remove(gameObject);
+                    }
+                    if (gameObject.GetComponent<EnemyHealth>().assignedRoom != null)
+                    {
+                        gameObject.GetComponent<EnemyHealth>().assignedRoom.GetComponent<EnemyManager>().enemies.Remove(gameObject);
+                    }
+                    Destroy(gameObject);
+                }
+                break;
+            case 3:
+                if (gameManager.coreDestroyed3)
+                {
+                    if (gameObject.GetComponent<DoorController>().assignedDoor != null)
+                    {
+                        gameObject.GetComponent<DoorController>().assignedDoor.GetComponent<CombatDoor>().roomEnemies.Remove(gameObject);
+                    }
+                    if (gameObject.GetComponent<EnemyHealth>().assignedRoom != null)
+                    {
+                        gameObject.GetComponent<EnemyHealth>().assignedRoom.GetComponent<EnemyManager>().enemies.Remove(gameObject);
+                    }
+                    Destroy(gameObject);
+                }
+                break;
+        }
     }
 }

@@ -7,6 +7,9 @@ public class UnlockWizardLock : MonoBehaviour
     [SerializeField] GameObject wizardLock;
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        wizardLock.GetComponent<WizardLock>().OpenWizardDoor();
+        if (collision.gameObject.tag == "Player")
+        {
+            wizardLock.GetComponent<WizardLock>().OpenWizardDoor();
+        }
     }
 }

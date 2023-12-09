@@ -12,12 +12,17 @@ public class EnemyHealth : MonoBehaviour
     [SerializeField] GameObject riposteRadius;
     public GameObject assignedRoom;
     private GameObject player;
+    private GameManager gameManager;
 
     void Start()
     {
         currentHits = 0;
         canBeRiposted = false;
         player = GameObject.Find("Player");
+        if (gameManager == null)
+        {
+            gameManager = GameObject.Find("Game Manager").GetComponent<GameManager>();
+        }
     }
 
     private void Update()
@@ -39,6 +44,29 @@ public class EnemyHealth : MonoBehaviour
 
     public void Death()
     {
+        if (gameObject.GetComponent<KnightState>() != null)
+        {
+            int KnightIdentifier = gameObject.GetComponent<KnightState>().KnightIdentifier;
+            switch (KnightIdentifier)
+            {
+                case 0: gameManager.coreDestroyed1 = true;
+                    break;
+                case 1: gameManager.coreDestroyed2 = true;
+                    break;
+                case 2: gameManager.core3BossKilled1 = true;
+                    if (gameManager.core3BossKilled2)
+                    {
+                        gameManager.coreDestroyed3 = true;
+                    }
+                    break;
+                case 3: gameManager.core3BossKilled2 = true;
+                    if (gameManager.core3BossKilled1)
+                    {
+                        gameManager.coreDestroyed3 = true;
+                    }
+                    break;
+            }
+        }
         if (gameObject.GetComponent<DoorController>().assignedDoor != null)
         {
             gameObject.GetComponent<DoorController>().assignedDoor.GetComponent<CombatDoor>().roomEnemies.Remove(gameObject);

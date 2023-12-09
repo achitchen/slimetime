@@ -5780,15 +5780,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2403663758735313138, guid: a79fdb448772a794e9852dd1d0f7c262, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0.93
+      value: 0.77
       objectReference: {fileID: 0}
     - target: {fileID: 3201563257399626714, guid: a79fdb448772a794e9852dd1d0f7c262, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 11.9
+      value: 12.68
       objectReference: {fileID: 0}
     - target: {fileID: 3201563257399626714, guid: a79fdb448772a794e9852dd1d0f7c262, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.04
+      value: 0.3
       objectReference: {fileID: 0}
     - target: {fileID: 4088330597918049858, guid: a79fdb448772a794e9852dd1d0f7c262, type: 3}
       propertyPath: m_Name
@@ -5857,6 +5857,10 @@ PrefabInstance:
     - target: {fileID: 6541731407058213100, guid: a79fdb448772a794e9852dd1d0f7c262, type: 3}
       propertyPath: m_Offset.y
       value: -0.046266556
+      objectReference: {fileID: 0}
+    - target: {fileID: 6541731407058213100, guid: a79fdb448772a794e9852dd1d0f7c262, type: 3}
+      propertyPath: m_IsTrigger
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7005143883206005573, guid: a79fdb448772a794e9852dd1d0f7c262, type: 3}
       propertyPath: cameraHolder
@@ -24978,11 +24982,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7696188294721082017, guid: 28493c2f94196fc408100c4896026319, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0.1
+      value: -0.1
       objectReference: {fileID: 0}
     - target: {fileID: 7696188294721082017, guid: 28493c2f94196fc408100c4896026319, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -3.81
+      value: 0.2
       objectReference: {fileID: 0}
     - target: {fileID: 7696188294721082017, guid: 28493c2f94196fc408100c4896026319, type: 3}
       propertyPath: m_LocalPosition.z
@@ -26548,7 +26552,7 @@ PrefabInstance:
     - target: {fileID: 2021627085422021189, guid: e019d16321449ac46a529bf08bf0be69, type: 3}
       propertyPath: cameraHolder
       value: 
-      objectReference: {fileID: 337211651}
+      objectReference: {fileID: 1811134087}
     - target: {fileID: 7764216453158672094, guid: e019d16321449ac46a529bf08bf0be69, type: 3}
       propertyPath: m_Name
       value: Door to GY12
@@ -37763,6 +37767,18 @@ PrefabInstance:
       value: Game Manager
       objectReference: {fileID: 0}
     - target: {fileID: 7383448585406557554, guid: 457c98b9dc2447d41b388c31e37ca889, type: 3}
+      propertyPath: coreDestroyed1
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7383448585406557554, guid: 457c98b9dc2447d41b388c31e37ca889, type: 3}
+      propertyPath: coreDestroyed2
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7383448585406557554, guid: 457c98b9dc2447d41b388c31e37ca889, type: 3}
+      propertyPath: coreDestroyed3
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7383448585406557554, guid: 457c98b9dc2447d41b388c31e37ca889, type: 3}
       propertyPath: initialCheckPoint
       value: 
       objectReference: {fileID: 732982523}
@@ -40953,7 +40969,7 @@ PrefabInstance:
     - target: {fileID: 2021627085422021189, guid: e019d16321449ac46a529bf08bf0be69, type: 3}
       propertyPath: cameraHolder
       value: 
-      objectReference: {fileID: 337211651}
+      objectReference: {fileID: 1881488909}
     - target: {fileID: 7764216453158672094, guid: e019d16321449ac46a529bf08bf0be69, type: 3}
       propertyPath: m_Name
       value: Door to CR3
@@ -52162,7 +52178,7 @@ Camera:
     y: 0
     width: 1
     height: 1
-  near clip plane: -1.05
+  near clip plane: -50
   far clip plane: 1000
   field of view: 60
   orthographic: 1
@@ -55443,6 +55459,10 @@ PrefabInstance:
     - target: {fileID: 4041781142321808842, guid: 29b16191ecc393245b4ef3cc2de6f6b9, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6000922080381221435, guid: 29b16191ecc393245b4ef3cc2de6f6b9, type: 3}
+      propertyPath: KnightIdentifier
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6012087288401095328, guid: 29b16191ecc393245b4ef3cc2de6f6b9, type: 3}
       propertyPath: m_Name
@@ -63133,6 +63153,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5357235045756408714, guid: 66d716a37fb845f44aafd0fbe0e5a810, type: 3}
+      propertyPath: cameraHolder
+      value: 
+      objectReference: {fileID: 2125957973}
     - target: {fileID: 7234618656428565112, guid: 66d716a37fb845f44aafd0fbe0e5a810, type: 3}
       propertyPath: m_Name
       value: Checkpoint
@@ -75348,6 +75372,11 @@ Transform:
   - {fileID: 1099618600}
   m_Father: {fileID: 1213197949}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1856364589 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 5449131467892622221, guid: 94491e00675245f4bb76bd343654db4b, type: 3}
+  m_PrefabInstance: {fileID: 1207352017890121369}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1859378791
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -80511,6 +80540,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6000922080381221435, guid: 29b16191ecc393245b4ef3cc2de6f6b9, type: 3}
+      propertyPath: KnightIdentifier
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 6012087288401095328, guid: 29b16191ecc393245b4ef3cc2de6f6b9, type: 3}
       propertyPath: m_Name
       value: Knight
@@ -83963,6 +83996,10 @@ PrefabInstance:
     - target: {fileID: 4041781142321808842, guid: 29b16191ecc393245b4ef3cc2de6f6b9, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6000922080381221435, guid: 29b16191ecc393245b4ef3cc2de6f6b9, type: 3}
+      propertyPath: KnightIdentifier
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 6012087288401095328, guid: 29b16191ecc393245b4ef3cc2de6f6b9, type: 3}
       propertyPath: m_Name
@@ -89042,6 +89079,10 @@ PrefabInstance:
       propertyPath: m_Enabled
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4287468965393433420, guid: 94491e00675245f4bb76bd343654db4b, type: 3}
+      propertyPath: wizardLock
+      value: 
+      objectReference: {fileID: 1856364589}
     - target: {fileID: 4809321702100334442, guid: 94491e00675245f4bb76bd343654db4b, type: 3}
       propertyPath: m_Size.x
       value: 2.1177216

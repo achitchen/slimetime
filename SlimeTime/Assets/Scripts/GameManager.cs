@@ -9,9 +9,11 @@ public class GameManager : MonoBehaviour
     public Vector3 lastCheckPointPos;
     public Vector3 lastCheckPointCameraHolder;
     public bool isDead = false;
-    public bool coreOneDestroyed;
-    public bool coreTwoDestroyed;
-    public bool coreThreeDestroyed;
+    public bool coreDestroyed1;
+    public bool coreDestroyed2;
+    public bool coreDestroyed3;
+    public bool core3BossKilled1;
+    public bool core3BossKilled2;
     public bool isQuitting = false;
     private bool canReload;
     [SerializeField] GameObject initialCheckPoint;
@@ -31,9 +33,9 @@ public class GameManager : MonoBehaviour
         }
         lastCheckPointPos = initialCheckPoint.transform.position;
         lastCheckPointCameraHolder = initialCameraHolder.transform.position;
-        coreOneDestroyed = false;
-        coreTwoDestroyed = false;
-        coreThreeDestroyed = false;
+        coreDestroyed1 = false;
+        coreDestroyed2 = false;
+        coreDestroyed3 = false;
     }
 
     private void Start()

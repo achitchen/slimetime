@@ -20,6 +20,8 @@ public class SwitchDoor : MonoBehaviour
         {
             if (collision.gameObject.tag == "Player")
             {
+                progressScript.areSwitchesPressed[switchIdNumber] = true;
+                GameObject.Find("Game Manager").GetComponent<GameManagerSounds>().gameManagerSoundSource.PlayOneShot(GameObject.Find("Game Manager").GetComponent<GameManagerSounds>().doorsUnlockedSound);
                 lockedDoor.GetComponent<DustParticleScript>().ActivateDust();
                 lockedDoor.SetActive(false);
                 isTriggered = true;

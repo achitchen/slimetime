@@ -4,20 +4,19 @@ using UnityEngine;
 
 public class WizardLock : MonoBehaviour
 {
-    public bool coreOneDestroyed;
-    public bool coreTwoDestroyed;
-    public bool coreThreeDestroyed;
+    public bool coreDestroyed1;
+    public bool coreDestroyed2;
+    public bool coreDestroyed3;
     public bool canBeUnlocked;
     public bool isUnlocked;
     private GameManager gameManager;
     [SerializeField] GameObject lockObject;
-    // Start is called before the first frame update
     void Start()
     {
         gameManager = GameObject.Find("Game Manager").GetComponent<GameManager>();
-        coreOneDestroyed = gameManager.coreOneDestroyed;
-        coreTwoDestroyed = gameManager.coreTwoDestroyed;
-        coreThreeDestroyed = gameManager.coreThreeDestroyed;
+        coreDestroyed1 = gameManager.coreDestroyed1;
+        coreDestroyed2 = gameManager.coreDestroyed2;
+        coreDestroyed3 = gameManager.coreDestroyed3;
         isUnlocked = false;
     }
 
@@ -25,9 +24,13 @@ public class WizardLock : MonoBehaviour
     {
         if (!isUnlocked)
         {
-            if (coreOneDestroyed && coreTwoDestroyed && coreThreeDestroyed)
+            coreDestroyed1 = gameManager.coreDestroyed1;
+            coreDestroyed2 = gameManager.coreDestroyed2;
+            coreDestroyed3 = gameManager.coreDestroyed3;
+            if (coreDestroyed1 && coreDestroyed2 && coreDestroyed3)
             {
                 lockObject.SetActive(false);
+                GameObject.Find("Game Manager").GetComponent<GameManagerSounds>().gameManagerSoundSource.PlayOneShot(GameObject.Find("Game Manager").GetComponent<GameManagerSounds>().doorsUnlockedSound);
             }
         }
     }
