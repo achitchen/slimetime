@@ -8224,7 +8224,7 @@ GameObject:
   - component: {fileID: 177586286}
   - component: {fileID: 177586285}
   m_Layer: 5
-  m_Name: Image
+  m_Name: Death_Image
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -30088,13 +30088,14 @@ GameObject:
   - component: {fileID: 619300499}
   - component: {fileID: 619300501}
   - component: {fileID: 619300500}
+  - component: {fileID: 619300502}
   m_Layer: 5
   m_Name: Death Panel
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &619300499
 RectTransform:
   m_ObjectHideFlags: 0
@@ -30155,6 +30156,21 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 619300498}
   m_CullTransparentMesh: 1
+--- !u!114 &619300502
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 619300498}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1200b152af4b783409b00a4b36c287f5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  deathText1: {fileID: 1646098535}
+  deathText2: {fileID: 1658269730}
+  deathImage: {fileID: 177586283}
 --- !u!1001 &622205929
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -38530,18 +38546,6 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 619300498}
     - target: {fileID: 7383448585406557554, guid: 457c98b9dc2447d41b388c31e37ca889, type: 3}
-      propertyPath: coreDestroyed1
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7383448585406557554, guid: 457c98b9dc2447d41b388c31e37ca889, type: 3}
-      propertyPath: coreDestroyed2
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7383448585406557554, guid: 457c98b9dc2447d41b388c31e37ca889, type: 3}
-      propertyPath: coreDestroyed3
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7383448585406557554, guid: 457c98b9dc2447d41b388c31e37ca889, type: 3}
       propertyPath: initialCheckPoint
       value: 
       objectReference: {fileID: 732982523}
@@ -38549,8 +38553,7 @@ PrefabInstance:
       propertyPath: initialCameraHolder
       value: 
       objectReference: {fileID: 38534875}
-    m_RemovedComponents:
-    - {fileID: 75862912439991951, guid: 457c98b9dc2447d41b388c31e37ca889, type: 3}
+    m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []
@@ -69191,7 +69194,7 @@ GameObject:
   - component: {fileID: 1646098538}
   - component: {fileID: 1646098537}
   m_Layer: 5
-  m_Name: Text (TMP)
+  m_Name: Death_Text1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -69574,7 +69577,7 @@ GameObject:
   - component: {fileID: 1658269733}
   - component: {fileID: 1658269732}
   m_Layer: 5
-  m_Name: Text (TMP) (2)
+  m_Name: Death_Text2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

@@ -18,10 +18,10 @@ public class GameManager : MonoBehaviour
     public bool core3BossKilled2;
     public bool isQuitting = false;
     private bool canReload;
-    [SerializeField] GameObject deathScreen;
-    [SerializeField] GameObject deathText1;
-    [SerializeField] GameObject deathText2;
-    [SerializeField] GameObject deathImage;
+    public GameObject deathScreen;
+    public GameObject deathText1;
+    public GameObject deathText2;
+    public GameObject deathImage;
     [SerializeField] GameObject initialCheckPoint;
     [SerializeField] GameObject initialCameraHolder;
     private GameManagerSounds gameManagerSounds;
@@ -64,6 +64,10 @@ public class GameManager : MonoBehaviour
                 deathScreen.SetActive(false);
                 GetComponent<ProgressScript>().UpdateBools();
                 SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+                deathScreen = GameObject.Find("Death Panel");
+                deathText1 = GameObject.Find("Death_Text1");
+                deathText2 = GameObject.Find("Death_Text2");
+                deathImage = GameObject.Find("Death_Image");
                 isDead = false;
                 canReload = false;
             }

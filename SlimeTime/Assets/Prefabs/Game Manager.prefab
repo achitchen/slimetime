@@ -49,10 +49,16 @@ MonoBehaviour:
   lastCheckPointPos: {x: 0, y: 0, z: 0}
   lastCheckPointCameraHolder: {x: 0, y: 0, z: 0}
   isDead: 0
-  coreOneDestroyed: 0
-  coreTwoDestroyed: 0
-  coreThreeDestroyed: 0
+  coreDestroyed1: 0
+  coreDestroyed2: 0
+  coreDestroyed3: 0
+  core3BossKilled1: 0
+  core3BossKilled2: 0
   isQuitting: 0
+  deathScreen: {fileID: 0}
+  deathText1: {fileID: 0}
+  deathText2: {fileID: 0}
+  deathImage: {fileID: 0}
   initialCheckPoint: {fileID: 0}
   initialCameraHolder: {fileID: 0}
 --- !u!114 &1278335606816007371
@@ -67,7 +73,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c49349bfdbc47d4458dbedb86c892a8a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerDeathSound: {fileID: 8300000, guid: 42673c9ff766f2a45b94fcfe8af77420, type: 3}
+  playerDeathSound: {fileID: 8300000, guid: d386698635a90474e927559506eb6d89, type: 3}
   bgmSound: {fileID: 8300000, guid: c0bbe124cc23ceb46987c0e0b3d07b2a, type: 3}
   checkpointSound: {fileID: 8300000, guid: bffb94ad19a5dbf489443c828d404441, type: 3}
   doorsLockedSound: {fileID: 8300000, guid: 30838b9a022082f4887e5c5d9c38e0d6, type: 3}
