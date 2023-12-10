@@ -120,4 +120,43 @@ public class ProgressScript : MonoBehaviour
         isSwitchPressed12 = areSwitchesPressed[11];
         isSwitchPressed13 = areSwitchesPressed[12];
     }
+
+    public void ResetProgress()
+    {
+        areKeysCollected[0] = false;
+        areKeysCollected[1] = false;
+        areKeysCollected[2] = false;
+        areKeysCollected[3] = false;
+        areKeysCollected[4] = false;
+        areKeysCollected[5] = false;
+        areKeysCollected[6] = false;
+        areKeysCollected[7] = false;
+
+
+        areLocksOpened[0] = false;
+        areLocksOpened[1] = false;
+        areLocksOpened[2] = false;
+        areLocksOpened[3] = false;
+        areLocksOpened[4] = false;
+        areLocksOpened[5] = false;
+        areLocksOpened[6] = false;
+        areLocksOpened[7] = false;
+
+
+        areSwitchesPressed[0] = false;
+        areSwitchesPressed[1] = false;
+        areSwitchesPressed[2] = false;
+        areSwitchesPressed[3] = false;
+        areSwitchesPressed[4] = false;
+        areSwitchesPressed[5] = false;
+        areSwitchesPressed[6] = false;
+        areSwitchesPressed[7] = false;
+        areSwitchesPressed[8] = false;
+        areSwitchesPressed[9] = false;
+        areSwitchesPressed[10] = false;
+        areSwitchesPressed[11] = false;
+        areSwitchesPressed[12] = false;
+        keysPossessed = 0;
+        UpdateBools();
+    }
 }

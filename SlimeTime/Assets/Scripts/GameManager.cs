@@ -1,7 +1,9 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 using UnityEngine.SceneManagement;
+using TMPro;
 
 public class GameManager : MonoBehaviour
 {
@@ -16,6 +18,10 @@ public class GameManager : MonoBehaviour
     public bool core3BossKilled2;
     public bool isQuitting = false;
     private bool canReload;
+    [SerializeField] GameObject deathScreen;
+    [SerializeField] GameObject deathText1;
+    [SerializeField] GameObject deathText2;
+    [SerializeField] GameObject deathImage;
     [SerializeField] GameObject initialCheckPoint;
     [SerializeField] GameObject initialCameraHolder;
     private GameManagerSounds gameManagerSounds;
@@ -55,6 +61,7 @@ public class GameManager : MonoBehaviour
         {
             if (Input.GetKeyDown(KeyCode.Return))
             {
+                deathScreen.SetActive(false);
                 GetComponent<ProgressScript>().UpdateBools();
                 SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
                 isDead = false;
@@ -83,5 +90,27 @@ public class GameManager : MonoBehaviour
     public void CanReload()
     {
         canReload = true;
+    }
+
+    public void ResetProgress()
+    {
+        coreDestroyed1 = false;
+        coreDestroyed2 = false;
+        coreDestroyed3 = false;
+        core3BossKilled1 = false;
+        core3BossKilled2 = false;
+    }
+
+    public void ActivateDeathScreen()
+    {
+        deathScreen.SetActive(true);
+        deathScreen.GetComponent<Image>().canvasRenderer.SetAlpha(0);
+        deathText1.GetComponent<TMP_Text>().canvasRenderer.SetAlpha(0);
+        deathText2.GetComponent<TMP_Text>().canvasRenderer.SetAlpha(0);
+        deathImage.GetComponent<Image>().canvasRenderer.SetAlpha(0);
+        deathScreen.GetComponent<Image>().CrossFadeAlpha(1, 1, false);
+        deathText1.GetComponent<TMP_Text>().CrossFadeAlpha(1, 1, false);
+        deathText2.GetComponent<TMP_Text>().CrossFadeAlpha(1, 1, false);
+        deathImage.GetComponent<Image>().CrossFadeAlpha(1, 1, false);
     }
 }
