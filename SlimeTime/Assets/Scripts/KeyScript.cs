@@ -9,6 +9,7 @@ public class KeyScript : MonoBehaviour
     private GameManagerSounds gameManagerSounds;
     private PlayerSounds playerSounds;
     private ProgressScript progressScript;
+    private GameObject keyUI;
 
     private void Start()
     {
@@ -29,6 +30,10 @@ public class KeyScript : MonoBehaviour
         {
             hasKey = true;
         }
+        if (keyUI == null)
+        {
+            keyUI = GameObject.Find("KeyImage");
+        }
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
@@ -43,6 +48,7 @@ public class KeyScript : MonoBehaviour
             keyCount++;
             progressScript.keysPossessed++;
             progressScript.areKeysCollected[collision.gameObject.GetComponentInParent<KeyIdentifier>().keyIdNumber] = true;
+            keyUI.GetComponent<KeyText>().UpdateText();
 
             collision.gameObject.SetActive(false);
         }
@@ -61,6 +67,7 @@ public class KeyScript : MonoBehaviour
                 
                 keyCount--;
                 progressScript.keysPossessed--;
+                keyUI.GetComponent<KeyText>().UpdateText();
                 if (keyCount == 0)
                 {
                     hasKey = false;

@@ -10,6 +10,7 @@ public class PlayerDodge : MonoBehaviour
     [SerializeField] float riposteRecovery = 0.5f;
     [SerializeField] float slimeIFrameDelay = 0.2f;
     [SerializeField] GameObject slimeShield;
+    [SerializeField] GameObject slimeShieldDisplay;
     public int slimeShellCount = 1;
     public bool riposteReady = false;
     public bool riposteActivated = false;
@@ -34,6 +35,11 @@ public class PlayerDodge : MonoBehaviour
         {
             gameManager = GameObject.Find("Game Manager").GetComponent<GameManager>();
         }
+        if (slimeShieldDisplay == null)
+        {
+            slimeShieldDisplay = GameObject.Find("SlimeShieldImage");
+        }
+        slimeShieldDisplay.SetActive(true);
     }
 
     // Update is called once per frame
@@ -52,6 +58,7 @@ public class PlayerDodge : MonoBehaviour
                 slimeShield.SetActive(true);
                 slimeShellActive = true;
                 slimeShellCount--;
+                slimeShieldDisplay.SetActive(false);
             }
         }
     }
